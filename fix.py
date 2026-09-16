@@ -1,39 +1,32 @@
 import os
+import shutil
 
-root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\content\Characters"
+root_dir = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\content\Characters"
 
-for path, subdirs, files in os.walk(root):
-    folder = os.path.basename(path)
-    for f in files:
-        if f.lower() == f"{folder.lower()}.md":
-            old_path = os.path.join(path, f)
-            new_path = os.path.join(path, "index.md")
+print("Starting deep directory sweep...")
+
+for folder_name in os.listdir(root_dir):
+    folder_path = os.path.join(root_dir, folder_name)
+    
+    if os.path.isdir(folder_path):
+        # Find folders that contain uppercase letters (the ghosts)
+        if not folder_name.islower():
+            lowercase_version = folder_name.lower()
+            lowercase_path = os.path.join(root_dir, lowercase_version)
             
-            # Step 1: Get the clean character name (e.g., "Aiko")
-            character_name = os.path.splitext(f)[0]
-            
-            try:
-                with open(old_path, 'r', encoding='utf-8') as file_obj:
-                    lines = file_obj.readlines()
-            except Exception:
-                with open(old_path, 'r', encoding='cp1252') as file_obj:
-                    lines = file_obj.readlines()
-            
-            # Step 2: Inject the title line inside the existing frontmatter box
-            new_lines = []
-            title_injected = False
-            
-            for line in lines:
-                new_lines.append(line)
-                # If we hit the absolute first '---' line, inject the title line right after it
-                if line.strip() == "---" and not title_injected:
-                    new_lines.append(f"title: {character_name}\n")
-                    title_injected = True
-            
-            # Step 3: Write out to the new index.md file
-            with open(new_path, 'w', encoding='utf-8') as file_obj:
-                file_obj.writelines(new_lines)
-                
-            # Step 4: Remove the old duplicate named file
-            os.remove(old_path)
-            print(f"Injected title & renamed: {f} -> index.md")
+            # If both paths physically exist on the disk, safely merge/clean them
+            if os.path.exists(lowercase_path) and folder_path != lowercase_path:
+                print(f"Cleaning duplicate ghost folder structural tracking for: {folder_name}")
+                try:
+                    # Move any missed files from the ghost folder to the lowercase folder
+                    for item in os.listdir(folder_path):
+                        src = os.path.join(folder_path, item)
+                        dst = os.path.join(lowercase_path, item)
+                        if not os.path.exists(dst):
+                            shutil.move(src, dst)
+                    # Erase the duplicate tracking reference
+                    os.rmdir(folder_path)
+                except Exception:
+                    pass
+
+print("Sweep complete! Check GitHub Desktop.")
