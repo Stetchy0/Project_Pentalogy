@@ -1,8 +1,10 @@
 ---
+title: Project Pentalogy
 dg-home: true
 dg-publish: "[x]"
 tags:
 ---
+
 The Project Pentalogy is a large, work in progress, passion project revolving around a handful of cherished and carefully thought out characters. This link takes you to the beginning of the current, in progress work. It is created by Stetchy0 and Kozypugs. 
 
 [[Part I - Experience|Start Reading]]
