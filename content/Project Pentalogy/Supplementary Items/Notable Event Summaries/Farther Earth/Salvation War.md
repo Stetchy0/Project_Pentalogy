@@ -1,0 +1,10 @@
+---
+tags:
+  - 1
+dg-publish: "[x]"
+---
+The salvation war happened thousands of years ago. It doesn't necessarily have a start date, it was just an ongoing feud from pre-history, that ended about 2500 years before the story begins. It was fought between [[Sylph|Sylphs]], who wanted to rid the world of all but themselves, and [[Nymph|nymphs]], who wanted to protect the earth and all of its precious inhabitants. [[Human|Humans]], who were enslaved by the Sylphs since pre-history, eventually started to revolt against the Sylphs and joined alongside the [[Nymph|nymphs]], ultimately leading to their victory. 
+
+It took a few generations for the three races to begin to associate with one another, and [[Sylph|sylphic]] religion and culture drew from ancient [[Nymph|nymphid]] philosophy over time - the belief that all life is sacred and connected.
+
+The Sylphs would begin to make reparation part of their culture as well. These sylphs would become nomadic and simple people who would visit as many villages and cities to offer labor, food, or assistance of some kind.

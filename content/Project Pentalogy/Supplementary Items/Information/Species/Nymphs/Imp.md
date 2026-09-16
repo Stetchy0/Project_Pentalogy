@@ -1,0 +1,6 @@
+---
+tags:
+  - 1
+dg-publish: "[x]"
+---
+Imps are a lesser type of [[Nymph]]. They can be born from two imp parents, or from a half-nymph and nymph parent.

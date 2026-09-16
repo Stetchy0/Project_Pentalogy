@@ -1,0 +1,8 @@
+---
+tags:
+  - 1
+dg-publish: "[x]"
+---
+Connor's dimensional machine was a device that was created during [[Part I Summary|Experience]]. He has no recollection of actually creating this machine or what it does exactly because he was possessed by [[Mephisto|Mephistopheles]] briefly with the specific intent of its creation. The machine has the ability to transport any matter that fits inside across time and space. While it can simply be used as a teleporter within the realm, it has only been used to transport between dimensions and time. However, the only person who used it to time-travel would be young Dami.
+
+This is the very machine that [[Dami]] would use to travel back in time to [[Faust]], and the machine that [[Chrys]] (and eventually the crusaders,) would use to travel to [[Farther Earth]] in [[Part III Summary|Project: Hope Effect]], ultimately connecting the two worlds.
