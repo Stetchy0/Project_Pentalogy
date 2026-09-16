@@ -62,7 +62,7 @@ Throughout the metamorphoses of the organization, the leadership changed drastic
 
 #### X's Reign
 
-Xerxes founded the group when he was 16. Originally, he had a ravenous yearning to reach his full potential, but as he aged and gained a following, he believed that he needed to leave behind a legacy. He started to train magicians, mostly nymphs and humans, but some sylphs, in dangerous and complex magic. He also grew an interest in the link between science and magic, and used his resources, (thieves, bounty hunter, etc that all worked under his employ), to fund breakthroughs. He found the potential of the [[anthralily]], as well as the possibility to imbue nymphic abilities using the substance. Under his reign, it was also discovered that [[Anthracyllin]] has the ability to breathe life to the deceased. (see [[Resurrected]].)
+Xerxes founded the group when he was 16. Originally, he had a ravenous yearning to reach his full potential, but as he aged and gained a following, he believed that he needed to leave behind a legacy. He started to train magicians, mostly nymphs and humans, but some sylphs, in dangerous and complex magic. He also grew an interest in the link between science and magic, and used his resources, (thieves, bounty hunter, etc that all worked under his employ), to fund breakthroughs. He found the potential of the [[Anthralily]], as well as the possibility to imbue nymphic abilities using the substance. Under his reign, it was also discovered that [[Anthracyllin]] has the ability to breathe life to the deceased. (see [[Resurrected]].)
 
 ## [[Marx]]  
 
@@ -72,7 +72,7 @@ Xerxes founded the group when he was 16. Originally, he had a ravenous yearning 
 - made organization military
 - [[Connor]] creates refined [[Anthracyllin]], known as [[Anthracaine]].
 - [[Rei]], [[Connor]], [[Lee|Leo]], [[Vi]], [[Pherenix|Felix]], [[Amanda]], [[Creek]], [[Estelle]], [[Cat]], [[Birde]], [[Zeph]], [[Sierra]] 
-- [[Pherenix]] briefly led the crusaders under Marx's direction and Marx would've appointed him to be leader, since [[Amanda|his daughter]] refused to take his place, but [[Supplementary Items/Notable Event Summaries/Farther Earth/Natz's Coup D'état|The Coup]] prevented that from happening. Pherenix, now more stable and less manic, lost interest in the crusades and deserted to be with his lover, [[Ameille]].
+- [[Pherenix]] briefly led the crusaders under Marx's direction and Marx would've appointed him to be leader, since [[Amanda|his daughter]] refused to take his place, but [[Natz's Coup D'état|The Coup]] prevented that from happening. Pherenix, now more stable and less manic, lost interest in the crusades and deserted to be with his lover, [[Ameille]].
 
 ## [[Natz]] 
 
