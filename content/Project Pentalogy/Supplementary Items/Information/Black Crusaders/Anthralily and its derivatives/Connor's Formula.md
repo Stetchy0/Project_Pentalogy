@@ -1,0 +1,9 @@
+---
+tags:
+  - 1
+dg-publish: "[x]"
+---
+While Connor tried to submit his morals to survive in the [[Black Crusaders]], he created the most potent and pure chemical formula for the creation of [[Anthracaine]]. He would hide the file after he wrote it down, so he could later use it as leverage, but he would end up leaving it behind because he was unconscious during his escape with [[rei]]. During the chaos however, his notes were damaged by spilled chemicals, as servants and the alike had rushed out with the siren.
+![[anthrallilynotes.png]]
+The file would be eventually found by young [[dami]], under [[antoinette]]'s employ. This perfected recipe would be used scarcely, because of the precision and time required to develop even small batches of it. When [[persephone]] is kidnapped, his specific recipe would be used on her to increase her ability threshold, as well as to make her sick and very dependent on the crusaders, so she was forced to do their bidding. She is the only person other than Connor's test subjects to experience Anthracyllin at its most potent, as well as the only person to successfully detox and survive its effects long term. (see [[kore]])
+![[kore concept.png]]

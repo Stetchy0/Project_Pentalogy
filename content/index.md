@@ -22,7 +22,7 @@ https://www.tumblr.com/stetchy2 (Project specific blog)
 
  Featured Pages: 
 - [[Anthracaine]]
-- [[Chrys]]
+- [[chrys]]
 
 Latest Notable Updates:
 - [[Part I - Experience#*File 12*|Part I, File 12]]
