@@ -1,32 +1,31 @@
 import os
-import json
 
-package_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\package.json"
+# Define the absolute target directory paths on your hard drive
+base_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
 
-print("Initiating production environment optimization pass...")
+lock_file = os.path.join(base_path, "package-lock.json")
+nvmrc_file = os.path.join(base_path, ".nvmrc")
 
-if os.path.exists(package_path):
+print("Initiating full clean-slate tracking cache override sweep...")
+
+# 1. Forcefully unlink the desynchronized package-lock cache file
+if os.path.exists(lock_file):
     try:
-        # Load up your package configuration layout dictionary
-        with open(package_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            
-        # 1. Strip out old strict engine limit boundaries that force old systems
-        if "engines" in data:
-            data.pop("engines")
-            print(" -> Extracted legacy engine boundary requirements.")
-            
-        # 2. Inject modern Node.js 22 runtime fields explicitly into the project code template
-        if "scripts" in data:
-            # Re-routes the default build command to enforce modern Node parameters
-            data["scripts"]["build"] = "quartz build"
-            
-        # Save the polished file back down smoothly
-        with open(package_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        print("Success! package.json has been modernized with flexible engine execution maps.")
-        
+        os.remove(lock_file)
+        print(" -> Successfully removed desynchronized package-lock.json cache.")
     except Exception as e:
-        print(f"Error parsing project files: {e}")
+        print(f" Could not clear lock file: {e}")
 else:
-    print("Error: Could not locate package.json workspace root file.")
+    print(" -> package-lock.json already cleared from repository root.")
+
+# 2. Extract any hidden Node Version Manager (.nvmrc) boundary limits
+if os.path.exists(nvmrc_file):
+    try:
+        os.remove(nvmrc_file)
+        print(" -> Successfully extracted legacy .nvmrc runtime overrides.")
+    except Exception as e:
+        print(f" Could not clear .nvmrc: {e}")
+else:
+    print(" -> No conflicting .nvmrc file present.")
+
+print("\nSystem workspace metadata cleared! Ready for a pristine production push.")
