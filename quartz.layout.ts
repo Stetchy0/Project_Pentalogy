@@ -13,7 +13,7 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
-// Layout for standard content pages
+// Components for pages that display a single slot of content
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
@@ -35,7 +35,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// Layout for listing pages (like tags or folders)
+// Components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
