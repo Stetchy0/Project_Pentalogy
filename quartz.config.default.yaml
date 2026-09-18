@@ -1,6 +1,5 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-    slugify: true
   pageTitle: The Project Pentalogy
   pageTitleSuffix: ""
   enableSPA: true
@@ -14,6 +13,7 @@ configuration:
     - templates
     - .obsidian
   theme:
+    linkCasing: lowercase
     fontOrigin: googleFonts
     cdnCaching: false
     typography:
@@ -53,6 +53,7 @@ plugins:
     enabled: true
     options:
       theme:
+    linkCasing: lowercase
         light: github-light
         dark: github-dark
       keepBackground: false
@@ -102,7 +103,8 @@ plugins:
   - source: "@quartz-themes/core"
     enabled: false
     options:
-      theme: tokyo-night
+      theme:
+    linkCasing: lowercase tokyo-night
       mode: both
   - source: "@quartz-community/remove-draft"
     enabled: true
