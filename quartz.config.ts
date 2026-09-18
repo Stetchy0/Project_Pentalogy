@@ -1,15 +1,4 @@
-import os
-
-# Target file paths
-ts_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.ts"
-yaml_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.default.yaml"
-if not os.path.exists(yaml_path):
-    yaml_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.yaml"
-
-print("Fixing layout architecture by resetting configuration frameworks...")
-
-# 1. Complete, official factory-default quartz.config.ts injected with your custom vintage theme styles
-perfect_ts_code = """import { QuartzConfig } from "./quartz/cfg"
+import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
 /**
@@ -95,16 +84,3 @@ const config: QuartzConfig = {
 }
 
 export default config
-"""
-
-with open(ts_path, "w", encoding="utf-8") as f:
-    f.write(perfect_ts_code)
-print(" Successfully rewrote quartz.config.ts to pristine factory parameters.")
-
-# 2. Completely empty out the YAML configuration file if it exists, as modern Quartz builds do not require it
-if os.path.exists(yaml_path):
-    with open(yaml_path, "w", encoding="utf-8") as f:
-        f.write("# Cleaned tracking artifact\n")
-    print(" Successfully emptied the conflicting YAML file configuration template.")
-
-print("\nConfiguration overhaul complete! Your layout properties are mathematically flawless.")
