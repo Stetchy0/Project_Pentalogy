@@ -9,11 +9,6 @@ print("Initiating full clean-slate configuration structural override...")
 factory_config_code = """import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4.0 Configuration
- *
- * See https://jzhao.xyz for more information.
- */
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Project Pentalogy",
@@ -100,19 +95,17 @@ export default config
 factory_layout_code = """import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
-// Components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com",
+      GitHub: "https://github.com/jackyzha0/quartz",
     },
   }),
 }
 
-// Components for pages that display a single slot of content
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
@@ -134,7 +127,6 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// Components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
@@ -148,17 +140,16 @@ export const defaultListPageLayout: PageLayout = {
 }
 """
 
-# Force write the pristine configurations back down onto the hard drive
 try:
     with open(ts_config_path, 'w', encoding='utf-8') as f:
         f.write(factory_config_code)
-    print(" -> Successfully overwrote quartz.config.ts with a pristine blueprint profile.")
+    print(" -> Successfully overwrote quartz.config.ts.")
     
     with open(ts_layout_path, 'w', encoding='utf-8') as f:
         f.write(factory_layout_code)
-    print(" -> Successfully overwrote quartz.layout.ts with pristine components.")
+    print(" -> Successfully overwrote quartz.layout.ts.")
     
 except Exception as e:
     print(f"Error executing file replacement pass: {e}")
 
-print("\nAll configuration and layout frameworks fully restored to factory specs!")
+print("\nAll configuration and layout frameworks fully restored!")

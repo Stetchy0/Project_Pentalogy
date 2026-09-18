@@ -1,11 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4.0 Configuration
- *
- * See https://jzhao.xyz for more information.
- */
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Project Pentalogy",
