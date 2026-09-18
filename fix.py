@@ -1,12 +1,10 @@
 import os
 
 config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.default.yaml"
-
 if not os.path.exists(config_path):
-    # Fallback check if the file is named quartz.config.yaml instead
     config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.yaml"
 
-print("Injecting clean YAML formatting to fix the block error...")
+print("Injecting pristine YAML layout for typography and colors...")
 
 try:
     with open(config_path, "r", encoding="utf-8") as f:
@@ -18,25 +16,50 @@ except Exception:
 new_lines = []
 skip_mode = False
 
+# The entire perfectly spaced, error-free theme block
+perfect_theme_yaml = """    typography:
+      header: "Special Elite"
+      body: "Courier Prime"
+      code: "Share Tech Mono"
+    colors:
+      lightMode:
+        light: "#f2ebd9"
+        lightgray: "#dfd2b5"
+        gray: "#a89470"
+        darkgray: "#3d2d1e"
+        dark: "#2b1e13"
+        secondary: "#704829"
+        highlight: "rgba(112, 72, 41, 0.1)"
+        textHighlight: "#dfbe91"
+      darkMode:
+        light: "#1c1610"
+        lightgray: "#2c2219"
+        gray: "#6e5a47"
+        darkgray: "#ded0bf"
+        dark: "#ebdcc8"
+        secondary: "#b58764"
+        highlight: "rgba(181, 135, 100, 0.15)"
+        textHighlight: "#7d5d3d"
+"""
+
 for line in lines:
-    # Look for the start of the typography block
+    # When we hit typography, inject the whole beautiful block and start skipping
     if "typography:" in line:
-        # Inject perfectly spaced lines (4 spaces for typography, 6 spaces for fonts)
-        new_lines.append("    typography:\n")
-        new_lines.append('      header: "Special Elite"\n')
-        new_lines.append('      body: "Courier Prime"\n')
-        new_lines.append('      code: "Share Tech Mono"\n')
+        new_lines.append(perfect_theme_yaml)
         skip_mode = True
         continue
     
-    # Stop skipping once we hit the colors block
-    if "colors:" in line and skip_mode:
-        skip_mode = False
-        
+    # We stop skipping once we get past the lightMode/darkMode rules into other settings
+    if skip_mode:
+        # Check if the line is no longer part of typography or colors configuration
+        stripped = line.strip()
+        if stripped and not any(k in line for k in ["body:", "header:", "code:", "colors:", "lightMode:", "darkMode:", "light:", "lightgray:", "gray:", "darkgray:", "dark:", "secondary:", "highlight:", "textHighlight:"]):
+            skip_mode = False
+            
     if not skip_mode:
         new_lines.append(line)
 
 with open(config_path, "w", encoding="utf-8") as f:
     f.writelines(new_lines)
 
-print("Success! Spacing has been permanently repaired.")
+print("Success! Both typography and colors have been fully repaired with perfect spaces.")

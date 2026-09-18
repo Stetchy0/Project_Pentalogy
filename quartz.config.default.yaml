@@ -19,25 +19,25 @@ configuration:
       header: "Special Elite"
       body: "Courier Prime"
       code: "Share Tech Mono"
-      colors:
-    lightMode:
-      light: "#f2ebd9"          # Weathered beige manila folder paper background
-      lightgray: "#dfd2b5"      # Slightly darker beige for accents, outlines, and lines
-      gray: "#a89470"           # Soft faded sepia tone for secondary labels and timestamps
-      darkgray: "#3d2d1e"       # Faded vintage ink (not stark black) for reading body text
-      dark: "#2b1e13"           # Deep typewriter dark brown for bold elements and page headers
-      secondary: "#704829"      # Rich leather brown for links, file tags, and active paths
-      highlight: "rgba(112, 72, 41, 0.1)" # Soft brown translucent background highlights
-      textHighlight: "#dfbe91"  # Aged yellow marker highlight tone
-    darkMode:
-      light: "#1c1610"          # Deep charcoal-sepia leather background environment
-      lightgray: "#2c2219"      # Muted dark wood/leather panel outlines and borders
-      gray: "#6e5a47"           # Burnished brown tone for metadata elements
-      darkgray: "#ded0bf"       # Aged parchment-white readable ink text body lines
-      dark: "#ebdcc8"           # Crisp cream hue for main headers and navigation tags
-      secondary: "#b58764"      # Warm camel tan brown for links and interactive highlights
-      highlight: "rgba(181, 135, 100, 0.15)" # Glowing amber-tan panel background accents
-      textHighlight: "#7d5d3d"  # Warm dark focus match query selection tint
+    colors:
+      lightMode:
+        light: "#f2ebd9"
+        lightgray: "#dfd2b5"
+        gray: "#a89470"
+        darkgray: "#3d2d1e"
+        dark: "#2b1e13"
+        secondary: "#704829"
+        highlight: "rgba(112, 72, 41, 0.1)"
+        textHighlight: "#dfbe91"
+      darkMode:
+        light: "#1c1610"
+        lightgray: "#2c2219"
+        gray: "#6e5a47"
+        darkgray: "#ded0bf"
+        dark: "#ebdcc8"
+        secondary: "#b58764"
+        highlight: "rgba(181, 135, 100, 0.15)"
+        textHighlight: "#7d5d3d"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true
