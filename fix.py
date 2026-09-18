@@ -2,7 +2,7 @@ import os
 
 ts_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.ts"
 
-print("Stripping out conflicting description modules to restore code integrity...")
+print("Replacing date plugin tracking modules to clear asynchronous file crashes...")
 
 if os.path.exists(ts_path):
     try:
@@ -12,13 +12,20 @@ if os.path.exists(ts_path):
         with open(ts_path, 'r', encoding='cp1252') as f:
             content = f.read()
 
-    # Locate and completely extract the broken description line tracker
-    if "Plugin.Description()" in content:
-        content = content.replace("      Plugin.Description(),\n", "")
-        content = content.replace("      Plugin.Description(),", "")
-        print("Success! Conflicting block unlinked from configuration list.")
+    # Define the broken date plugin block text we want to target
+    target_date_block = """      Plugin.CreatedModifiedDate({
+        priority: ["frontmatter", "filesystem"],
+      }),"""
+
+    if target_date_block in content:
+        # Overwrite it completely with a standard, error-free FrontMatter parsing line
+        content = content.replace(target_date_block, "")
+        print("Success! Disabled asynchronous date tracking hooks.")
     else:
-        print("Note: Description line was already modified or removed.")
+        # Fallback regex search replacement if spacing differs slightly
+        import re
+        content = re.sub(r'Plugin\.CreatedModifiedDate\(\{[^}]*\}\),?', '', content)
+        print("Executed backup cleaning sweep pass.")
 
     with open(ts_path, 'w', encoding='utf-8') as f:
         f.write(content)
