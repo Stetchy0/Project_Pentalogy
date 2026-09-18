@@ -11,6 +11,7 @@ const config: QuartzConfig = {
     baseUrl: "projectpentalogy.netlify.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
+    generateFrontmatter: true,
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
