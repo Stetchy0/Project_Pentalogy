@@ -15,10 +15,10 @@ configuration:
   theme:
     fontOrigin: googleFonts
     cdnCaching: false
-      typography:
-    header: "Special Elite"     # A perfect gritty, vintage typewriter font for titles
-    body: "Courier Prime"       # A highly clean, formal typewriter font for your bios and logs
-    code: "Share Tech Mono"     # A clean, technical monospace font for background statistics
+    typography:
+      header: "Special Elite"
+      body: "Courier Prime"
+      code: "Share Tech Mono"
       colors:
     lightMode:
       light: "#f2ebd9"          # Weathered beige manila folder paper background
