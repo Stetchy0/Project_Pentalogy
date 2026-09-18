@@ -16,7 +16,6 @@ const config: QuartzConfig = {
     baseUrl: "projectpentalogy.netlify.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
-    generateFrontmatter: true,
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -52,13 +51,20 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
-
-      Plugin.SyntaxHighlighting(),
+      Plugin.CreatedModifiedDate({
+        priority: ["frontmatter", "filesystem"],
+      }),
+      Plugin.SyntaxHighlighting({
+        theme: {
+          light: "github-light",
+          dark: "github-dark",
+        },
+      }),
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Latex({ renderEngine: "katex" }),
-      Plugin.OxHugoMarkdown(),
+      Plugin.Description(),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
