@@ -60,7 +60,6 @@ const config: QuartzConfig = {
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Latex({ renderEngine: "katex" }),
-      Plugin.Description(),
       Plugin.OxHugoMarkdown(),
     ],
     filters: [Plugin.RemoveDrafts()],
