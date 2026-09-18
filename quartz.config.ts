@@ -11,9 +11,7 @@ const config: QuartzConfig = {
     pageTitle: "The Project Pentalogy",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "plausible",
-    },
+    analytics: null,
     locale: "en-US",
     baseUrl: "projectpentalogy.netlify.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
