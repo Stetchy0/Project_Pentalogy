@@ -1,150 +1,30 @@
 import os
 
-ts_config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.ts"
-ts_layout_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.layout.ts"
-yaml_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.yaml"
+# Target paths for the configuration files
+repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
+yaml_default = os.path.join(repo_root, "quartz.config.default.yaml")
+yaml_alt = os.path.join(repo_root, "quartz.config.yaml")
 
-print("Executing absolute project framework alignment...")
+print("Initiating full clean-slate configuration purge pass...")
 
-# 1. Mathematically perfect, fully exported Quartz configuration template matrix
-complete_ts_config = """import { QuartzConfig } from "./quartz/cfg"
-import * as Plugin from "./quartz/plugins"
+# 1. Forcefully delete the legacy default YAML file if it exists
+if os.path.exists(yaml_default):
+    try:
+        os.remove(yaml_default)
+        print(" -> Successfully purged quartz.config.default.yaml from workspace.")
+    except Exception as e:
+        print(f" Error removing default YAML: {e}")
+else:
+    print(" -> quartz.config.default.yaml is already fully removed.")
 
-const config: QuartzConfig = {
-  configuration: {
-    pageTitle: "The Project Pentalogy",
-    enableSPA: true,
-    enablePopovers: true,
-    analytics: null,
-    locale: "en-US",
-    baseUrl: "projectpentalogy.netlify.app",
-    ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "created",
-    generateFrontmatter: true,
-    theme: {
-      fontOrigin: "googleFonts",
-      cdnCaching: true,
-      typography: {
-        header: "Special Elite",
-        body: "Courier Prime",
-        code: "Share Tech Mono",
-      },
-      colors: {
-        lightMode: {
-          light: "#f2ebd9",
-          lightgray: "#dfd2b5",
-          gray: "#a89470",
-          darkgray: "#3d2d1e",
-          dark: "#2b1e13",
-          secondary: "#704829",
-          highlight: "rgba(112, 72, 41, 0.1)",
-          textHighlight: "#dfbe91",
-        },
-        darkMode: {
-          light: "#1c1610",
-          lightgray: "#2c2219",
-          gray: "#6e5a47",
-          darkgray: "#ded0bf",
-          dark: "#ebdcc8",
-          secondary: "#b58764",
-          highlight: "rgba(181, 135, 100, 0.15)",
-          textHighlight: "#7d5d3d",
-        },
-      },
-    },
-  },
-  plugins: {
-    transformers: [
-      Plugin.FrontMatter(),
-      Plugin.CreatedModifiedDate({ priority: ["frontmatter", "filesystem"] }),
-      Plugin.SyntaxHighlighting({ theme: { light: "github-light", dark: "github-dark" } }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
-      Plugin.GitHubFlavoredMarkdown(),
-      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
-      Plugin.Latex({ renderEngine: "katex" }),
-      Plugin.Description(),
-    ],
-    filters: [Plugin.RemoveDrafts()],
-    emitters: [
-      Plugin.AliasRedirects(),
-      Plugin.ComponentResources(),
-      Plugin.ContentPage(),
-      Plugin.FolderPage(),
-      Plugin.TagPage(),
-      Plugin.ContentIndex({ enableSiteMap: true, enableRSS: true }),
-      Plugin.Assets(),
-      Plugin.Static(),
-      Plugin.NotFoundPage(),
-    ],
-  },
-}
+# 2. Forcefully delete any secondary fallback YAML files
+if os.path.exists(yaml_alt):
+    try:
+        os.remove(yaml_alt)
+        print(" -> Successfully purged quartz.config.yaml from workspace.")
+    except Exception as e:
+        print(f" Error removing alt YAML: {e}")
+else:
+    print(" -> No alternative YAML configuration file present.")
 
-export default config
-"""
-
-# 2. Perfect layout definition matrix with every single required layout assignment cleanly exported
-complete_ts_layout = """import { PageLayout, SharedLayout } from "./quartz/cfg"
-import * as Component from "./quartz/components"
-
-// Components shared across all pages
-export const sharedPageComponents: SharedLayout = {
-  head: Component.Head(),
-  header: [],
-  afterBody: [],
-  footer: Component.Footer({
-    links: {
-      GitHub: "https://github.com",
-    },
-  }),
-}
-
-// Layout for standard content pages
-export const defaultContentPageLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
-  ],
-  left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
-  ],
-  right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-  ],
-}
-
-// Layout for listing pages (like tags or folders)
-export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
-  left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
-  ],
-  right: [],
-}
-"""
-
-with open(ts_config_path, "w", encoding="utf-8") as f:
-    f.write(complete_ts_config)
-print(" -> Successfully realigned config options map.")
-
-with open(ts_layout_path, "w", encoding="utf-8") as f:
-    f.write(complete_ts_layout)
-print(" -> Successfully realigned system page component blueprints.")
-
-# Completely erase the fallback YAML file to ensure no parsing contradictions
-if os.path.exists(yaml_path):
-    os.remove(yaml_path)
-    print(" -> Erased obsolete YAML configuration file to ensure zero conflicts.")
-
-print("\nAll architecture files fully synchronized and locked!")
+print("\nCleanup sweep complete! Your repository is now pristine.")
