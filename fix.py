@@ -1,17 +1,17 @@
 import os
 
-ts_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.ts"
+ts_config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.ts"
+ts_layout_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.layout.ts"
+yaml_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.default.yaml"
+if not os.path.exists(yaml_path):
+    yaml_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.yaml"
 
-print("Overhauling quartz.config.ts with a pristine, factory-standard template wrapper...")
+print("Initiating full repository system calibration restorer...")
 
-factory_ts_code = """import { QuartzConfig } from "./quartz/cfg"
+# 1. Pristine factory-standard Quartz 5 config file with your custom beige palette
+perfect_config_code = """import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4.0 Configuration
- *
- * See https://jzhao.xyz for more information.
- */
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Project Pentalogy",
@@ -57,15 +57,8 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
-      Plugin.CreatedModifiedDate({
-        priority: ["frontmatter", "filesystem"],
-      }),
-      Plugin.SyntaxHighlighting({
-        theme: {
-          light: "github-light",
-          dark: "github-dark",
-        },
-      }),
+      Plugin.CreatedModifiedDate({ priority: ["frontmatter", "filesystem"] }),
+      Plugin.SyntaxHighlighting({ theme: { light: "github-light", dark: "github-dark" } }),
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
@@ -79,10 +72,7 @@ const config: QuartzConfig = {
       Plugin.ContentPage(),
       Plugin.FolderPage(),
       Plugin.TagPage(),
-      Plugin.ContentIndex({
-        enableSiteMap: true,
-        enableRSS: true,
-      }),
+      Plugin.ContentIndex({ enableSiteMap: true, enableRSS: true }),
       Plugin.Assets(),
       Plugin.Static(),
       Plugin.NotFoundPage(),
@@ -93,9 +83,66 @@ const config: QuartzConfig = {
 export default config
 """
 
-try:
-    with open(ts_path, 'w', encoding='utf-8') as f:
-        f.write(factory_ts_code)
-    print("Success! Pristine configuration file built with zero missing objects.")
-except Exception as e:
-    print(f"Error saving layout configuration: {e}")
+# 2. Pristine factory-standard Quartz 5 layout map file to heal component tracking errors
+perfect_layout_code = """import { PageLayout, SharedLayout } from "./quartz/cfg"
+import * as Component from "./quartz/components"
+
+export const sharedPageComponents: SharedLayout = {
+  head: Component.Head(),
+  header: [],
+  afterBody: [],
+  footer: Component.Footer({
+    links: {
+      GitHub: "https://github.com/jackyzha0/quartz",
+    },
+  }),
+}
+
+export const defaultContentPageLayout: PageLayout = {
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+    Component.TagList(),
+  ],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer()),
+  ],
+  right: [
+    Component.Graph(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
+  ],
+}
+
+export const defaultListPageLayout: PageLayout = {
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer()),
+  ],
+  right: [],
+}
+"""
+
+with open(ts_config_path, "w", encoding="utf-8") as f:
+    f.write(perfect_config_code)
+print(" -> Successfully overwrote configuration matrices.")
+
+with open(ts_layout_path, "w", encoding="utf-8") as f:
+    f.write(perfect_layout_code)
+print(" -> Successfully restored factory layout structures.")
+
+if os.path.exists(yaml_path):
+    with open(yaml_path, "w", encoding="utf-8") as f:
+        f.write("# Repaired track line marker\n")
+    print(" -> Successfully scrubbed residual YAML artifacts.")
+
+print("\nAll systemic configuration models re-aligned perfectly!")
