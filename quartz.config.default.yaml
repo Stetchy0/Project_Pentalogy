@@ -33,3 +33,22 @@ configuration:
         secondary: "#b58764"
         highlight: "rgba(181, 135, 100, 0.15)"
         textHighlight: "#7d5d3d"
+plugins:
+  transformers:
+    - FrontMatter:
+    - GitHubFlavoredMarkdown:
+    - SyntaxHighlighting:
+    - Links:
+    - ObsidianFlavoredMarkdown:
+    - Latex:
+  filters:
+    - ExplicitPublish:
+  emitters:
+    - Aliases:
+    - Assets:
+    - Static:
+    - ComponentResources:
+    - ContentPage:
+    - TagPage:
+    - FolderPage:
+    - ContentIndex:

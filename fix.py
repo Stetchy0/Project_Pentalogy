@@ -4,10 +4,10 @@ config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.
 if not os.path.exists(config_path):
     config_path = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy\quartz.config.yaml"
 
-print("Overwriting layout architecture with pristine factory YAML template...")
+print("Injecting full Quartz structural parameters with vintage archive theme...")
 
-# Mathematically perfect Quartz 5 YAML configuration matrix
-pristine_yaml = """configuration:
+# Complete, unbroken Quartz v4.5+ YAML configuration matrix containing mandatory layout arrays
+complete_yaml = """configuration:
   pageTitle: "The Project Pentalogy"
   enableSPA: true
   enablePopovers: true
@@ -42,10 +42,28 @@ pristine_yaml = """configuration:
         secondary: "#b58764"
         highlight: "rgba(181, 135, 100, 0.15)"
         textHighlight: "#7d5d3d"
+plugins:
+  transformers:
+    - FrontMatter:
+    - GitHubFlavoredMarkdown:
+    - SyntaxHighlighting:
+    - Links:
+    - ObsidianFlavoredMarkdown:
+    - Latex:
+  filters:
+    - ExplicitPublish:
+  emitters:
+    - Aliases:
+    - Assets:
+    - Static:
+    - ComponentResources:
+    - ContentPage:
+    - TagPage:
+    - FolderPage:
+    - ContentIndex:
 """
 
-# Completely rewrite the file from scratch
 with open(config_path, "w", encoding="utf-8") as f:
-    f.write(pristine_yaml)
+    f.write(complete_yaml)
 
-print("Success! Your configurations are now mathematically flawless.")
+print("Success! Configuration matrix rebuilt with mandatory filtering keys.")
