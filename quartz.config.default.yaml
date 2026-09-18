@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
+    slugify: true
   pageTitle: The Project Pentalogy
   pageTitleSuffix: ""
   enableSPA: true
