@@ -1,5 +1,22 @@
 import { QuartzConfig } from "./quartz/cfg"
-import * as Plugin from "./quartz/plugins"
+import FrontMatter from "@quartz-community/frontmatter"
+import CreatedModifiedDate from "@quartz-community/created-modified-date"
+import SyntaxHighlighting from "@quartz-community/syntax-highlighting"
+import ObsidianFlavoredMarkdown from "@quartz-community/obsidian-flavored-markdown"
+import GitHubFlavoredMarkdown from "@quartz-community/github-flavored-markdown"
+import CrawlLinks from "@quartz-community/crawl-links"
+import Latex from "@quartz-community/latex"
+import Description from "@quartz-community/description"
+import RemoveDrafts from "@quartz-community/remove-draft"
+import AliasRedirects from "@quartz-community/alias-redirects"
+import ComponentResources from "@quartz-community/component-resources"
+import ContentPage from "@quartz-community/content-page"
+import FolderPage from "@quartz-community/folder-page"
+import TagPage from "@quartz-community/tag-page"
+import ContentIndex from "@quartz-community/content-index"
+import Assets from "@quartz-community/assets"
+import Static from "@quartz-community/static"
+import NotFoundPage from "@quartz-community/not-found-page"
 
 const config: QuartzConfig = {
   configuration: {
@@ -45,37 +62,26 @@ const config: QuartzConfig = {
   },
   plugins: {
     transformers: [
-      Plugin.FrontMatter(),
-      Plugin.CreatedModifiedDate({
-        priority: ["frontmatter", "filesystem"],
-      }),
-      Plugin.SyntaxHighlighting({
-        theme: {
-          light: "github-light",
-          dark: "github-dark",
-        },
-        keepBackground: false,
-      }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
-      Plugin.GitHubFlavoredMarkdown(),
-      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
-      Plugin.Latex({ renderEngine: "katex" }),
-      Plugin.Description(),
+      FrontMatter(),
+      CreatedModifiedDate({ priority: ["frontmatter", "filesystem"] }),
+      SyntaxHighlighting(),
+      ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      GitHubFlavoredMarkdown(),
+      CrawlLinks({ markdownLinkResolution: "shortest" }),
+      Latex({ renderEngine: "katex" }),
+      Description(),
     ],
-    filters: [Plugin.RemoveDrafts()],
+    filters: [RemoveDrafts()],
     emitters: [
-      Plugin.AliasRedirects(),
-      Plugin.ComponentResources(),
-      Plugin.ContentPage(),
-      Plugin.FolderPage(),
-      Plugin.TagPage(),
-      Plugin.ContentIndex({
-        enableSiteMap: true,
-        enableRSS: true,
-      }),
-      Plugin.Assets(),
-      Plugin.Static(),
-      Plugin.NotFoundPage(),
+      AliasRedirects(),
+      ComponentResources(),
+      ContentPage(),
+      FolderPage(),
+      TagPage(),
+      ContentIndex({ enableSiteMap: true, enableRSS: true }),
+      Assets(),
+      Static(),
+      NotFoundPage(),
     ],
   },
 }
