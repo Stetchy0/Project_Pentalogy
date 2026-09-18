@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 “I’ll get to the bottom of this!”
 
 2016

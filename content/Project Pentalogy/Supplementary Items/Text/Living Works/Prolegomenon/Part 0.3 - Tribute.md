@@ -1,11 +1,3 @@
----
-tags:
-  - far-earth
-  - farther-earth
-  - pre-story
-  - 1
-dg-publish: "[x]"
----
 ![[Faust 1.png]]
 
 I woke up in a cold sweat.

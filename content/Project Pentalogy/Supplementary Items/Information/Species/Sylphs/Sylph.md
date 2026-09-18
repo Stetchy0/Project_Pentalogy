@@ -1,14 +1,3 @@
----
-aliases:
-  - Sylphs
-  - Sylphic
-tags:
-  - far-earth
-  - farther-earth
-  - Sylph
-  - 1
-dg-publish: "[x]"
----
 Sylphs are a race of people descended from the magic that radiates from the sun, stars, and skies.
 
 They are often much taller and slimmer than humans, and have wings of many varieties. It is more common to see insect-like wings, but feathered wings are also common. Reptilian sylphs are referred to as dragons.

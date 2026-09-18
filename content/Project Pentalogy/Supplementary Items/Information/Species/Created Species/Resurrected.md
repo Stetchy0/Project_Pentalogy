@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 During [[x|X's]] reign, he discovered how to bring people back to life using [[Anthracyllin]]. Its healing properties that affect [[Nymph|nymphs]] reanimates corpses, however, the people that died would not be brought back. In their stead, a non-aging version of their body is born. The resurrected would be a whole new person entirely, controlled by the [[Synthetic Nymph]] injected into them. They would gain abilities from the anthracyllin, and their host's body may provide abilities to them.
 
 The three resurrected, in order of creation:

@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Cloning was a concept that was accidentally discovered by a smaller researcher who mistakenly injected the modified nymph blood into a dead body, rather than a [[Synthetic Nymph]]'s blood. The first clone, a clone of [[marx|Marx Ivanov]], survived only for a few minutes, but was determined to be a clone despite its very different appearance. The clone had metamorphosized DNA and cells that perfectly matched up with Marx's, so they were genetically twins.
 
 The only successful and living clone is [[conre]], a clone of [[connor]], who was created right before [[kieran]]'s reign of the [[Black Crusaders]]. After his creation, research on the cloning process came to a halt because someone as smart as the one who got away could help with more advances on [[Anthracyllin]]. The reasons why Connor's clone was the only true successful one are not exactly known, though, it is speculated that it could be because Connor has regenerative abilities because of the synthetic nymph he overcame.

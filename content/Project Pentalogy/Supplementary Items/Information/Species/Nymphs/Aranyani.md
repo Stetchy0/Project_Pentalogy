@@ -1,6 +1,1 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Aranyani are a variety of [[Nymph|Nymphs]] that have, for the last thousand years since the [[Salvation War]], have lived in isolation from the rest of the world in [[Aranyanis]], an ancient, dense forest with very tall trees. They have evolved to be taller than other Nymphs, as well as having their own language. 

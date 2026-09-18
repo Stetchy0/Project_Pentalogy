@@ -1,15 +1,3 @@
----
-tags:
-  - far-earth
-  - farther-earth
-  - Part-I-Experience
-  - Part-II-Sanctuary
-  - Part-III-Hope
-  - Part-IV-Truth
-  - Part-V-Balance
-  - 1
-dg-publish: "[x]"
----
 Farther Earth is the realm which fosters the essence of chaos. It is home to [[dami|Mephisto]], and it is where his abilities are tethered.
 
 The "capital" city, meaning the only and most populous area in the realm, would be [[Siverial]]. 

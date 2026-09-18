@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 "The bow of an instrument"
 
 There was a hole in the sky. What had once been a glass covering was now a jagged vignette in the middle of the city. It seemed more pieces splintered off every minute. 

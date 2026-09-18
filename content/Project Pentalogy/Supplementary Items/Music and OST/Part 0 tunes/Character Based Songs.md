@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 1. My Philosophy (Antoinette)
 	1. "You should love yourself, 'cause if you don't you sure are useless"
 	

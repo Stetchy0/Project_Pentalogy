@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 0. CHEMICALS (opening)
 	1. OP song
 1. This is PHE!

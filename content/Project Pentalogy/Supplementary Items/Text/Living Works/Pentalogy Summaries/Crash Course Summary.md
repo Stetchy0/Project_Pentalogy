@@ -1,8 +1,3 @@
----
-dg-publish: true
-tags:
-  - Summary
----
 ### Necessary Background Context
 
 In a world parallel to Earth, *(This world is referred to as “Farther Earth” at the moment. It is basically medieval times sort of thing, with magic. There is a “Closer Earth” as well, we will get to that later,)* humans, nymphs, and sylphs coexist and live simple lives in scattered villages and towns. An organization, referred to as the Black Crusaders, stirs chaos in this world globally, while simultaneously pretending to cure said chaos to keep a status quo *(And funding.)* Therefore, many cities, towns, and villages remain very isolated because the valleys, forests, and mountains between them are conquered by “bandits and thieves,” but luckily, the crusaders “protect their cities” from them.

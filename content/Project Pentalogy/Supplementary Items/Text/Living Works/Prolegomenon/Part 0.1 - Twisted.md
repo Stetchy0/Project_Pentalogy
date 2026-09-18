@@ -1,13 +1,3 @@
----
-aliases:
-  - Where it all began
-tags:
-  - far-earth
-  - farther-earth
-  - pre-story
-  - 1
-dg-publish: "[x]"
----
 ![[Mephisto.png]]"The actions and plot of the colorless flame"
 
 The Singularity is almost within my grasp, I m sure of ’ it this time. The one thing that has the ability to make me stronger than Abaddon. The only thing that can overturn the balance. I don t know what it is though.. 

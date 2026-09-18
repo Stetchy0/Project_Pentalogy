@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 _-Open-_
 
 _I was supposed to die today._

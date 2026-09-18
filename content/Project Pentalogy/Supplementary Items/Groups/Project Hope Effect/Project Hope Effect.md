@@ -1,14 +1,3 @@
----
-tags:
-  - close-earth
-  - closer-earth
-  - 1
-aliases:
-  - Team Hope
-  - Hope gang
-  - Good Guys
-dg-publish: "[x]"
----
 The team of [[Closer Earth]] teenagers assembled by [[chrys|Chrysanthemum]] once he realizes contact with humans from farther earth gives abilities unique to the individual. 
 
 This group was considered a “project” for Chrys to create a “hope effect” (taking down the [[Black Crusaders]]) … and a project for [[antoinette]] to test and toy with inter dimensional humans.

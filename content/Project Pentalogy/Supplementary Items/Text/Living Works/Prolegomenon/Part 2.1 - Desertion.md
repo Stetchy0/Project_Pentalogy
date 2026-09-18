@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 _-Desertion-_
 
 _Leaving the city_

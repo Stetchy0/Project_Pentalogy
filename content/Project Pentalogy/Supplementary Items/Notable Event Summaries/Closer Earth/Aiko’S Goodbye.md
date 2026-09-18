@@ -1,11 +1,3 @@
----
-tags:
-  - close-earth
-  - closer-earth
-  - Part-IV-Truth
-  - 1
-dg-publish: "[x]"
----
 The event in which [[aiko]] and Loki share the same dream with a bittersweet farewell.
 
 After [[jaylo]] is triggered into a stress induced coma, [[loki primavera|Loki]] asks [[persephone]] if it is possible to go into Jaylo‘s mind. Persephone agrees to assist, believing it could wake up Jaylo, but warns Loki that she may not find what she’s looking for.

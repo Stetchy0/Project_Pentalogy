@@ -1,13 +1,3 @@
----
-tags:
-  - close-earth
-  - closer-earth
-  - Part-III-Hope
-  - Part-IV-Truth
-  - Part-V-Balance
-  - 1
-dg-publish: "[x]"
----
 Closer Earth is a realm that does not have naturally occurring magic. It is essentially the same as the world we live in- modern day. Except… well… go back a couple of years. 2013 modern day :,)
 
 Part III - 2013

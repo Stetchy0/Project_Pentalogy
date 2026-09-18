@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 ## Songs
 1. Welcome Back!
 	1. Loki, Moyo, Chieko, Chrys, Connor, Perse

@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Reformatting if PHE was adapted into a movie for funsies cause I’m bored and insane
 
 THIS IS PHE would be the opening song, with some dialogue from Aiko to set up context. 

@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Missionaries are not particularly an organized group specifically, but the term refers to anyone who takes up arms against the [[Black Crusaders]] in [[Farther Earth]]. This term also refers to people who guard and defend the walls in [[Siverial]], despite whatever their opinions on the crusaders may be.
 
 Missionaries have to:

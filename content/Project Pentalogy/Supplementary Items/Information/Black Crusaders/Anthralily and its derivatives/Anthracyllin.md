@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Anthracyllin is created by fermenting the petals and only the petals. It has a slight healing factor that gives Nymphs an edge, while poisoning the other non-earthbound races (humans and sylphs, non-nymphs. Half-nymphs and imps can use it to an extent) suffer mold-like illness upon use. Slow but debilitating illness after a mild high is administered to a human or sylph repeatedly.
 
 Anthracyllin, commonly referred to as [[Anthracyllin|Darkium]] by the Black Crusaders to hide its source, is the predecessor to [[Connor's Formula|Anthracaine]], usually in concentrated liquid form, that is designed to enhance specifically nymphid abilities, and has healing properties. It is very addictive to Nymphs, but is extremely toxic to humans and Sylphs.

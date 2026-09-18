@@ -1,10 +1,3 @@
----
-aliases:
-  - "Project: Hope Effect"
-tags:
-  - 1
-dg-publish: "[x]"
----
 # Part III - Hope
 # Disc 1
 # Track 1 - 0:00

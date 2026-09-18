@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Connor discovered this formula, derived specifically from Anther/ Stamen of the [[Anthralily]].
 
 Fermenting the *anther*, rather than the whole plant or petals (see [[Anthracyllin]]), provides very stimulating and psychoactive effects.

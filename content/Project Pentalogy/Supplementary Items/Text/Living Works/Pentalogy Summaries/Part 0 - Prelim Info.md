@@ -1,8 +1,3 @@
----
-tags:
-  - Summary
-dg-publish: true
----
 # The Races
 ## Sylph 
 At one end of the spectrum flies the Sylphan Race, who are defined as "those unbound from soil." They all have some sort of flight ability, physical or magical, and the act of flight is limited to only them. Sylphs refer to the humanoids, but someone might refer to a bird or dragon as a sylph as well. Flying variations of soil-bound animals (such as a harpy, a flying lion) are often referred to as the sylphic variation of their genus. (In the harpy example, they may be called Sylphic lions interchangeably.) Since they have historically avoided ever standing (they no longer do this), they are very tall and thin. It is rare for a sylph to have muscular limbs apart from their wings, if they are physical.

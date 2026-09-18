@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Magic, in its most primitive form, is [[mephisto|Chaos]]. It removes balance from what is, by drawing from the energies of existence, (in both additive and subtractive manners), and transforming something in some way. The only magicians capable of true creation would be [[Celestial Bein[[Celestial Beings|the two celestials,]] [[Janus]] would be:
 
 - [[alex]], who becomes [[abaddon]]'s torch.

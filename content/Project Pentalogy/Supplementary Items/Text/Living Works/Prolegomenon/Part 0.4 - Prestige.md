@@ -1,9 +1,3 @@
----
-tags:
-  - farther-earth
-  - pre-story
-dg-publish: "[x]"
----
 *The sylph paced back and forth, her newborn child in her arms. She packed her essentials before rushing out the door of her family's home. His icy blue eyes pierced her like stinging winds.*
 
 *How? Why? What are you doing here?*

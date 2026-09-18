@@ -1,11 +1,3 @@
----
-aliases:
-  - Prolegomenon
-  - Prologue Series
-  - Pre-stories
-tags:
-dg-publish:
----
 In Chronological Order
 	[[Part 0.1 - Twisted|Twisted]]
 	[[Part 0.2 - Murderer|Murderer]]

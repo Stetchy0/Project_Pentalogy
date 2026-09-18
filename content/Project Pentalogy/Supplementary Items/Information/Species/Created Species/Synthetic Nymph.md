@@ -1,12 +1,3 @@
----
-tags:
-  - synthetic-nymph
-  - 1
-aliases:
-  - Injected Nymph
-  - Injection
-dg-publish: "[x]"
----
 Synthetic nymphs are created by the [[Black Crusaders]] for the sole purpose of giving nymphic powers to humans. Their creation methods are the Black Crusaders' well-kept secret - They inject nymphic blood into various animals to create unique powers. They discovered that every living thing in their plane of existence has at least a small amount of magical ability, and injecting them with highly potent nymphic blood brings out that ability, but kills them in the process. However, after the animal has synthesized with the nymphic blood, it's own blood can transfer powerful abilities to humans through another injection, and significantly fostered by [[Anthracyllin]] and/ or [[Anthracaine]].
 
 ![[Synthetic Nymphs.png]]

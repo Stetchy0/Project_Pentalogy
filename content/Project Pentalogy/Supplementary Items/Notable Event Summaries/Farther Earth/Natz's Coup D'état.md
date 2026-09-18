@@ -1,15 +1,3 @@
----
-aliases:
-  - The Coup
-  - Natz's Coup
-  - The Coup D'état
-tags:
-  - far-earth
-  - farther-earth
-  - Part-I-Experience
-  - 1
-dg-publish: "[x]"
----
 Natz's coup d'état was an elaborate takeover of the Black Crusaders' leadership, orchestrated by [[natz]], [[estelle]], [[azazel]], [[birde]], and [[vi]]. The other people involved were [[amanda]], [[Leonidas/Lee|Leo]], and [[marx]], though all three of them could be considered victims.
 
 The entire plan rided on manipulating Leo at his weakest to enstill complete chaos. Birde and Azazel both used their abilities to weaken his mental status to make him more vulnerable to Vi's manipulation. Vi, Leo, and Amy were already assigned a scouting mission, and this mission was the planned time for everything to start, and end. 

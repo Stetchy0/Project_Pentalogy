@@ -1,16 +1,3 @@
----
-aliases:
-  - Aiko's Kidnapping
-  - Birth of Jaylo
-tags:
-  - close-earth
-  - closer-earth
-  - far-earth
-  - farther-earth
-  - Part-IV-Truth
-  - 1
-dg-publish: "[x]"
----
 ([[soren]], [[aiko]], [[persephone|Perse]], [[The Mariposa Scandal]], [[kieran]] etc)
 
 Aiko’s abduction and the situation that results from Soren pretending to be her.

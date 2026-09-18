@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 1. **We Gotta Get Out Of Here
 	1. Main plot theme
 2. Change For The Better (opening)

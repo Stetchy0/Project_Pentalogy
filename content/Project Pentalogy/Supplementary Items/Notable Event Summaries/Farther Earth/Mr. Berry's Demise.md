@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Mr. Berry is [[bee]]'s father and abuser.
 
 When [[zayne]] found Bee during that raid, Zayne was filled with rage like they had never felt before, and sought to unleash what he did to Bee upon him tenfold.

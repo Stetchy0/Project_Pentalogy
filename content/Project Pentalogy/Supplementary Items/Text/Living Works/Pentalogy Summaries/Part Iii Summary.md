@@ -1,8 +1,3 @@
----
-tags:
-  - Summary
-dg-publish: true
----
 [[Part III - Hope]], also known as Project: Hope Effect is the third part of the pentalogy. 
 
 The story is about the team of heroes, also known as [[Project Hope Effect|Team Hope]], that’s assembled by a strange [[Farther Earth]] creature, [[chrys]], to protect their home-world from possible other worldly invaders. 

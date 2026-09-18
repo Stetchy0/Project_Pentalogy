@@ -1,38 +1,3 @@
----
-aliases:
-  - knights
-  - the knights
-  - crusaders
-  - the crusaders
-  - black death
-  - Bad guys
-  - The distributors
-tags:
-  - blackcrusader
-  - BC-Monarch
-  - far-earth
-  - farther-earth
-  - crusader-general
-  - crusader-runaway
-  - human
-  - nymph
-  - Half-nymph
-  - imp
-  - dead
-  - Part-I-Experience
-  - Part-II-Sanctuary
-  - Part-III-Hope
-  - Part-IV-Truth
-  - Part-V-Balance
-  - pre-story
-  - scientist
-  - Sylph
-  - synthetic-nymph
-  - victim-of-science
-  - created-by-science
-  - 1
-dg-publish: "[x]"
----
 The Black Crusaders were an organization founded by Xerxes, better known as 
 [[x]], to seek great and mystical powers and abilities, [[Pursuit of Power]], pushing far beyond anything ethical, by any means necessary. 
 

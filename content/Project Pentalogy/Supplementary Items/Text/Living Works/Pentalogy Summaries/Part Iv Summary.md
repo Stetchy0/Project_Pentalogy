@@ -1,8 +1,3 @@
----
-tags:
-  - Summary
-dg-publish: true
----
 EFFECT STATUS: TRUTH
 
 Blurb:

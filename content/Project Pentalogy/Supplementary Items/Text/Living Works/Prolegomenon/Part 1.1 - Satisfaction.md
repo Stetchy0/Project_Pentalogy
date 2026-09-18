@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 My parents are dead.
 I didn’t know how to take the news. 
 They were supposedly killed in action.

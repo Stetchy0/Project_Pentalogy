@@ -1,11 +1,3 @@
----
-tags:
-  - far-earth
-  - farther-earth
-  - pre-story
-  - 1
-dg-publish: "[x]"
----
 While Stalix and Damian were playing outside in the longer hours of the evening, she asked a few of her insect friends to do some dances for her brother. She loved hearing him giggle with joy.
 
 After the mantises and butterflies got tired, their father, Pherenix, came up to them in the yard and picked up her brother, "It's getting late, you should come inside soon. I'm almost done cooking."

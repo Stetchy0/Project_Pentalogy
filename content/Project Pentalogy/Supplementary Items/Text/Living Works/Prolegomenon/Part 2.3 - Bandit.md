@@ -1,15 +1,4 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
-  
-  
-
-  
-  
-
- **![](file:///Users/lilahkoszalka/Library/Application%20Support/LibreOffice/4/user/temp/lu9834emuhpr.tmp/lu9834emuhpz_tmp_abd643c0.png) Bandit
+**![](file:///Users/lilahkoszalka/Library/Application%20Support/LibreOffice/4/user/temp/lu9834emuhpr.tmp/lu9834emuhpz_tmp_abd643c0.png) Bandit
 
 Fear may be a close relative to truth
 

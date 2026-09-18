@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: false
----
 -**The Ballad of Leonidas Ainsworth
 
 -Home, pt. II 

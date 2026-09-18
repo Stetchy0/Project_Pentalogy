@@ -1,18 +1,3 @@
----
-aliases:
-  - The final piece of the puzzle
-  - The Constant
-  - the missing piece
-  - the bridge between
-tags:
-  - Part-V-Balance
-  - close-earth
-  - closer-earth
-  - far-earth
-  - farther-earth
-  - 1
-dg-publish: "[x]"
----
 It is not exactly understood what, or how, the singularity is. 
 
 The singularity refers to the one constant between both universes. The common denominator between the dimensions that keeps them from drifting apart. It may have existed for all of time, or it may have existed for merely one lifetime, or maybe it is immortal and lives throughout multiple lifetimes as multiple lives. There could be more than one, but it is impossible to prove. 

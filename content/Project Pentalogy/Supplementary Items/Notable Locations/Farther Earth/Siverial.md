@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 Siverial is the epicenter of society and trade in [[Farther Earth]], and is very populated. The population exploded with refugees when the [[Black Crusaders]] began their raids on outlying villages. Because of this, the city is excessively overpopulated and filthy, but quite well guarded by large stone walls. 
 
 The city is always teeming with life, whether it be the stores and restaurants and musicians on the street, or the rats, addicts, and other pests that weave between the alleys and sewers.

@@ -1,9 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
-
 ![](file:///Users/lilahkoszalka/Library/Application%20Support/LibreOffice/4/user/temp/lu9834emuhpr.tmp/lu9834emuhq5_tmp_bc467621.png) 
 Death Inspired Dog
 

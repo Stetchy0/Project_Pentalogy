@@ -1,8 +1,3 @@
----
-tags:
-  - 1
-dg-publish: "[x]"
----
 During [[lee]]'s monarchy of the [[Black Crusaders]], [[vi|Victoria]] used her power to extort allof the research into creating "stronger and better" versions of [[Anthracyllin]]. Her spiraling addiction, as well as the one she has forced upon Lee, led to these versions being very, very rushed, leading to them being more impure, and volatile. 
 
 This formula, in which only a few batches were made, caused both Lee and Vi's overdosage, because its fluctual and inconsistent strengths.
