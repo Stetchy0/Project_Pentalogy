@@ -14,7 +14,7 @@ configuration:
     - .obsidian
   theme:
     fontOrigin: googleFonts
-    cdnCaching: true
+    cdnCaching: false
       typography:
     header: "Special Elite"     # A perfect gritty, vintage typewriter font for titles
     body: "Courier Prime"       # A highly clean, formal typewriter font for your bios and logs
