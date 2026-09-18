@@ -1,1 +1,0 @@
-Celestial Beings refer specifically to [[mephisto]] and [[abaddon]], as they exist beyond time and space.

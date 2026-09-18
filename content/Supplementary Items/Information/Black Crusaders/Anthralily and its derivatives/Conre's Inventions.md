@@ -1,0 +1,3 @@
+[[Conre]], the leading intelligence during [[Kieran]] and [[Dami]]'s reign as [[Black Crusaders|crusader monarchs]], created many dangerous and downright inhumane weapons and chemicals for the benefits of chaos. 
+
+He has [[Connor]]'s natural gift of intelligence, however, he was raised by violence and knew no morals. He only did as [[Kieran]] instructed, and was conditioned to enjoy doing it. This led to Conre eventually becoming a complete sadist.
