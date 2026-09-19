@@ -52,7 +52,7 @@
     "@quartz-community/content-page": "^1.0.0",
     "@quartz-community/crawl-links": "^1.0.0",
     "@quartz-themes/core": "^2.0.0",
-    "@quartz-community/created-modified-date": "^1.0.0",
+    "@quartz-community/created-modified-date": "^1.0.1",
     "@quartz-community/darkmode": "^1.0.0",
     "@quartz-community/description": "^1.0.0",
     "@quartz-community/encrypted-pages": "^1.0.0",
@@ -78,7 +78,7 @@
     "@quartz-community/search": "^1.0.0",
     "@quartz-community/spacer": "^1.0.0",
     "@quartz-community/stacked-pages": "^1.0.0",
-    "@quartz-community/syntax-highlighting": "^1.0.0",
+    "@quartz-community/syntax-highlighting": "^1.0.1",
     "@quartz-community/table-of-contents": "^1.0.0",
     "@quartz-community/tag-list": "^1.0.0",
     "@quartz-community/tag-page": "^1.0.0",
@@ -112,7 +112,13 @@
     "workerpool": "^10.0.1",
     "ws": "^8.19.0",
     "yaml": "^2.8.2",
-    "yargs": "^18.0.0"
+    "yargs": "^18.0.0",
+    "@quartz-community/frontmatter": "^1.0.0",
+    "@quartz-community/component-resources": "^1.0.0",
+    "@quartz-community/assets": "^1.0.0",
+    "@quartz-community/static": "^1.0.0",
+    "@quartz-community/not-found-page": "^1.0.0",
+    "@quartz-community/head": "^1.0.0"
   },
   "devDependencies": {
     "@quartz-community/types": "^1.0.0",

@@ -1,52 +1,73 @@
 import os
+import json
 
 repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
+package_json_path = os.path.join(repo_root, "package.json")
 lock_json_path = os.path.join(repo_root, "quartz.lock.json")
 
-print("Rewriting community plugin manifest with direct GitHub route links...")
+print("Injecting Quartz Community packages directly into standard project dependencies...")
 
-# Explicit repository paths that tell Quartz's installer EXACTLY where to download the files
-pristine_lock_json = """{
-  "plugins": {
-    "@quartz-community/frontmatter": "github:quartz-community/frontmatter",
-    "@quartz-community/created-modified-date": "github:quartz-community/created-modified-date",
-    "@quartz-community/syntax-highlighting": "github:quartz-community/syntax-highlighting",
-    "@quartz-community/obsidian-flavored-markdown": "github:quartz-community/obsidian-flavored-markdown",
-    "@quartz-community/github-flavored-markdown": "github:quartz-community/github-flavored-markdown",
-    "@quartz-community/crawl-links": "github:quartz-community/crawl-links",
-    "@quartz-community/latex": "github:quartz-community/latex",
-    "@quartz-community/description": "github:quartz-community/description",
-    "@quartz-community/remove-draft": "github:quartz-community/remove-draft",
-    "@quartz-community/alias-redirects": "github:quartz-community/alias-redirects",
-    "@quartz-community/component-resources": "github:quartz-community/component-resources",
-    "@quartz-community/content-page": "github:quartz-community/content-page",
-    "@quartz-community/folder-page": "github:quartz-community/folder-page",
-    "@quartz-community/tag-page": "github:quartz-community/tag-page",
-    "@quartz-community/content-index": "github:quartz-community/content-index",
-    "@quartz-community/assets": "github:quartz-community/assets",
-    "@quartz-community/static": "github:quartz-community/static",
-    "@quartz-community/not-found-page": "github:quartz-community/not-found-page",
-    "@quartz-community/head": "github:quartz-community/head",
-    "@quartz-community/footer": "github:quartz-community/footer",
-    "@quartz-community/breadcrumbs": "github:quartz-community/breadcrumbs",
-    "@quartz-community/article-title": "github:quartz-community/article-title",
-    "@quartz-community/content-meta": "github:quartz-community/content-meta",
-    "@quartz-community/tag-list": "github:quartz-community/tag-list",
-    "@quartz-community/page-title": "github:quartz-community/page-title",
-    "@quartz-community/spacer": "github:quartz-community/spacer",
-    "@quartz-community/search": "github:quartz-community/search",
-    "@quartz-community/darkmode": "github:quartz-community/darkmode",
-    "@quartz-community/explorer": "github:quartz-community/explorer",
-    "@quartz-community/graph": "github:quartz-community/graph",
-    "@quartz-community/table-of-contents": "github:quartz-community/table-of-contents",
-    "@quartz-community/backlinks": "github:quartz-community/backlinks"
-  }
-}
-"""
+# 1. Update package.json to manage community plugins directly via NPM
+if os.path.exists(package_json_path):
+    try:
+        with open(package_json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            
+        # Ensure dependencies dictionary block exists
+        if "dependencies" not in data:
+            data["dependencies"] = {}
+            
+        # Force-inject all your required layout modules directly into standard tracking elements
+        plugins_to_add = {
+            "@quartz-community/frontmatter": "^1.0.0",
+            "@quartz-community/created-modified-date": "^1.0.1",
+            "@quartz-community/syntax-highlighting": "^1.0.1",
+            "@quartz-community/obsidian-flavored-markdown": "^1.0.0",
+            "@quartz-community/github-flavored-markdown": "^1.0.0",
+            "@quartz-community/crawl-links": "^1.0.0",
+            "@quartz-community/latex": "^1.0.0",
+            "@quartz-community/description": "^1.0.0",
+            "@quartz-community/remove-draft": "^1.0.0",
+            "@quartz-community/alias-redirects": "^1.0.0",
+            "@quartz-community/component-resources": "^1.0.0",
+            "@quartz-community/content-page": "^1.0.0",
+            "@quartz-community/folder-page": "^1.0.0",
+            "@quartz-community/tag-page": "^1.0.0",
+            "@quartz-community/content-index": "^1.0.0",
+            "@quartz-community/assets": "^1.0.0",
+            "@quartz-community/static": "^1.0.0",
+            "@quartz-community/not-found-page": "^1.0.0",
+            "@quartz-community/head": "^1.0.0",
+            "@quartz-community/footer": "^1.0.0",
+            "@quartz-community/breadcrumbs": "^1.0.0",
+            "@quartz-community/article-title": "^1.0.0",
+            "@quartz-community/content-meta": "^1.0.0",
+            "@quartz-community/tag-list": "^1.0.0",
+            "@quartz-community/page-title": "^1.0.0",
+            "@quartz-community/spacer": "^1.0.0",
+            "@quartz-community/search": "^1.0.0",
+            "@quartz-community/darkmode": "^1.0.0",
+            "@quartz-community/explorer": "^1.0.0",
+            "@quartz-community/graph": "^1.0.0",
+            "@quartz-community/table-of-contents": "^1.0.0",
+            "@quartz-community/backlinks": "^1.0.0"
+        }
+        
+        for key, value in plugins_to_add.items():
+            data["dependencies"][key] = value
+            
+        with open(package_json_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+        print(" -> Successfully merged community layout hooks into package.json.")
+    except Exception as e:
+        print(f" Error updating package.json: {e}")
 
-try:
-    with open(lock_json_path, 'w', encoding='utf-8') as f:
-        f.write(pristine_lock_json)
-    print("Success! quartz.lock.json has been accurately updated.")
-except Exception as e:
-    print(f"Error creating lock file: {e}")
+# 2. Erase the conflicting quartz.lock.json file so the builder completely skips the broken plugin script track
+if os.path.exists(lock_json_path):
+    try:
+        os.remove(lock_json_path)
+        print(" -> Extracted quartz.lock.json to skip custom installer loops.")
+    except Exception as e:
+        print(f" Error unlinking file: {e}")
+
+print("\nWorkspace dependencies optimized! Ready to ship.")
