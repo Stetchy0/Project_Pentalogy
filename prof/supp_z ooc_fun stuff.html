@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Antoinette</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
+<!DOCTYPE html><html><head><title>Fun Stuff</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0; letter-spacing:1px;"><b>VAULT FILE EXPLORER</b></p>
 <div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items"><div class="tree-folder" onclick="toggleFolderTree(this)">Bios</div>
@@ -203,93 +203,22 @@
 </div>
 <a class="tree-file-link" href="supp_content_index.html">Index</a>
 </div></div>
-<div class="main-content">  <h1>ANTOINETTE</h1>
-  <div class="profile-header-box">
-    <div class="profile-thumbnail-panel"><img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'"></div>
-    <div class="profile-info-panel"><h3>Basic Overview</h3><ul style="padding-left:15px; margin:0;"><li><b>Age:</b> Case File Record Locked</li><li><b>Gender:</b> Classified</li><li><b>Sexuality:</b> Documented</li><li><b>Height:</b> Measured</li><li><b>Trope/s:</b> Logged</li><li><b>Motifs / Symbols:</b> Filed</li></ul></div>
-  </div>
-  <div class="carousel-container"><button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 1.png"><div class="slide-caption">Kozy - Antoinette 1.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 2.jpg"><div class="slide-caption">Kozy - Antoinette 2.jpg</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 3.png"><div class="slide-caption">Kozy - Antoinette 3.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 4.jpg"><div class="slide-caption">Kozy - Antoinette 4.jpg</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 5.png"><div class="slide-caption">Kozy - Antoinette 5.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette 6.png"><div class="slide-caption">Kozy - Antoinette 6.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Kozy - Antoinette and Goons, Aiko, Loki.png"><div class="slide-caption">Kozy - Antoinette and Goons, Aiko, Loki.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Stetchy - Antoinette 1.png"><div class="slide-caption">Stetchy - Antoinette 1.png</div></div>
-    <div class="mySlides"><img src="Art/antoinette/Stetchy - Antoinette 2.png"><div class="slide-caption">Stetchy - Antoinette 2.png</div></div>
-    <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button></div>
-  <details><summary>Brief</summary><div style="padding:10px 5px 5px 5px;"><p>No primary summary logged inside this profile ledger index.</p></div></details>
-  <details open><summary>Dossier</summary><div style="padding:15px; background:rgba(255,255,255,0.2); border-radius:4px;">
-    <table class="dossier-table-grid" style="margin-top:0; margin-bottom:15px; background:#faf9f6;">
-      <tr>
-        <td style="width:40%; font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First appearance</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">Present in</td>
-        <td></td>
-      </tr>
-    </table>
-    </div></details>
-  <div class="graph-wrapper-box"><canvas id="network-canvas"></canvas><div id="tooltip-modal" class="node-tooltip-card"></div></div>
-  <table class="dossier-table-grid"><thead><tr><th style="width:35%;">Character</th><th>Relationship to Antoinette</th></tr></thead><tbody>    <tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>
-</tbody></table>
-
-<script>
-  let currentIdx = 0; let cards = [];
-  function initCarousel() {
-    const allCards = document.getElementsByClassName("mySlides");
-    for(let i=0; i<allCards.length; i++) { cards.push(allCards[i]); }
-    if (cards.length === 0) return; updateCardStack();
-  }
-  function moveCard(direction) {
-    if (cards.length <= 1) return; let oldCard = cards[currentIdx];
-    if (direction === 1) { oldCard.classList.add("slide-out-back"); setTimeout(() => { oldCard.classList.remove("slide-out-back"); currentIdx = (currentIdx + 1) % cards.length; updateCardStack(); }, 500); }
-    else { currentIdx = (currentIdx - 1 + cards.length) % cards.length; updateCardStack(); }
-  }
-  function updateCardStack() {
-    for (let i = 0; i < cards.length; i++) { cards[i].className = "mySlides"; cards[i].style.display = "none"; }
-    cards[currentIdx].style.display = "block"; cards[currentIdx].classList.add("active-card");
-    if (cards.length > 1) { let nextIdx = (currentIdx + 1) % cards.length; cards[nextIdx].style.display = "block"; cards[nextIdx].classList.add("background-card"); }
-  }
-  initCarousel();
-
-  const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "antoinette", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
-  function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
-  
-  nodes.forEach((node, idx) => {
-    if (node.isRoot) { node.x = canvas.width / 2; node.y = canvas.height / 2; }
-    else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 200 : 110; node.x = canvas.width / 2 + radius * Math.cos(angle); node.y = canvas.height / 2 + radius * Math.sin(angle); }
-  });
-
-  function drawGraph() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    edges.forEach(edge => {
-      const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
-      if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
-    });
-    nodes.forEach(node => {
-      ctx.beginPath();
-      if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
-      else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
-      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
-      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
-    });
-  }
-
-  canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
-    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
-    if (hoveredNode && !hoveredNode.isRoot) {
-      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
-      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
-    } else { tooltip.style.display = "none"; }
-  });
-  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
-</script>
-</div>
+<div class="main-content">  <h1>FUN STUFF</h1>
+  <h3>Archive Reference: Z OOC</h3>
+  <div style='margin-top:20px;'>
+  <p>### Wheels</p>
+  <p>Random Character picker https://spinthewheel.app/kdA4iVRHbo</p>
+  <p>Canon relationship wheel https://spinthewheel.app/padLCu30WO</p>
+  <p>Non-Canon and Crackship Wheel https://spinthewheel.app/bmynz2HPNh</p>
+  <p>### Quizzes</p>
+  <p>Which PHE Character are you? https://uquiz.com/TIw8EB</p>
+  <p>Which PHE Villain are you? https://uquiz.com/zLI4YK</p>
+  <p>Which Part I Protagonist are you? https://uquiz.com/kWd4GZ</p>
+  <p>### Tierlists</p>
+  <p>https://tiermaker.com/create/project-pentalogy-tierlist-18739623</p>
+  <p>### Music</p>
+  <p>Official Project Pentalogy Playlist https://open.spotify.com/playlist/5k7dPw4SDZXHls4gl2KoK5?si=c3001450340e403b</p>
+  </div></div>
 <script>
   function toggleFolderTree(element) {
     element.classList.toggle("tree-folder-open");
