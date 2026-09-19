@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "private/Character Core Data.md",
+                "file": "content/Characters/Bios/Abaddon.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Character Core Data"
+              "title": "Abaddon"
             }
           }
         ],
@@ -206,6 +206,7 @@
   },
   "active": "d8255962b51b6cf3",
   "lastOpenFiles": [
+    "private/Character Core Data.md",
     "prof/supp_resurrected.html",
     "prof/supp_janus.html",
     "prof/supp_clones.html",
@@ -216,9 +217,7 @@
     "prof/supp_victoria's modification.html",
     "prof/supp_conre's inventions.html",
     "prof/supp_connor's formula.html",
-    "prof/supp_anthralily.html",
     "content/Supplementary Items/Information/Black Crusaders/Anthralily and its derivatives/Anthracaine.md",
-    "private/Character Core Data.md",
     "content/Characters/Bios/Abaddon.md",
     "node_modules/typescript/SECURITY.md",
     "node_modules/typescript/README.md",

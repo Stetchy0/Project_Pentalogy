@@ -3,12 +3,12 @@ import shutil
 import json
 import re
 
-# Workspace directories mapping tracks
+# Target workspace directories configuration matrices
 repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
 content_dir = os.path.join(repo_root, "content")
 output_dir = os.path.join(repo_root, "prof")
 
-print("Initializing Master Relational Table Compiler Pass...")
+print("Initializing Master Frontmatter Relational Database Compiler Pass...")
 if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
@@ -66,7 +66,7 @@ def build_vault_tree_html(current_dir_path):
             if sub_content.strip():
                 folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
         elif item.endswith(".md"):
-            url = f"{clean_item_name.lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name.lower()}.html"
+            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name.lower()}.html")
             files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
     return folders_html + files_html
 
@@ -95,7 +95,7 @@ for root, dirs, files in os.walk(content_dir):
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 5:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
-                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
+                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts).issubset({'-', ':', ' '}):
                             if len(parts) == 4:
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
@@ -114,6 +114,7 @@ for root, dirs, files in os.walk(content_dir):
 bios_search_dir = os.path.join(content_dir, "Project Pentalogy", "Characters", "Bios")
 if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(content_dir, "characters", "bios")
 character_files = [f for f in os.listdir(bios_search_dir) if f.endswith(".md")] if os.path.exists(bios_search_dir) else []
+
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -126,6 +127,10 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: text = f.read()
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
+
+            # Clean wiki internal backlinks mapping strings [[Link|Display]] -> Display
+            text = re.sub(r'\\\[\\\[([^|\\\]]+)\\|([^\\\]]+)\\]\\\]', r'\\2', text)
+            text = re.sub(r'\\\[\\\[([^\\\]]+)\\]\\\]', r'\\1', text)
 
             paragraphs = "".join([f"<p>{l.strip()}</p>\n" for l in text.split("\n") if l.strip() and not l.strip().startswith(("#", "|", "*"))])
             brief_p = "<p>No summary logged.</p>"
@@ -159,7 +164,6 @@ for root, dirs, files in os.walk(content_dir):
                 if not table_html: table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
 
                 traits = master_traits_map.get(c_key, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "", "first_app": "", "present_in": ""})
-
                 dossier_appearance_table = f"<table class='dossier-table-grid' style='margin-top:0; margin-bottom:15px; background:#faf9f6;'><tr><td style='width:40%; font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;'>First mentioned</td><td>{traits['first_ment']}</td></tr><tr><td style='font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;'>First appearance</td><td>{traits['first_app']}</td></tr><tr><td style='font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;'>Present in</td><td>{traits['present_in']}</td></tr></table>"
 
                 js_template = """<script>
@@ -198,28 +202,18 @@ for root, dirs, files in os.walk(content_dir):
                       ctx.beginPath();
                       if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
                       else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
-                      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
-                      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
-                    });
-                  }
-                  canvas.addEventListener("mousemove", (e) => {
-                    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
-                    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
-                    if (hoveredNode && !hoveredNode.isRoot) {
-                      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
-                      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
-                    } else { tooltip.style.display = "none"; }
-                  });
-                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
-                </script>"""
-                js_rendered = js_template.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)
-                
-                char_html = f"<h1>{target_name_string.upper()}</h1><div class='profile-header-box'><div class='profile-thumbnail-panel'><img src='{thumb_src}' class='profile-badge-img' onerror='this.src=\"https://placehold.co\"'></div><div class='profile-info-panel'><h3>Basic Overview</h3><ul style='padding-left:15px; margin:0;'><li><b>Age:</b> {traits['age']}</li><li><b>Gender:</b> {traits['gender']}</li><li><b>Sexuality:</b> {traits['sexuality']}</li><li><b>Height:</b> {traits['height']}</li><li><b>Trope/s:</b> {traits['trope']}</li><li><b>Motifs:</b> {traits['motifs']}</li></ul></div></div><div class='carousel-container'><button class='carousel-btn prev-btn' onclick='moveCard(-1)'>&#10094;</button>{slides_html}<button class='carousel-btn next-btn' onclick='moveCard(1)'>&#10095;</button></div><table class='dossier-table-grid'><thead><tr><th style='width:35%;'>Character</th><th>Relationship to {target_name_string.capitalize()}</th></tr></thead><tbody>{table_html}</tbody></table><details><summary>Brief</summary><div style='padding:10px 5px 5px 5px;'>{brief_p}</div></details><details open><summary>Dossier</summary><div style='padding:15px; background:rgba(255,255,255,0.2); border-radius:4px;'>{dossier_appearance_table}{paragraphs}</div></details><div class='graph-wrapper-box'><canvas id='network-canvas'></canvas><div id='tooltip-modal' class='node-tooltip-card'></div></div>{js_rendered}"
-                with open(os.path.join(output_dir, f"{c_key}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(target_name_string.capitalize(), char_html))
-            else:
-                supp_html = f"<h1>{target_name_string.upper()}</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'>{paragraphs if paragraphs else '<p>No log records documented.</p>'}</div>"
-                with open(os.path.join(output_dir, f"supp_{c_key}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(target_name_string.capitalize(), supp_html))
+                  ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
+                  if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
+                });
+              }
 
-master_landing_html = "<h1>THE PROJECT PENTALOGY WORKSPACE</h1><div style='margin-top:25px; background:#dfd2b5; padding:30px; border-radius:6px; border-left:6px solid #704829; box-shadow:0 4px 15px rgba(0,0,0,0.05);'><h3 style='margin-top:0; border-bottom:1px solid #a89470;'>CENTRAL ARCHIVAL COMPILATION RECORD</h3><p>Welcome to the secure database interface hub. Use the active file navigation folder tree on the left to expand folders and view individual case profiles, media logs, and cross-referenced relationship connection maps.</p></div>"
-with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f: f.write(scaffold_html("Master Index", master_landing_html))
-print("\nCompilation Complete! Global folder structures successfully mapped.")
+              canvas.addEventListener("mousemove", (e) => {
+                const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
+                nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
+                if (hoveredNode && !hoveredNode.isRoot) {
+                  tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
+                  tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
+                } else { tooltip.style.display = "none"; }
+              });
+              rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
+            </script>"""
