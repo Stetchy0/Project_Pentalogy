@@ -208,10 +208,6 @@
 <p>Their skin colors range from pale tan to dark brown, and, while shades of brown and black are the most common, their hair colors can naturally have any hue, depending on genetic factors and/ or innate magic abilities. The same can be said about their eyes.</p>
 </div></div>
 <script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
-  }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

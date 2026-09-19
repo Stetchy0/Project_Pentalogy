@@ -204,10 +204,6 @@
 </div></div>
 <div class="main-content"><h1>PART 0.6 - FIRESTARTER</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Archival log database record entry.</p></div></div>
 <script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
-  }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

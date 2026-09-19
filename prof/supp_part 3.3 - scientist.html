@@ -206,10 +206,6 @@
 <p>For a moment, it felt like time had finally frozen in place. After chasing it, racing it, and trying to outrun the never ending pacing of each second, she finally was able to focus on the desk in front of her. Aiko blinked a few times, knowing her thoughts were bound to wander again, but she understood this was the present. The now.</p>
 </div></div>
 <script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
-  }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

@@ -291,10 +291,6 @@
 <p>“If it’s by the new place… I will.”</p>
 </div></div>
 <script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
-  }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

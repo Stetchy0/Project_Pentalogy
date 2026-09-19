@@ -281,10 +281,6 @@
 <p>The thing with her eyes. It wasn’t the mask. I was right that something was there, but I also wasn’t. I thought there was malice, but there wasn’t. It was just despair.</p>
 </div></div>
 <script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
-  }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

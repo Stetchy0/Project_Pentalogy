@@ -605,90 +605,82 @@ TAGS: []
 </div></details>
                 <div class="graph-wrapper-box"><canvas id="network-canvas"></canvas><div id="tooltip-modal" class="node-tooltip-card"></div></div>
                 <table class="dossier-table-grid">
-                  <thead>
-                    <tr>
-                      <th style="width:35%;">Character</th>
-                      <th>Relationship to Loki primavera
+                  <thead><tr><th style="width:35%;">Character</th><th>Relationship to Loki primavera
 aliases: []
 tags: []
 ---
 
-<div class=</th>
-                    </tr>
-                  </thead>
+<div class=</th></tr></thead>
                   <tbody><tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>
 </tbody>
                 </table>
-                <script>
-                  let currentIdx = 0; let cards = [];
-                  function initCarousel() {
-                    const allCards = document.getElementsByClassName("mySlides");
-                    for(let i=0; i<allCards.length; i++) { cards.push(allCards[i]); }
-                    if (cards.length === 0) return; updateCardStack();
-                  }
-                  function moveCard(direction) {
-                    if (cards.length <= 1) return; let oldCard = cards[currentIdx];
-                    if (direction === 1) { oldCard.classList.add("slide-out-back"); setTimeout(() => { oldCard.classList.remove("slide-out-back"); currentIdx = (currentIdx + 1) % cards.length; updateCardStack(); }, 500); }
-                    else { currentIdx = (currentIdx - 1 + cards.length) % cards.length; updateCardStack(); }
-                  }
-                  function updateCardStack() {
-                    for (let i = 0; i < cards.length; i++) { cards[i].className = "mySlides"; cards[i].style.display = "none"; }
-                    cards[currentIdx].style.display = "block"; cards[currentIdx].classList.add("active-card");
-                    if (cards.length > 1) { let nextIdx = (currentIdx + 1) % cards.length; cards[nextIdx].style.display = "block"; cards[nextIdx].classList.add("background-card"); }
-                  }
-                  initCarousel();
-                  const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-                  const nodes = [{"id": "loki primavera", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
-                  
-                  function resizeCanvas() {
-                    const dpr = window.devicePixelRatio || 1;
-                    const rect = canvas.parentElement.getBoundingClientRect();
-                    canvas.width = rect.width * dpr;
-                    canvas.height = rect.height * dpr;
-                    canvas.style.width = rect.width + "px";
-                    canvas.style.height = rect.height + "px";
-                    ctx.scale(dpr, dpr);
-                  }
-                  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
-                  nodes.forEach((node, idx) => {
-                    const w = canvas.width / (window.devicePixelRatio || 1);
-                    const w = canvas.width / (window.devicePixelRatio || 1);
-                    const h = canvas.height / (window.devicePixelRatio || 1);
-                    if (node.isRoot) { node.x = w / 2; node.y = h / 2; }
-                    else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 180 : 105; node.x = w / 2 + radius * Math.cos(angle); node.y = h / 2 + radius * Math.sin(angle); }
-                  });
+                <script>let currentIdx = 0; let cards = [];
+function initCarousel() {
+  const allCards = document.getElementsByClassName("mySlides");
+  for(let i=0; i<allCards.length; i++) { cards.push(allCards[i]); }
+  if (cards.length === 0) return; updateCardStack();
+}
+function moveCard(direction) {
+  if (cards.length <= 1) return; let oldCard = cards[currentIdx];
+  if (direction === 1) { oldCard.classList.add("slide-out-back"); setTimeout(() => { oldCard.classList.remove("slide-out-back"); currentIdx = (currentIdx + 1) % cards.length; updateCardStack(); }, 500); }
+  else { currentIdx = (currentIdx - 1 + cards.length) % cards.length; updateCardStack(); }
+}
+function updateCardStack() {
+  for (let i = 0; i < cards.length; i++) { cards[i].className = "mySlides"; cards[i].style.display = "none"; }
+  cards[currentIdx].style.display = "block"; cards[currentIdx].classList.add("active-card");
+  if (cards.length > 1) { let nextIdx = (currentIdx + 1) % cards.length; cards[nextIdx].style.display = "block"; cards[nextIdx].classList.add("background-card"); }
+}
+initCarousel();
 
-                  function drawGraph() {
-                    const w = canvas.width / (window.devicePixelRatio || 1);
-                    const h = canvas.height / (window.devicePixelRatio || 1);
-                    ctx.clearRect(0, 0, w, h);
-                    edges.forEach(edge => {
-                      const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
-                      if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
-                    });
-                    nodes.forEach(node => {
-                      ctx.beginPath();
-                      if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
-                      else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
-                      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
-                      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
-                    });
-                  }
-                  canvas.addEventListener("mousemove", (e) => {
-                    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
-                    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
-                    if (hoveredNode && !hoveredNode.isRoot) {
-                      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
-                      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
-                    } else { tooltip.style.display = "none"; }
-                  });
-                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
-                </script></div>
-<script>
-  function toggleFolderTree(el) {
-    let nested = el.nextElementSibling;
-    if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
+const canvas = document.getElementById("network-canvas"); 
+if (canvas) {
+  const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
+  const nodes = [{"id": "loki primavera", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  
+  function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
+    ctx.scale(dpr, dpr);
   }
-  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
-  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  
+  nodes.forEach((node, idx) => {
+    const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);
+    if (node.isRoot) { node.x = w / 2; node.y = h / 2; }
+    else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 180 : 105; node.x = w / 2 + radius * Math.cos(angle); node.y = h / 2 + radius * Math.sin(angle); }
+  });
+  
+  function drawGraph() {
+    const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);
+    ctx.clearRect(0, 0, w, h);
+    edges.forEach(edge => {
+      const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
+      if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
+                    });
+    nodes.forEach(node => {
+      ctx.beginPath();
+      if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
+      else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
+      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
+      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
+    });
+  }
+  
+  canvas.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
+    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
+    if (hoveredNode && !hoveredNode.isRoot) {
+      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
+      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
+    } else { tooltip.style.display = "none"; }
+  });
+  
+  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
+}
+</script></div>
+<script>
+  function toggleFolderTree(el) { let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; } }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>
