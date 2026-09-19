@@ -19,7 +19,7 @@ if not os.path.exists(bios_dir):
 if not os.path.exists(supp_dir):
     supp_dir = os.path.join(content_dir, "supplementary items")
 
-print("Initializing Upgraded Stack-Animation Archive Pass...")
+print("Initializing Vintage Photograph Upgrade Pass...")
 
 # Deep refresh output directory structures safely
 if os.path.exists(output_dir):
@@ -29,7 +29,7 @@ if os.path.exists(output_dir):
         pass
 os.makedirs(output_dir, exist_ok=True)
 
-# Generate card stacking styling profiles
+# Generate card stacking styling profiles with aged polaroid textures
 global_css = """
 body {
   background-color: #f2ebd9;
@@ -54,31 +54,64 @@ a:hover { text-decoration: underline; }
 .main-content { margin-left: 320px; max-width: 850px; padding: 40px; box-sizing: border-box; }
 .profile-header-box { display: flex; gap: 25px; align-items: stretch; margin-bottom: 30px; flex-wrap: wrap; }
 .profile-thumbnail-panel { flex: 0 0 220px; display: flex; }
-.profile-badge-img { width: 100%; height: 250px; object-fit: cover; border-radius: 6px; border: 2px solid #dfd2b5; box-shadow: 0 4px 8px rgba(0,0,0,0.08); background: #faf9f6; }
+.profile-badge-img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; border: 2px solid #dfd2b5; box-shadow: 0 4px 8px rgba(0,0,0,0.08); background: #faf9f6; }
 .profile-info-panel { flex: 1; min-width: 280px; display: flex; flex-direction: column; justify-content: center; }
 .profile-info-panel ul { list-style-type: square; padding-left: 20px; margin: 0; }
 
-/* Stacking Card Carousel Container */
-.carousel-container { max-width: 100%; position: relative; margin: 30px auto; border-radius: 8px; height: 520px; background: #1c1610; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-.mySlides { display: none; position: absolute; width: 90%; height: 85%; background: #fdfaf7; border-radius: 6px; padding: 15px; box-sizing: border-box; text-align: center; border: 1px solid #dfd2b5; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.5s ease, z-index 0.5s; }
-.mySlides img { height: 90%; max-width: 100%; object-fit: contain; border-radius: 4px; }
+/* The Dark File Case Background Wrapper Box */
+.carousel-container { max-width: 100%; position: relative; margin: 30px auto; border-radius: 8px; height: 560px; background: #1c1610; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.3); }
 
-/* Move to Back Stack Animations */
-.slide-out-back { animation: slideBack 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-@keyframes slideBack {
-  0% { transform: translateX(0) scale(1); z-index: 10; }
-  50% { transform: translateX(-105%) scale(0.95); z-index: 10; }
-  51% { z-index: 1; }
-  100% { transform: translateX(0) scale(0.9); z-index: 1; }
+/* The Aged Polaroid Photograph Frame Box Element */
+.mySlides { 
+  display: none; 
+  position: absolute; 
+  width: auto;
+  max-width: 85%;
+  height: 90%; 
+  background: #f4edd3; /* Aged photo paper cream color */
+  border-radius: 2px; 
+  padding: 15px 15px 55px 15px; /* Thicker bottom border padding for the polaroid signature shelf label */
+  box-sizing: border-box; 
+  text-align: center; 
+  border: 1px solid #d4cbb3;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 2px 5px rgba(0,0,0,0.3); 
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.active-card { display: block; z-index: 5; transform: scale(1); }
-.background-card { display: block; z-index: 1; transform: scale(0.95) translateY(10px); opacity: 0.6; }
+.mySlides img { 
+  height: 100%; 
+  max-width: 100%; 
+  object-fit: contain; 
+  border: 2px solid #2b1e13; /* Thin black border directly hugging the photograph edges */
+  box-sizing: border-box;
+}
+
+/* Microscopic Typewriter Image File Name Captions Style */
+.slide-caption { 
+  color: #3d2d1e; 
+  font-size: 0.7rem; /* Significantly shrunk to small text */
+  font-weight: bold; 
+  margin-top: 12px; 
+  font-family: 'Courier Prime', monospace; 
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  text-transform: lowercase;
+}
+
+/* Fixed Overlap Stack Sliding Animation Rules Mapping */
+.slide-out-back { animation: slideBack 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes slideBack {
+  0% { transform: translateX(0) scale(1); z-index: 10; opacity: 1; }
+  50% { transform: translateX(-110%) scale(0.96); z-index: 10; opacity: 1; }
+  51% { z-index: 1; }
+  100% { transform: translateX(0) scale(0.92); z-index: 1; opacity: 0; } /* Completely fades out opacity at the end to prevent asset overlaps */
+}
+.active-card { display: block; z-index: 5; transform: scale(1); opacity: 1; }
+.background-card { display: block; z-index: 2; transform: scale(0.96) translateY(8px); opacity: 0.4; } /* Keeps underlying cards faded out until active step takes over */
 
 .carousel-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: #ebdcc8; font-weight: bold; font-size: 18px; transition: 0.3s; border-radius: 4px; user-select: none; background: rgba(43,30,19,0.7); border: none; z-index: 20; }
 .carousel-btn:hover { background-color: rgba(112,72,41,0.9); }
 .prev-btn { left: 10px; }
 .next-btn { right: 10px; }
-.slide-caption { color: #3d2d1e; font-size: 0.85rem; font-weight: bold; margin-top: 5px; font-family: 'Courier Prime', monospace; }
 details { background: #dfd2b5; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 5px solid #704829; }
 summary { font-weight: bold; cursor: pointer; }
 """
@@ -133,7 +166,7 @@ def generate_html_scaffold(title, body_content, sidebar_chars, sidebar_supp):
 </html>
 """
 # Compile Subject Records
-print(f"Compiling {len(character_files)} Character profiles into card-stack formats...")
+print(f"Compiling {len(character_files)} Character profiles into polaroid stack models...")
 for file in character_files:
     file_clean_name = os.path.splitext(file)[0]
     character_title = file_clean_name
@@ -164,19 +197,20 @@ for file in character_files:
                     
         slide_imgs = [i for i in all_imgs if i.lower().endswith(valid_exts) and os.path.splitext(i)[0].lower() != "thumbnail"]
         for idx, img_name in enumerate(slide_imgs):
-            image_slides_html += f'    <div class="mySlides"><img src="Art/{file_clean_name.lower()}/{img_name}"><div class="slide-caption">FILE ATTACHMENT {idx+1}/{len(slide_imgs)}: {img_name}</div></div>\n'
+            # Fixed: Truncated caption HTML string to strictly output your plain image filename in micro layout sizes
+            image_slides_html += f'    <div class="mySlides"><img src="Art/{file_clean_name.lower()}/{img_name}"><div class="slide-caption">{img_name}</div></div>\n'
 
     if not image_slides_html:
-        image_slides_html = '    <div class="mySlides" style="display:block;"><p style="padding:40px; color:#3d2d1e;">No supplementary visual evidence cataloged.</p></div>'
+        image_slides_html = '    <div class="mySlides" style="display:block;"><p style="padding:40px; color:#3d2d1e;">No archive photograph attachments cataloged.</p></div>'
 
-    # Fixed Paragraph Loader: Strips redundant tags but saves ALL your log backstory paragraphs completely
+    # Backstory Text Builder Loader Matrix Loop
     clean_paragraphs = ""
     for line in body.split("\n"):
         stripped = line.strip()
         if not stripped or stripped.startswith("---") or stripped.startswith("*"):
             continue
         if "Basic Overview" in line or "### Overview" in line or "Character Artwork" in line or "###" in line:
-            continue # Strips structural headers out cleanly so text transitions remain perfect
+            continue 
         clean_paragraphs += f"    <p>{stripped}</p>\n"
 
     # Assemble your beautiful complete old dossier document screen blueprint
@@ -199,7 +233,7 @@ for file in character_files:
     </div>
   </div>
 
-  <h3>Visual Evidence Gallery (Card Stack Layout)</h3>
+  <h3>Visual Evidence Gallery (Polaroid Stack Layout)</h3>
   <div class="carousel-container">
     <button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>
 {image_slides_html}    <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
@@ -214,9 +248,12 @@ for file in character_files:
 
 <script>
   let currentIdx = 0;
-  const cards = document.getElementsByClassName("mySlides");
+  let cards = [];
   
   function initCarousel() {{
+    const allCards = document.getElementsByClassName("mySlides");
+    // Filter out mock empty sliders if present
+    for(let i=0; i<allCards.length; i++) {{ cards.push(allCards[i]); }}
     if (cards.length === 0) return;
     updateCardStack();
   }}
@@ -235,7 +272,7 @@ for file in character_files:
         updateCardStack();
       }}, 500);
     }} else {{
-      // Reverse loop logic mapping pass
+      // Infinite reverse stack wrap pass loop
       currentIdx = (currentIdx - 1 + cards.length) % cards.length;
       updateCardStack();
     }}
@@ -247,11 +284,11 @@ for file in character_files:
       cards[i].style.display = "none";
     }}
     
-    // Set active layout card parameters
+    // Core active presentation card assignment
     cards[currentIdx].style.display = "block";
     cards[currentIdx].classList.add("active-card");
     
-    // Set layer stack depth parameters for background card
+    // Safe stack alignment depth check pass to overlay background layers perfectly
     if (cards.length > 1) {{
       let nextIdx = (currentIdx + 1) % cards.length;
       cards[nextIdx].style.display = "block";
@@ -287,7 +324,7 @@ if os.path.exists(supp_dir):
                     with open(os.path.join(output_dir, f"supp_{folder.lower()}_{sf_clean.lower()}.html"), "w", encoding="utf-8") as f:
                         f.write(full_supp_page)
 
-# Generate master index page setup
+# Generate master index page setup from first character profile page map node
 if character_files:
     first_char_name = os.path.splitext(sorted(character_files)[0])[0].lower()
     shutil.copy(os.path.join(output_dir, f"{first_char_name}.html"), os.path.join(output_dir, "index.html"))
