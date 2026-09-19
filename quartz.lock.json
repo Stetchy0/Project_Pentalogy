@@ -1,12 +1,4 @@
-import os
-
-repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
-lock_json_path = os.path.join(repo_root, "quartz.lock.json")
-
-print("Generating official Quartz Community plugin manifest lock file...")
-
-# Pristine, valid lock file matching your core configuration plugin layout properties
-pristine_lock_json = """{
+{
   "plugins": {
     "@quartz-community/frontmatter": "latest",
     "@quartz-community/created-modified-date": "latest",
@@ -42,11 +34,3 @@ pristine_lock_json = """{
     "@quartz-community/backlinks": "latest"
   }
 }
-"""
-
-try:
-    with open(lock_json_path, 'w', encoding='utf-8') as f:
-        f.write(pristine_lock_json)
-    print("Success! quartz.lock.json has been written to the repository root.")
-except Exception as e:
-    print(f"Error creating lock file: {e}")
