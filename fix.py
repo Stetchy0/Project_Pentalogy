@@ -19,9 +19,9 @@ if not os.path.exists(bios_dir):
 if not os.path.exists(supp_dir):
     supp_dir = os.path.join(content_dir, "supplementary items")
 
-print("Initializing Upgraded Python Multi-Category Dossier Compiler Pass...")
+print("Initializing Upgraded Stack-Animation Archive Pass...")
 
-# Deep refresh output directory structures
+# Deep refresh output directory structures safely
 if os.path.exists(output_dir):
     try:
         shutil.rmtree(output_dir)
@@ -29,7 +29,7 @@ if os.path.exists(output_dir):
         pass
 os.makedirs(output_dir, exist_ok=True)
 
-# Generate comprehensive style layout blocks mapping your typewriter ledger theme overrides
+# Generate card stacking styling profiles
 global_css = """
 body {
   background-color: #f2ebd9;
@@ -57,14 +57,28 @@ a:hover { text-decoration: underline; }
 .profile-badge-img { width: 100%; height: 250px; object-fit: cover; border-radius: 6px; border: 2px solid #dfd2b5; box-shadow: 0 4px 8px rgba(0,0,0,0.08); background: #faf9f6; }
 .profile-info-panel { flex: 1; min-width: 280px; display: flex; flex-direction: column; justify-content: center; }
 .profile-info-panel ul { list-style-type: square; padding-left: 20px; margin: 0; }
-.carousel-container { max-width: 100%; position: relative; margin: 30px auto; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #1c1610; display: flex; align-items: center; justify-content: center; min-height: 350px; }
-.mySlides { display: none; width: 100%; padding: 15px; box-sizing: border-box; text-align: center; }
-.mySlides img { max-height: 500px; max-width: 100%; object-fit: contain; }
-.carousel-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: #ebdcc8; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background: rgba(43,30,19,0.5); border: none; }
-.carousel-btn:hover { background-color: rgba(112,72,41,0.8); }
-.prev-btn { left: 0; border-radius: 3px 0 0 3px; }
-.next-btn { right: 0; border-radius: 0 3px 3px 0; }
-.slide-caption { color: #ebdcc8; font-size: 0.85rem; padding: 8px 12px; position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); }
+
+/* Stacking Card Carousel Container */
+.carousel-container { max-width: 100%; position: relative; margin: 30px auto; border-radius: 8px; height: 520px; background: #1c1610; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+.mySlides { display: none; position: absolute; width: 90%; height: 85%; background: #fdfaf7; border-radius: 6px; padding: 15px; box-sizing: border-box; text-align: center; border: 1px solid #dfd2b5; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: transform 0.5s ease, z-index 0.5s; }
+.mySlides img { height: 90%; max-width: 100%; object-fit: contain; border-radius: 4px; }
+
+/* Move to Back Stack Animations */
+.slide-out-back { animation: slideBack 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes slideBack {
+  0% { transform: translateX(0) scale(1); z-index: 10; }
+  50% { transform: translateX(-105%) scale(0.95); z-index: 10; }
+  51% { z-index: 1; }
+  100% { transform: translateX(0) scale(0.9); z-index: 1; }
+}
+.active-card { display: block; z-index: 5; transform: scale(1); }
+.background-card { display: block; z-index: 1; transform: scale(0.95) translateY(10px); opacity: 0.6; }
+
+.carousel-btn { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: #ebdcc8; font-weight: bold; font-size: 18px; transition: 0.3s; border-radius: 4px; user-select: none; background: rgba(43,30,19,0.7); border: none; z-index: 20; }
+.carousel-btn:hover { background-color: rgba(112,72,41,0.9); }
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+.slide-caption { color: #3d2d1e; font-size: 0.85rem; font-weight: bold; margin-top: 5px; font-family: 'Courier Prime', monospace; }
 details { background: #dfd2b5; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 5px solid #704829; }
 summary { font-weight: bold; cursor: pointer; }
 """
@@ -72,12 +86,12 @@ summary { font-weight: bold; cursor: pointer; }
 with open(os.path.join(output_dir, "style.css"), "w", encoding="utf-8") as f:
     f.write(global_css)
 
-# Natively map sidebar index components
+# Generate sidebar listings
 character_links_html = ""
 character_files = [f for f in os.listdir(bios_dir) if f.endswith(".md")] if os.path.exists(bios_dir) else []
 for char_file in sorted(character_files):
-    char_name = os.path.splitext(char_file)[0].capitalize()
-    character_links_html += f'    <li><a href="{os.path.splitext(char_file)[0].lower()}.html">{char_name}</a></li>\\n'
+    c_name = os.path.splitext(char_file)[0]
+    character_links_html += f'    <li><a href="{c_name.lower()}.html">{c_name}</a></li>\n'
 
 supp_sections_html = ""
 if os.path.exists(supp_dir):
@@ -86,11 +100,11 @@ if os.path.exists(supp_dir):
         if os.path.isdir(folder_path):
             supp_files = [f for f in os.listdir(folder_path) if f.endswith(".md")]
             if supp_files:
-                supp_sections_html += f"  <h3>{folder.upper()}</h3>\\n  <ul>\\n"
+                supp_sections_html += f"  <h3>{folder.upper()}</h3>\n  <ul>\n"
                 for s_file in sorted(supp_files):
-                    file_clean_name = os.path.splitext(s_file)[0]
-                    supp_sections_html += f'    <li><a href="supp_{folder.lower()}_{file_clean_name.lower()}.html">{file_clean_name.capitalize()}</a></li>\\n'
-                supp_sections_html += "  </ul>\\n"
+                    sf_name = os.path.splitext(s_file)[0]
+                    supp_sections_html += f'    <li><a href="supp_{folder.lower()}_{sf_name.lower()}.html">{sf_name}</a></li>\n'
+                supp_sections_html += "  </ul>\n"
 
 def generate_html_scaffold(title, body_content, sidebar_chars, sidebar_supp):
     return f"""<!DOCTYPE html>
@@ -107,7 +121,7 @@ def generate_html_scaffold(title, body_content, sidebar_chars, sidebar_supp):
   <p style="font-size:0.75rem; color:#704829; letter-spacing:1px; margin-top:0;"><b>SYSTEM DOSSIER LOCK</b></p>
   
   <h3>SUBJECT PROFILES</h3>
-  <ul style="list-style-type: none; padding-left: 5px;">
+  <ul style="list-style-type: none; padding-left: 5px; margin: 0;">
 {sidebar_chars}  </ul>
   
 {sidebar_supp}</div>
@@ -119,10 +133,10 @@ def generate_html_scaffold(title, body_content, sidebar_chars, sidebar_supp):
 </html>
 """
 # Compile Subject Records
-print(f"Compiling {len(character_files)} Character profiles into manual carousel formats...")
+print(f"Compiling {len(character_files)} Character profiles into card-stack formats...")
 for file in character_files:
     file_clean_name = os.path.splitext(file)[0]
-    character_title = file_clean_name.capitalize()
+    character_title = file_clean_name
     
     with open(os.path.join(bios_dir, file), 'r', encoding='utf-8', errors='ignore') as f:
         body = f.read()
@@ -150,22 +164,20 @@ for file in character_files:
                     
         slide_imgs = [i for i in all_imgs if i.lower().endswith(valid_exts) and os.path.splitext(i)[0].lower() != "thumbnail"]
         for idx, img_name in enumerate(slide_imgs):
-            image_slides_html += f'    <div class="mySlides fade"><img src="Art/{file_clean_name.lower()}/{img_name}"><div class="slide-caption">DOCUMENT ATTACHMENT {idx+1}/{len(slide_imgs)}: {img_name}</div></div>\\n'
+            image_slides_html += f'    <div class="mySlides"><img src="Art/{file_clean_name.lower()}/{img_name}"><div class="slide-caption">FILE ATTACHMENT {idx+1}/{len(slide_imgs)}: {img_name}</div></div>\n'
 
     if not image_slides_html:
-        image_slides_html = '    <div class="mySlides fade" style="display:block; color:#ebdcc8;"><p style="padding:40px;">No supplementary visual evidence cataloged.</p></div>'
+        image_slides_html = '    <div class="mySlides" style="display:block;"><p style="padding:40px; color:#3d2d1e;">No supplementary visual evidence cataloged.</p></div>'
 
-    # Filter out duplicate overview listings inside markdown strings
+    # Fixed Paragraph Loader: Strips redundant tags but saves ALL your log backstory paragraphs completely
     clean_paragraphs = ""
-    skip_mode = False
     for line in body.split("\n"):
-        if "Basic Overview" in line or "### Overview" in line:
-            skip_mode = True 
+        stripped = line.strip()
+        if not stripped or stripped.startswith("---") or stripped.startswith("*"):
             continue
-        if skip_mode and line.strip().startswith("#"):
-            skip_mode = False 
-        if not skip_mode and line.strip() and not line.strip().startswith("*"):
-            clean_paragraphs += f"    <p>{line.strip()}</p>\\n"
+        if "Basic Overview" in line or "### Overview" in line or "Character Artwork" in line or "###" in line:
+            continue # Strips structural headers out cleanly so text transitions remain perfect
+        clean_paragraphs += f"    <p>{stripped}</p>\n"
 
     # Assemble your beautiful complete old dossier document screen blueprint
     char_content_html = f"""  <h1>{character_title.upper()}</h1>
@@ -187,32 +199,67 @@ for file in character_files:
     </div>
   </div>
 
-  <h3>Visual Evidence Gallery</h3>
+  <h3>Visual Evidence Gallery (Card Stack Layout)</h3>
   <div class="carousel-container">
-    <button class="carousel-btn prev-btn" onclick="plusSlides(-1)">&#10094;</button>
-    {image_slides_html}    <button class="carousel-btn next-btn" onclick="plusSlides(1)">&#10095;</button>
+    <button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>
+{image_slides_html}    <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
   </div>
 
   <h3>Dossier Logs & Transcripts</h3>
   <details open>
     <summary><b>Log Text Ledger</b></summary>
-    <div style="padding-top:10px;">
+    <div style="padding:15px 5px 5px 5px;">
 {clean_paragraphs}    </div>
   </details>
 
 <script>
-  let slideIndex = 1;
-  showSlides(slideIndex);
-  function plusSlides(n) {{ showSlides(slideIndex += n); }}
-  function showSlides(n) {{
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    if (slides.length === 0) return;
-    if (n > slides.length) {{slideIndex = 1}}    
-    if (n < 1) {{slideIndex = slides.length}}
-    for (i = 0; i < slides.length; i++) {{ slides[i].style.display = "none"; }}
-    slides[slideIndex-1].style.display = "block";  
+  let currentIdx = 0;
+  const cards = document.getElementsByClassName("mySlides");
+  
+  function initCarousel() {{
+    if (cards.length === 0) return;
+    updateCardStack();
   }}
+  
+  function moveCard(direction) {{
+    if (cards.length <= 1) return;
+    
+    let oldCard = cards[currentIdx];
+    
+    if (direction === 1) {{
+      // Move to back card sliding effect animation
+      oldCard.classList.add("slide-out-back");
+      setTimeout(() => {{
+        oldCard.classList.remove("slide-out-back");
+        currentIdx = (currentIdx + 1) % cards.length;
+        updateCardStack();
+      }}, 500);
+    }} else {{
+      // Reverse loop logic mapping pass
+      currentIdx = (currentIdx - 1 + cards.length) % cards.length;
+      updateCardStack();
+    }}
+  }}
+  
+  function updateCardStack() {{
+    for (let i = 0; i < cards.length; i++) {{
+      cards[i].className = "mySlides";
+      cards[i].style.display = "none";
+    }}
+    
+    // Set active layout card parameters
+    cards[currentIdx].style.display = "block";
+    cards[currentIdx].classList.add("active-card");
+    
+    // Set layer stack depth parameters for background card
+    if (cards.length > 1) {{
+      let nextIdx = (currentIdx + 1) % cards.length;
+      cards[nextIdx].style.display = "block";
+      cards[nextIdx].classList.add("background-card");
+    }}
+  }}
+  
+  initCarousel();
 </script>
 """
     full_char_page = generate_html_scaffold(character_title, char_content_html, character_links_html, supp_sections_html)
@@ -227,22 +274,22 @@ if os.path.exists(supp_dir):
         if os.path.isdir(folder_path):
             for s_file in os.listdir(folder_path):
                 if s_file.endswith(".md"):
-                    file_clean = os.path.splitext(s_file)[0]
+                    sf_clean = os.path.splitext(s_file)[0]
                     with open(os.path.join(folder_path, s_file), 'r', encoding='utf-8', errors='ignore') as f:
                         s_body = f.read()
                     if s_body.startswith("---"):
                         s_parts = s_body.split("---", 2)
                         if len(s_parts) >= 3: s_body = s_parts[2].strip()
                     
-                    s_paragraphs = "".join([f"  <p>{line.strip()}</p>\\n" for line in s_body.split("\n") if line.strip()])
-                    supp_content_html = f"  <h1>{file_clean.upper()}</h1>\\n  <h3>Archive Reference: {folder.upper()}</h3>\\n  <div style='margin-top:20px;'>\\n{s_paragraphs}  </div>"
-                    full_supp_page = generate_html_scaffold(file_clean, supp_content_html, character_links_html, supp_sections_html)
-                    with open(os.path.join(output_dir, f"supp_{folder.lower()}_{file_clean.lower()}.html"), "w", encoding="utf-8") as f:
+                    s_paragraphs = "".join([f"  <p>{line.strip()}</p>\n" for line in s_body.split("\n") if line.strip() and not line.strip().startswith("---")])
+                    supp_content_html = f"  <h1>{sf_clean.upper()}</h1>\n  <h3>Archive Reference: {folder.upper()}</h3>\n  <div style='margin-top:20px;'>\n{s_paragraphs}  </div>"
+                    full_supp_page = generate_html_scaffold(sf_clean, supp_content_html, character_links_html, supp_sections_html)
+                    with open(os.path.join(output_dir, f"supp_{folder.lower()}_{sf_clean.lower()}.html"), "w", encoding="utf-8") as f:
                         f.write(full_supp_page)
 
-# Generate automated master landing index file page configuration setups
+# Generate master index page setup
 if character_files:
     first_char_name = os.path.splitext(sorted(character_files)[0])[0].lower()
     shutil.copy(os.path.join(output_dir, f"{first_char_name}.html"), os.path.join(output_dir, "index.html"))
 
-print("\\nCompilation Complete! Cleaned files saved out successfully.")
+print("\nCompilation Complete! Cleaned files saved out successfully.")
