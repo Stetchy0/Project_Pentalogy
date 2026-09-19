@@ -109,17 +109,15 @@ if os.path.exists(bios_search_dir):
         if f.endswith(".md") and os.path.splitext(f)[0].lower() != "index":
             all_bios_characters.append(os.path.splitext(f)[0].capitalize())
 
-# INJECT COMPREHENSIVE TRAIT TABLE SKELETON IF MISSING
+# INJECT SCHEMAS IF ABSENT
 if not os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'w', encoding='utf-8') as f:
         f.write("# CHARACTER CORE DATA MASTERLIST\n\n| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n")
 
-# INJECT COMPREHENSIVE RELATIONSHIPS TABLE SKELETON IF MISSING
 if not os.path.exists(master_rel_note_path):
     with open(master_rel_note_path, 'w', encoding='utf-8') as f:
         f.write("# CHARACTER RELATIONSHIPS DATA\n\n| Character A | Relationship A to B | Relationship B to A | Character B |\n| ----------- | ------------------- | ------------------- | ----------- |\n")
 
-# Automatically sync unlogged characters to the traits list note file
 with open(master_data_note_path, 'r', encoding='utf-8') as f: trait_lines = f.readlines()
 registered_traits = {l.split("|")[1].strip().lower() for l in trait_lines if l.strip().startswith("|") and l.count("|") >= 5 and "character" not in l.lower() and "---" not in l}
 
@@ -140,20 +138,28 @@ for root, dirs, files in os.walk(content_dir):
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 4:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
-                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and parts[0].lower() != "character a" and not set(parts[0]).issubset({'-', ' '}):
-                            if len(parts) == 4:
-                                # Safe 4-Column Relationship Data Splicer Mapping Pass
-                                c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
+                        if len(parts) >= 3 and not set(parts).issubset({'-', ' '}) and "character" not in parts[0].lower():
+                            # Fix: Cast all layout index dictionary keys explicitly to lowercase to clear case sensitivity faults
+                            if line.count("|") == 5:
+                                c1 = parts[0].lower().strip()
+                                c2 = parts[3].lower().strip()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
-                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
-                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-                            elif len(parts) >= 10:
-                                char_key = parts[0].lower()
-                                playlist_url = parts[10].strip() if len(parts) >= 11 else ""
+                                master_relationships_map[c1].append({"target": c2, "relation": parts[1], "thumb": f"Art/{c2}/thumbnail.png"})
+                                master_relationships_map[c2].append({"target": c1, "relation": parts[2], "thumb": f"Art/{c1}/thumbnail.png"})
+                            elif line.count("|") >= 11:
+                                char_key = parts[0].lower().strip()
                                 master_traits_map[char_key] = {
-                                    "age": parts[1], "gender": parts[2], "sexuality": parts[3], "height": parts[4], "trope": parts[5], "motifs": parts[6],
-                                    "first_ment": parts[7], "first_app": parts[8], "present_in": parts[9], "playlist": playlist_url
+                                    "age": parts[1] if parts[1] else "Classified",
+                                    "gender": parts[2] if parts[2] else "Classified",
+                                    "sexuality": parts[3] if parts[3] else "Classified",
+                                    "height": parts[4] if parts[4] else "Classified",
+                                    "trope": parts[5] if parts[5] else "Classified",
+                                    "motifs": parts[6] if parts[6] else "Classified",
+                                    "first_ment": parts[7] if parts[7] else "Unlogged",
+                                    "first_app": parts[8] if parts[8] else "Unlogged",
+                                    "present_in": parts[9] if parts[9] else "Unlogged",
+                                    "playlist": parts[10] if len(parts) >= 11 and parts[10] else ""
                                 }
             except Exception: pass
 
@@ -163,7 +169,7 @@ for root, dirs, files in os.walk(content_dir):
         if file.endswith(".md"):
             if "private" in root.lower(): continue
             target_file_string_name = os.path.splitext(file)[0]
-            c_key_var = target_file_string_name.lower()
+            c_key_var = target_file_string_name.lower().strip()
             is_char = "characters" in root.lower() or "bios" in root.lower()
             
             try:
@@ -171,7 +177,7 @@ for root, dirs, files in os.walk(content_dir):
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
 
-            # EXCLUSIVE BLOCK SANITIZER: Completely strip out old javascript slideshow blocks and placeholder lines
+            # EXCLUSIVE BLOCK SANITIZER: Completely filters out old javascript blocks and layout template residue
             clean_lines = []
             skip_script_block = False
             for l in text.split("\n"):
@@ -181,10 +187,9 @@ for root, dirs, files in os.walk(content_dir):
                 if skip_script_block:
                     if "showslides();" in l_strip.lower() or "showslides(" in l_strip.lower(): skip_script_block = False
                     continue
-                # Skip layout noise lines completely
-                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text"]):
+                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections"]):
                     continue
-                if l_strip.startswith(("|", "*", "---", "🔗", "^")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip:
+                if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip or ".png" in l_strip or ".jpg" in l_strip:
                     continue
                 clean_lines.append(l)
             
@@ -208,7 +213,7 @@ for root, dirs, files in os.walk(content_dir):
                             if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
                     slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
-                if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Placeholder</div></div>'
+                if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Gallery Empty</div></div>'
 
                 prim_rel = master_relationships_map.get(c_key_var, [])
                 prim_t = [r["target"] for r in prim_rel]
