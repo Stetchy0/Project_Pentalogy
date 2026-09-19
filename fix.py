@@ -61,15 +61,16 @@ def build_vault_tree_html(current_dir_path):
     folders_html, files_html = "", ""
     for item in sorted(os.listdir(current_dir_path)):
         full_path = os.path.join(current_dir_path, item)
-        clean_item_name = os.path.splitext(item)[0]
+        clean_item_name = os.path.splitext(item)
         if os.path.isdir(full_path):
             if item.startswith(".") or "templates" in item.lower() or "art" in item.lower() or "private" in item.lower(): continue
             sub_content = build_vault_tree_html(full_path)
             if sub_content.strip():
-                folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
+                folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\\n'
         elif item.endswith(".md"):
-            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name.lower()}.html")
-            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
+            # Fixed: Wrapped index string matching with explicit [0] index to resolve sidebar tuple crashes
+            url = "index.html" if clean_item_name[0].lower() == "index" else (f"{clean_item_name[0].lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name[0].lower()}.html")
+            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name[0].capitalize()}</a>\\n'
     return folders_html + files_html
 
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
@@ -86,18 +87,60 @@ def scaffold_html(title, body):
 </script></body></html>"""
 master_relationships_map = {}
 master_traits_map = {}
+all_bios_characters = []
 
-# Crawl entire vault to parse both relationships and 11-column core trait data tables automatically
+# FIND CORE PATHS
+bios_search_dir = os.path.join(repo_root, "content", "Project Pentalogy", "Characters", "Bios")
+if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(repo_root, "content", "characters", "bios")
+
+private_data_dir = os.path.join(repo_root, "content", "Project Pentalogy", "private")
+if not os.path.exists(private_data_dir): private_data_dir = os.path.join(repo_root, "content", "private")
+os.makedirs(private_data_dir, exist_ok=True)
+master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
+
+# GATHER EXISTING BIO FILES
+if os.path.exists(bios_search_dir):
+    for f in os.listdir(bios_search_dir):
+        if f.endswith(".md") and os.path.splitext(f)[0].lower() != "index":
+            all_bios_characters.append(os.path.splitext(f)[0].capitalize())
+
+# AUTOMATED OBSIDIAN INJECTOR: Ensure master data sheet note always contains a row for every bio file!
+registered_names_in_table = set()
+if os.path.exists(master_data_note_path):
+    with open(master_data_note_path, 'r', encoding='utf-8') as f: data_content_lines = f.readlines()
+    for l in data_content_lines:
+        if l.strip().startswith("|") and l.count("|") >= 5:
+            first_col = l.split("|")[1].strip()
+            if first_col.lower() != "character" and not set(first_col).issubset({'-', ' '}):
+                registered_names_in_table.add(first_col.capitalize())
+else:
+    data_content_lines = [
+        "# CHARACTER CORE DATA MASTERLIST\n\n",
+        "| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n",
+        "| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n"
+    ]
+
+# Automatically append empty rows for your active characters to be manually filled out!
+updated_table_file = False
+for char_name in sorted(all_bios_characters):
+    if char_name not in registered_names_in_table:
+        data_content_lines.append(f"| {char_name} | | | | | | | | | | |\n")
+        updated_table_file = True
+
+if updated_table_file:
+    with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(data_content_lines)
+    print(f" -> Automated Sync Pass: Injected blank, manually fillable rows into your Obsidian 'Character Core Data.md' spreadsheet note!")
+
+# READ CORE TABLES FOR SITE RENDERING
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
             try:
-                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
-                    lines = f.readlines()
+                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 5:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
-                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts).issubset({'-', ':', ' '}):
+                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
                             if len(parts) == 4:
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
@@ -108,15 +151,11 @@ for root, dirs, files in os.walk(content_dir):
                                 char_key = parts[0].lower()
                                 playlist_url = parts[10].strip() if len(parts) >= 11 else ""
                                 master_traits_map[char_key] = {
-                                    "age": parts[1], "gender": parts[2], "sexuality": parts[3],
-                                    "height": parts[4], "trope": parts[5], "motifs": parts[6],
-                                    "first_ment": parts[7], "first_app": parts[8], "present_in": parts[9],
-                                    "playlist": playlist_url
+                                    "age": parts[1], "gender": parts[2], "sexuality": parts[3], "height": parts[4], "trope": parts[5], "motifs": parts[6],
+                                    "first_ment": parts[7], "first_app": parts[8], "present_in": parts[9], "playlist": playlist_url
                                 }
             except Exception: pass
 
-bios_search_dir = os.path.join(content_dir, "Project Pentalogy", "Characters", "Bios")
-if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(content_dir, "characters", "bios")
 character_files = [f for f in os.listdir(bios_search_dir) if f.endswith(".md")] if os.path.exists(bios_search_dir) else []
 for root, dirs, files in os.walk(content_dir):
     for file in files:
@@ -151,7 +190,6 @@ for root, dirs, files in os.walk(content_dir):
                     for img in imgs:
                         if img.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
                             shutil.copy(os.path.join(char_art_folder, img), os.path.join(output_dir, "Art", c_key_var, img))
-                            # Fixed: Added explicit index mapping [0] to read the filename part instead of the tuple object
                             if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
                     slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
