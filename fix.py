@@ -15,7 +15,7 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# ACCURATE PATH TARGETING: Anchor directly into your vault project folders
+# FIXED PATH TARGETING: Direct anchor routing to your nested workspace folders
 private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
 if not os.path.exists(private_data_dir):
     private_data_dir = os.path.join(content_dir, "private")
@@ -43,7 +43,7 @@ def build_vault_tree_html(current_dir_path):
             if item.lower() in ["bios", "art"]:
                 folders_html += build_vault_tree_html(full_path)
                 continue
-            if item.startswith(".") or "templates" in item.lower() or "private" in item.lower():
+            if item.startswith(".") or "templates" in item.lower() or "private" in item.lower() or "node_modules" in item.lower():
                 continue
             sub = build_vault_tree_html(full_path)
             if sub.strip():
@@ -71,6 +71,8 @@ def scaffold_html(title, body):
 
 master_relationships_map = {}
 for root, dirs, files in os.walk(content_dir):
+    # FIXED: Skip invisible dot paths and python venv setups to instantly accelerate search
+    dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env']]
     for file in files:
         if file.endswith(".md") and "private" in root.lower():
             try:
@@ -86,6 +88,8 @@ for root, dirs, files in os.walk(content_dir):
                                 master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
             except Exception: pass
 for root, dirs, files in os.walk(content_dir):
+    # FIXED: Skip dot folders and environment tools during final compilation sweeps
+    dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env']]
     for file in files:
         if file.endswith(".md"):
             if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower(): continue
@@ -101,7 +105,6 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             frontmatter_content = ""
             
-            # UPGRADED ENHANCED REGEX: Whitespace-flexible pattern sweeps hidden gaps or carriage markers completely clear
             frontmatter_match = re.search(r'^\s*---\s*\r?\n(.*?)\r?\n\s*---\s*\r?\n', text, re.DOTALL | re.MULTILINE)
             if frontmatter_match:
                 frontmatter_content = frontmatter_match.group(1)
@@ -116,8 +119,7 @@ for root, dirs, files in os.walk(content_dir):
             title_match = re.search(r'^title\s*:\s*["\']?([^"\']+)["\']?', frontmatter_content if frontmatter_match else text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
             elif text.startswith("# "): 
-                first_line = text.split("\n")[0]
-                display_title = first_line.replace("# ", "").strip()
+                display_title = text.split("\n")[0].replace("# ", "").strip()
 
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
