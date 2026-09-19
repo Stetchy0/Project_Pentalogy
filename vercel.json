@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/style.css",
+      "headers": {
+        "cache-control": "s-maxage=31536000,max-age=0"
+      },
+      "dest": "/prof/style.css"
+    },
+    {
+      "src": "/Art/(.*)",
+      "dest": "/prof/Art/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/prof/$1"
+    }
+  ]
+}
