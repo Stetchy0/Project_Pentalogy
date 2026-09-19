@@ -53,7 +53,7 @@ summary { font-weight: bold; cursor: pointer; font-size: 1.05rem; }
 .tooltip-thumb { width: 60px; height: 75px; object-fit: cover; }
 .dossier-table-grid { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; background: #dfd2b5; }
 .dossier-table-grid th { background: #704829; color: #f2ebd9; font-family: 'Special Elite', sans-serif; padding: 12px; text-align: left; }
-.dossier-table-grid td { padding: 12px; border-bottom: 1px solid #a89470; }
+.dossier-table-grid td { padding: 12px; border-bottom: 1px solid #a89470; color: #3d2d1e; }
 """
 with open(os.path.join(output_dir, "style.css"), "w", encoding="utf-8") as f: f.write(global_css)
 
@@ -63,18 +63,15 @@ def build_vault_tree_html(current_dir_path):
         full_path = os.path.join(current_dir_path, item)
         clean_item_name = os.path.splitext(item)[0]
         if os.path.isdir(full_path):
-            # Optimized: If a folder is named exactly 'bios', pull items into parent layer to remove navigation redundancy
             if item.lower() == "bios":
-                sub_content = build_vault_tree_html(full_path)
-                folders_html += sub_content
+                folders_html += build_vault_tree_html(full_path)
                 continue
             if item.startswith(".") or "templates" in item.lower() or "art" in item.lower() or "private" in item.lower(): continue
             sub_content = build_vault_tree_html(full_path)
             if sub_content.strip():
                 folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
         elif item.endswith(".md"):
-            # Check if this file is located anywhere inside the Characters hierarchy path loop
-            is_in_characters = "characters" in current_dir_path.lower()
+            is_in_characters = "characters" in current_dir_path.lower() or "bios" in current_dir_path.lower()
             url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if is_in_characters else f"supp_{clean_item_name.lower()}.html")
             files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
     return folders_html + files_html
@@ -145,16 +142,15 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 5:
+                        # Fix: Strictly strip out hidden newlines from your cell parts array mapping definitions
                         parts = [p.strip() for p in line.split("|")[1:-1]]
                         if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
-                            # 4-Column Relationship Data Parser
                             if len(parts) == 4:
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
                                 master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
                                 master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-                            # Upgraded 11-Column Trait Extractor
                             elif len(parts) >= 10:
                                 char_key = parts[0].lower()
                                 playlist_url = parts[10].strip() if len(parts) >= 11 else ""
@@ -178,15 +174,14 @@ for root, dirs, files in os.walk(content_dir):
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
 
-            # HTML SANITIZATION: Completely strip old raw CSS style blocks from public paragraph text loops
             text = re.sub(r'<style>.*?</style>', '', text, flags=re.DOTALL)
-            text = re.sub(r'<[^>]*>', '', text) # Clear broken brackets
+            text = re.sub(r'<[^>]*>', '', text)
 
             text = re.sub(r'\[\[([^|\]]+)\|([^\]]+)\]\]', r'\2', text)
             text = re.sub(r'\[\[([^\]]+)\]\]', r'\1', text)
 
             paragraphs = "".join([f"<p>{l.strip()}</p>\n" for l in text.split("\n") if l.strip() and not l.strip().startswith(("#", "|", "*"))])
-            brief_p = "<p>No summary logged.</p>"
+            brief_p = "<p>No summary logged inside this profile ledger index.</p>"
             for chunk in text.split("\n"):
                 if any(x in chunk.lower() for x in ["brief:", "tldr:", "summary:"]):
                     brief_p = f"<p>{chunk.split(':', 1)[-1].strip()}</p>"; break
@@ -281,7 +276,7 @@ for root, dirs, files in os.walk(content_dir):
                       tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
                     } else { tooltip.style.display = "none"; }
                   });
-                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener;
+                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
                 </script>"""
                 
                 js_rendered = js_template.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)

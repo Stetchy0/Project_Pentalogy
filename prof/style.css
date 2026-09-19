@@ -37,4 +37,4 @@ summary { font-weight: bold; cursor: pointer; font-size: 1.05rem; }
 .tooltip-thumb { width: 60px; height: 75px; object-fit: cover; }
 .dossier-table-grid { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; background: #dfd2b5; }
 .dossier-table-grid th { background: #704829; color: #f2ebd9; font-family: 'Special Elite', sans-serif; padding: 12px; text-align: left; }
-.dossier-table-grid td { padding: 12px; border-bottom: 1px solid #a89470; }
+.dossier-table-grid td { padding: 12px; border-bottom: 1px solid #a89470; color: #3d2d1e; }
