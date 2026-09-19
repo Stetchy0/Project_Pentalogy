@@ -15,7 +15,7 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# DYNAMIC private FOLDER SEARCH ARCHITECTURE
+# LOCATE PRIVATE CONFIGURATION DIRECTORIES DYNAMICALLY
 private_data_dir = None
 for root, dirs, files in os.walk(content_dir):
     if "private" in root.lower() and ".git" not in root.lower():
@@ -29,7 +29,6 @@ if not private_data_dir:
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
 master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
 
-# Safely extract your custom splash text strings
 splash_quotes_pool = ["SECURE MAINBOARD INITIALIZED", "ACCESS CODE GRANTED"]
 if os.path.exists(master_splash_txt_path):
     with open(master_splash_txt_path, 'r', encoding='utf-8', errors='ignore') as sf:
@@ -65,9 +64,10 @@ def build_vault_tree_html(current_dir_path):
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
 
 def scaffold_html(title, body):
-    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
+    # FIXED: Added strict font clamping rules down into the header style tags
+    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.2rem !important; margin-bottom: 10px; }} h3 {{ font-size: 1.3rem !important; margin: 5px 0; }} p, li {{ font-size: 0.95rem !important; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
-<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<p id="dynamic-splash-box" style="font-size:0.72rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif; letter-spacing: 0.5px;"></p>
 <div style="margin-top:20px;">{vault_sidebar_tree_html}</div></div>
 <div class="main-content">{body}</div>
 <script>
@@ -76,14 +76,13 @@ def scaffold_html(title, body):
 </script></body></html>"""
 
 master_relationships_map, master_traits_map = {}, {}
-
-# Extract character sheets case-insensitively
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
             if line.strip().startswith("|") and line.count("|") >= 11:
                 cells = [c.strip() for c in line.split("|") if c.strip()]
                 if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
+                    # FIXED: Matched array mapping logic accurately to match lowercase filenames
                     char_key = cells[0].lower().strip()
                     master_traits_map[char_key] = {
                         "age": cells[1] if len(cells) > 1 and cells[1] else "Classified",
@@ -97,23 +96,6 @@ if os.path.exists(master_data_note_path):
                         "present_in": cells[9] if len(cells) > 9 and cells[9] else "Unlogged",
                         "playlist": cells[10] if len(cells) > 10 and cells[10] else ""
                     }
-
-# Gather connection maps safely
-for root, dirs, files in os.walk(content_dir):
-    for file in files:
-        if file.endswith(".md") and "private" in root.lower():
-            try:
-                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
-                    for line in f.readlines():
-                        if line.strip().startswith("|") and line.count("|") == 5:
-                            cells = [c.strip() for c in line.split("|") if c.strip()]
-                            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
-                                c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
-                                if c1 not in master_relationships_map: master_relationships_map[c1] = []
-                                if c2 not in master_relationships_map: master_relationships_map[c2] = []
-                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
-                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-            except Exception: pass
 for root, dirs, files in os.walk(content_dir):
     if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower():
         continue
@@ -131,12 +113,10 @@ for root, dirs, files in os.walk(content_dir):
             title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
             
-            # WIKI LINK PARSER AND FORMATTER Pass
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
             text = re.sub(r'href="([^"]+)\.html"', lambda m: f'href="{m.group(1).lower().strip()}.html"', text)
 
-            # FORCE DOSSIER AND BRIEF BLOCK TO GENERATE AS COMPLETELY BLANK BY DEFAULT
             paragraphs = ""
             brief_p = ""
 
@@ -166,13 +146,6 @@ for root, dirs, files in os.walk(content_dir):
                     g_edges.append({"source": c_key_var, "target": rel["target"], "layer": 1})
                     table_html += f'<tr><td><b><a href="{rel["target"]}.html">{rel["target"].capitalize()}</a></b></td><td>"{rel["relation"]}"</td></tr>\n'
                 if not table_html: table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
-
-                for rel in prim_rel:
-                    for l2 in master_relationships_map.get(rel["target"], []):
-                        if l2["target"] != c_key_var and l2["target"] not in prim_t:
-                            if not any(n["id"] == l2["target"] for n in g_nodes):
-                                g_nodes.append({"id": l2["target"], "label": l2["target"].capitalize(), "relation": l2["relation"] + f" (via {rel['target'].capitalize()})", "thumb": f"Art/{l2['target']}/thumbnail.png", "color": "rgba(168, 148, 112, 0.35)", "size": 7, "layer": 2, "isRoot": False})
-                            g_edges.append({"source": rel["target"], "target": l2["target"], "layer": 2})
 
                 traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "present_in": "Unlogged", "playlist": ""})
                 playlist_markup = f'<a href="{traits["playlist"]}" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>' if traits["playlist"] else ""
