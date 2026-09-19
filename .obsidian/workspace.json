@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Characters/Bios/Abaddon.md",
+                "file": "compiler_templates/Character Template.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Abaddon"
+              "title": "Character Template"
             }
           }
         ],
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "7c4b346e826da6d5",
@@ -207,6 +206,15 @@
   },
   "active": "d8255962b51b6cf3",
   "lastOpenFiles": [
+    "prof/Art/dami/Stetchy - Abaddon, Mephisto, Alex, Dami.jpg",
+    "prof/Art/dami/Kozy - Dami 3.png",
+    "prof/Art/dami/Kozy - Dami 2.png",
+    "prof/Art/dami/Kozy - Dami 1.png",
+    "prof/Art/creek/Stetchy - Creek Heroforge 3.png",
+    "stamp.py",
+    "stano.py",
+    "content/Characters/Bios/Abaddon.md",
+    "compiler_templates/Character Template.md",
     "prof/Art/abaddon/Stetchy - Abaddon, Mephisto 1.jpg",
     "content/Supplementary Items/Text/Workbook/Blorbing.md",
     "prof/Art/abaddon/Stetchy - Abaddon, Alex Heroforge.png",
@@ -218,17 +226,10 @@
     "prof/supp_kieran's planned terror.html",
     "prof/supp_janus.html",
     "prof/supp_imp.html",
-    "prof/supp_illnesses and conditions.html",
-    "prof/supp_idol magazine.html",
     "prof/Art/zero/Kozy - Zero 1.png",
     "prof/Art/zero/Kozy - Zero, Etc..png",
     "prof/Art/zero/Kozy - Rat, Zero.png",
     "prof/Art/zeph/Stetchy - Zeph, X.png",
-    "prof/Art/zeph/Stetchy - Zeph Herforge.png",
-    "prof/Art/zeph/Stetchy - X, Zeph Heroforge.png",
-    "prof/Art/zeph/Stetchy - Synthetic Nymphs.png",
-    "prof/Art/zeph/Stetchy - Cat, Zeph Heroforge.png",
-    "prof/Art/zeph/Kozy - Zeph.jpg",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.5 - Perfect.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.4 - Muckraker.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.3 - Scientist.md",
@@ -250,8 +251,6 @@
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.4 - Prestige.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.3 - Tribute.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.1 - Twisted.md",
-    "content/Supplementary Items/Text/Living Works/Pentalogy/Part 0 - Prolegomenon.md",
-    "content/Supplementary Items/Text/Living Works/Pentalogy/Part I - Experience.md",
-    "content/Supplementary Items/Text/Living Works/Pentalogy/Part Vi - Aftermath.md"
+    "content/Supplementary Items/Text/Living Works/Pentalogy/Part 0 - Prolegomenon.md"
   ]
 }

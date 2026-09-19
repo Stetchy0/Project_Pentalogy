@@ -9,25 +9,24 @@ content_dir = os.path.join(repo_root, "content")
 output_dir = os.path.join(repo_root, "prof")
 templates_dir = os.path.join(repo_root, "compiler_templates")
 
-print("Initializing Fixed Modular Compilation Pipeline...")
+print("Initializing Robust Frontmatter Compilation Engine...")
 if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# FIXED PATH ANCHORS: Explicit directory mapping matching your exact filesystem tree layout
+# ACCURATE PATH TARGETING ENGINES
 private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
 if not os.path.exists(private_data_dir):
     private_data_dir = os.path.join(content_dir, "private")
 
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
-master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
 
 splash_quotes_pool = ["SECURE MAINBOARD INITIALIZED", "ACCESS CODE GRANTED"]
 if os.path.exists(master_splash_txt_path):
     with open(master_splash_txt_path, 'r', encoding='utf-8', errors='ignore') as sf:
         lines_pool = [l.strip() for l in sf.readlines() if l.strip()]
-        lines_pool = [l.replace('"', '').replace('"', '') for l in lines_pool]
+        lines_pool = [l.replace('"', '') for l in lines_pool]
         if lines_pool: splash_quotes_pool = lines_pool
 
 with open(os.path.join(templates_dir, "style.css.txt"), "r", encoding="utf-8") as f:
@@ -69,30 +68,22 @@ def scaffold_html(title, body):
   const pool = {json.dumps(splash_quotes_pool)}; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>"""
 
-master_relationships_map, master_traits_map = {}, {}
-
-# REPAIRED CELL DATA MAPPER: Preserves exact array index slots counting from left border buffers
-if os.path.exists(master_data_note_path):
-    with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
-        for line in f.readlines():
-            if line.strip().startswith("|") and line.count("|") >= 11:
-                cells = [c.strip() for c in line.split("|")]
-                if len(cells) >= 3:
-                    char_name_raw = cells[1]
-                    if "character" not in char_name_raw.lower() and "---" not in char_name_raw:
-                        char_key = char_name_raw.lower().strip()
-                        master_traits_map[char_key] = {
-                            "age": cells[2] if len(cells) > 2 and cells[2] else "Classified",
-                            "gender": cells[3] if len(cells) > 3 and cells[3] else "Classified",
-                            "sexuality": cells[4] if len(cells) > 4 and cells[4] else "Classified",
-                            "height": cells[5] if len(cells) > 5 and cells[5] else "Classified",
-                            "trope": cells[6] if len(cells) > 6 and cells[6] else "Classified",
-                            "motifs": cells[7] if len(cells) > 7 and cells[7] else "Classified",
-                            "first_ment": cells[8] if len(cells) > 8 and cells[8] else "Unlogged",
-                            "first_app": cells[9] if len(cells) > 9 and cells[9] else "Unlogged",
-                            "present_in": cells[10] if len(cells) > 10 and cells[10] else "Unlogged",
-                            "playlist": cells[11] if len(cells) > 11 and cells[11] else ""
-                        }
+master_relationships_map = {}
+for root, dirs, files in os.walk(content_dir):
+    for file in files:
+        if file.endswith(".md") and "private" in root.lower():
+            try:
+                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
+                    for line in f.readlines():
+                        if line.strip().startswith("|") and line.count("|") == 5:
+                            cells = [c.strip() for c in line.split("|") if c.strip()]
+                            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
+                                c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
+                                if c1 not in master_relationships_map: master_relationships_map[c1] = []
+                                if c2 not in master_relationships_map: master_relationships_map[c2] = []
+                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
+                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
+            except Exception: pass
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -105,19 +96,24 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: text = f.read()
             except Exception: continue
             
-            # OBSIDIAN PROPERTY FRONTMATTER INTERCEPTOR: Isolate and extract title from frontmatter block safely
+            traits = {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "present_in": "Unlogged", "playlist": ""}
             display_title = clean_f_name.capitalize()
-            title_match = re.search(r'^title\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
-            if title_match:
-                display_title = title_match.group(1).strip()
             
-            # Wipes out the full interior YAML properties block to keep headings uncluttered
-            if text.startswith("---"):
-                parts_text = text.split("---")
-                if len(parts_text) >= 3:
-                    text = "---".join(parts_text[2:]).strip()
-                else:
-                    text = text.replace("---", "").strip()
+            # BULLETPROOF REGEX PARSER: Extracts Obsidian metadata properties completely isolated from content body
+            frontmatter_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', text, re.DOTALL)
+            if frontmatter_match:
+                frontmatter_content = frontmatter_match.group(1)
+                for line in frontmatter_content.split('\n'):
+                    if ':' in line:
+                        key, val = [s.strip() for s in line.split(':', 1)]
+                        key_clean = key.lower().replace('/s', '').strip()
+                        if key_clean in traits:
+                            traits[key_clean] = val.strip("'\"")
+                text = text[frontmatter_match.end():].strip()
+
+            title_match = re.search(r'^title\s*:\s*["\']?([^"\']+)["\']?', frontmatter_content if frontmatter_match else text, re.IGNORECASE | re.MULTILINE)
+            if title_match: display_title = title_match.group(1).strip()
+            elif text.startswith("# "): display_title = text.split("\n")[0].replace("# ", "").strip()
 
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
@@ -131,11 +127,10 @@ for root, dirs, files in os.walk(content_dir):
                 clean_lines.append(l_strip)
             
             paragraphs = "".join([f"<p>{l}</p>\n" for l in clean_lines if l])
-            brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
+            brief_p = ""
 
             if is_char and c_key_var != "index":
-                paragraphs = ""  # Keep character Dossier container completely clean and blank
-                brief_p = ""
+                paragraphs = ""  # Clean empty canvas dropdown containers exclusively on character tabs
                 
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
                 if not os.path.exists(char_art_folder): char_art_folder = os.path.join(content_dir, "characters", "art", c_key_var)
@@ -162,7 +157,6 @@ for root, dirs, files in os.walk(content_dir):
                     table_html += f'<tr><td><b><a href="{rel["target"]}.html">{rel["target"].capitalize()}</a></b></td><td>"{rel["relation"]}"</td></tr>\n'
                 if not table_html: table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
 
-                traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "present_in": "Unlogged", "playlist": ""})
                 playlist_markup = f'<a href="{traits["playlist"]}" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>' if traits["playlist"] else ""
 
                 dossier_appearance_table = f"""<table class="dossier-table-grid" style="margin-top:15px; margin-bottom:20px; background:#faf9f6;">
