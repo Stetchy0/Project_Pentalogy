@@ -15,7 +15,7 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# LOCATE PRIVATE CONFIGURATION DIRECTORIES DYNAMICALLY
+# DYNAMIC PRIVATE FOLDER SEARCH ARCHITECTURE
 private_data_dir = None
 for root, dirs, files in os.walk(content_dir):
     if "private" in root.lower() and ".git" not in root.lower():
@@ -64,7 +64,6 @@ def build_vault_tree_html(current_dir_path):
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
 
 def scaffold_html(title, body):
-    # FIXED: Added strict font clamping rules down into the header style tags
     return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.2rem !important; margin-bottom: 10px; }} h3 {{ font-size: 1.3rem !important; margin: 5px 0; }} p, li {{ font-size: 0.95rem !important; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
 <p id="dynamic-splash-box" style="font-size:0.72rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif; letter-spacing: 0.5px;"></p>
@@ -76,26 +75,43 @@ def scaffold_html(title, body):
 </script></body></html>"""
 
 master_relationships_map, master_traits_map = {}, {}
+
+# FIXED ELEMENT MAPPING PASS: Point to cells[1] to bypass left margin pipe spaces smoothly
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
             if line.strip().startswith("|") and line.count("|") >= 11:
-                cells = [c.strip() for c in line.split("|") if c.strip()]
-                if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
-                    # FIXED: Matched array mapping logic accurately to match lowercase filenames
-                    char_key = cells[0].lower().strip()
+                cells = [c.strip() for c in line.split("|")]
+                if len(cells) >= 12 and "character" not in cells[1].lower() and "---" not in cells[1]:
+                    char_key = cells[1].lower().strip()
                     master_traits_map[char_key] = {
-                        "age": cells[1] if len(cells) > 1 and cells[1] else "Classified",
-                        "gender": cells[2] if len(cells) > 2 and cells[2] else "Classified",
-                        "sexuality": cells[3] if len(cells) > 3 and cells[3] else "Classified",
-                        "height": cells[4] if len(cells) > 4 and cells[4] else "Classified",
-                        "trope": cells[5] if len(cells) > 5 and cells[5] else "Classified",
-                        "motifs": cells[6] if len(cells) > 6 and cells[6] else "Classified",
-                        "first_ment": cells[7] if len(cells) > 7 and cells[7] else "Unlogged",
-                        "first_app": cells[8] if len(cells) > 8 and cells[8] else "Unlogged",
-                        "present_in": cells[9] if len(cells) > 9 and cells[9] else "Unlogged",
-                        "playlist": cells[10] if len(cells) > 10 and cells[10] else ""
+                        "age": cells[2] if cells[2] else "Classified",
+                        "gender": cells[3] if cells[3] else "Classified",
+                        "sexuality": cells[4] if cells[4] else "Classified",
+                        "height": cells[5] if cells[5] else "Classified",
+                        "trope": cells[6] if cells[6] else "Classified",
+                        "motifs": cells[7] if cells[7] else "Classified",
+                        "first_ment": cells[8] if cells[8] else "Unlogged",
+                        "first_app": cells[9] if cells[9] else "Unlogged",
+                        "present_in": cells[10] if cells[10] else "Unlogged",
+                        "playlist": cells[11] if cells[11] else ""
                     }
+
+for root, dirs, files in os.walk(content_dir):
+    for file in files:
+        if file.endswith(".md") and "private" in root.lower():
+            try:
+                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
+                    for line in f.readlines():
+                        if line.strip().startswith("|") and line.count("|") == 5:
+                            cells = [c.strip() for c in line.split("|") if c.strip()]
+                            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
+                                c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
+                                if c1 not in master_relationships_map: master_relationships_map[c1] = []
+                                if c2 not in master_relationships_map: master_relationships_map[c2] = []
+                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
+                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
+            except Exception: pass
 for root, dirs, files in os.walk(content_dir):
     if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower():
         continue
@@ -112,15 +128,32 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
+            elif text.startswith("# "):
+                display_title = text.split("\n")[0].replace("# ", "").strip()
             
+            if text.startswith("---"):
+                try: text = text.split("---", 2)[-1].strip()
+                except Exception: pass
+
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
             text = re.sub(r'href="([^"]+)\.html"', lambda m: f'href="{m.group(1).lower().strip()}.html"', text)
 
-            paragraphs = ""
-            brief_p = ""
+            clean_lines = []
+            for l in text.split("\n"):
+                l_strip = l.strip()
+                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections", "details"]): continue
+                if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯", "►", ">")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip: continue
+                clean_lines.append(l_strip)
+            
+            # FIXED BLOCK SEPARATOR: Keep text paragraphs for supplementary pages, blank only character bios
+            paragraphs = "".join([f"<p>{l}</p>\n" for l in clean_lines if l])
+            brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
 
             if is_char and c_key_var != "index":
+                paragraphs = ""  # Force blank dropdowns exclusively on character tabs
+                brief_p = ""
+                
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
                 if not os.path.exists(char_art_folder): char_art_folder = os.path.join(content_dir, "characters", "art", c_key_var)
                 
