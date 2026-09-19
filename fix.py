@@ -101,7 +101,8 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             frontmatter_content = ""
             
-            frontmatter_match = re.match(r'^---\s*\r?\n(.*?)\r?\n---\s*\r?\n', text, re.DOTALL)
+            # UPGRADED ENHANCED REGEX: Whitespace-flexible pattern sweeps hidden gaps or carriage markers completely clear
+            frontmatter_match = re.search(r'^\s*---\s*\r?\n(.*?)\r?\n\s*---\s*\r?\n', text, re.DOTALL | re.MULTILINE)
             if frontmatter_match:
                 frontmatter_content = frontmatter_match.group(1)
                 for line in frontmatter_content.split('\n'):
@@ -114,8 +115,9 @@ for root, dirs, files in os.walk(content_dir):
 
             title_match = re.search(r'^title\s*:\s*["\']?([^"\']+)["\']?', frontmatter_content if frontmatter_match else text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
-            # FIXED ELEMENT SLICING: Extracting first string element before running text cleanups
-            elif text.startswith("# "): display_title = text.split("\n")[0].replace("# ", "").strip()
+            elif text.startswith("# "): 
+                first_line = text.split("\n")[0]
+                display_title = first_line.replace("# ", "").strip()
 
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
