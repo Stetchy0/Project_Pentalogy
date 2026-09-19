@@ -14,15 +14,22 @@ if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
-# ACCURATE PATH TRAVERSAL: Pinpoint private notes sitting inside nested workspace trees
-private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
-if not os.path.exists(private_data_dir):
+
+# DYNAMIC private FOLDER SEARCH ARCHITECTURE
+private_data_dir = None
+for root, dirs, files in os.walk(content_dir):
+    if "private" in root.lower() and ".git" not in root.lower():
+        private_data_dir = root
+        break
+
+if not private_data_dir:
     private_data_dir = os.path.join(content_dir, "private")
+    os.makedirs(private_data_dir, exist_ok=True)
 
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
 master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
 
-# Read in your real custom splash texts natively from your txt document file
+# Safely extract your custom splash text strings
 splash_quotes_pool = ["SECURE MAINBOARD INITIALIZED", "ACCESS CODE GRANTED"]
 if os.path.exists(master_splash_txt_path):
     with open(master_splash_txt_path, 'r', encoding='utf-8', errors='ignore') as sf:
@@ -67,14 +74,15 @@ def scaffold_html(title, body):
   function toggleFolderTree(el) {{ let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) {{ nested.style.display = nested.style.display === "none" ? "block" : "none"; }} }}
   const pool = {json.dumps(splash_quotes_pool)}; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>"""
+
 master_relationships_map, master_traits_map = {}, {}
 
-# FIXED: Tuned line pipe count down to match standard 11-column note grids natively
+# Extract character sheets case-insensitively
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
             if line.strip().startswith("|") and line.count("|") >= 11:
-                cells = [c.strip() for c in line.split("|")[1:-1]]
+                cells = [c.strip() for c in line.split("|") if c.strip()]
                 if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
                     char_key = cells[0].lower().strip()
                     master_traits_map[char_key] = {
@@ -90,7 +98,7 @@ if os.path.exists(master_data_note_path):
                         "playlist": cells[10] if len(cells) > 10 and cells[10] else ""
                     }
 
-# Parse relationship strings independently out of your custom private connection matrix maps
+# Gather connection maps safely
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md") and "private" in root.lower():
@@ -98,7 +106,7 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
                     for line in f.readlines():
                         if line.strip().startswith("|") and line.count("|") == 5:
-                            cells = [c.strip() for c in line.split("|")[1:-1]]
+                            cells = [c.strip() for c in line.split("|") if c.strip()]
                             if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
                                 c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
@@ -122,30 +130,16 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
-            elif text.startswith("# "):
-                # FIXED: Corrected compound list slicing syntax to handle heading blocks safely
-                first_line = text.split("\n")[0]
-                display_title = first_line.replace("# ", "").strip()
-            if text.startswith("---"):
-                try: text = text.split("---", 2)[-1].strip()
-                except Exception: pass
-
+            
+            # WIKI LINK PARSER AND FORMATTER Pass
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
             text = re.sub(r'href="([^"]+)\.html"', lambda m: f'href="{m.group(1).lower().strip()}.html"', text)
 
-            clean_lines = []
-            for l in text.split("\n"):
-                l_strip = l.strip()
-                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections", "details"]): continue
-                if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯", "►", ">")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip: continue
-                clean_lines.append(l_strip)
-            
-            paragraphs = "".join([f"<p>{l}</p>\n" for l in clean_lines if l])
-            brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
-            for chunk in text.split("\n"):
-                if any(x in chunk.lower() for x in ["brief:", "tldr:", "summary:"]):
-                    brief_p = f"<p>{chunk.split(':', 1)[-1].strip()}</p>"; break
+            # FORCE DOSSIER AND BRIEF BLOCK TO GENERATE AS COMPLETELY BLANK BY DEFAULT
+            paragraphs = ""
+            brief_p = ""
+
             if is_char and c_key_var != "index":
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
                 if not os.path.exists(char_art_folder): char_art_folder = os.path.join(content_dir, "characters", "art", c_key_var)
