@@ -31,7 +31,7 @@ a:hover { text-decoration: underline; }
 details { background: #dfd2b5; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 5px solid #704829; }
 summary { font-weight: bold; cursor: pointer; font-size: 1.05rem; }
 .graph-wrapper-box { position: relative; width: 100%; height: 420px; background: #1c1610; border-radius: 8px; border: 2px solid #a89470; margin-top: 15px; margin-bottom: 25px; overflow: hidden; }
-#network-canvas { width: 100%; height: 100%; }
+#network-canvas { width: 100%; height: 100%; display: block; }
 .node-tooltip-card { position: absolute; display: none; background: #fdfaf7; color: #3d2d1e; border: 2px solid #704829; border-radius: 6px; padding: 12px; font-size: 0.8rem; z-index: 100; width: 240px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); }
 .tooltip-flex-row { display: flex; gap: 12px; align-items: center; }
 .tooltip-thumb { width: 60px; height: 75px; object-fit: cover; }

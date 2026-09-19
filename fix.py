@@ -47,7 +47,7 @@ a:hover { text-decoration: underline; }
 details { background: #dfd2b5; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 5px solid #704829; }
 summary { font-weight: bold; cursor: pointer; font-size: 1.05rem; }
 .graph-wrapper-box { position: relative; width: 100%; height: 420px; background: #1c1610; border-radius: 8px; border: 2px solid #a89470; margin-top: 15px; margin-bottom: 25px; overflow: hidden; }
-#network-canvas { width: 100%; height: 100%; }
+#network-canvas { width: 100%; height: 100%; display: block; }
 .node-tooltip-card { position: absolute; display: none; background: #fdfaf7; color: #3d2d1e; border: 2px solid #704829; border-radius: 6px; padding: 12px; font-size: 0.8rem; z-index: 100; width: 240px; box-shadow: 0 4px 15px rgba(0,0,0,0.25); }
 .tooltip-flex-row { display: flex; gap: 12px; align-items: center; }
 .tooltip-thumb { width: 60px; height: 75px; object-fit: cover; }
@@ -99,7 +99,9 @@ if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(repo_root
 private_data_dir = os.path.join(repo_root, "content", "Project Pentalogy", "private")
 if not os.path.exists(private_data_dir): private_data_dir = os.path.join(repo_root, "content", "private")
 os.makedirs(private_data_dir, exist_ok=True)
+
 master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
+master_rel_note_path = os.path.join(private_data_dir, "Character Relationships Data.md")
 
 # GATHER EXISTING BIO FILES
 if os.path.exists(bios_search_dir):
@@ -107,34 +109,29 @@ if os.path.exists(bios_search_dir):
         if f.endswith(".md") and os.path.splitext(f)[0].lower() != "index":
             all_bios_characters.append(os.path.splitext(f)[0].capitalize())
 
-# AUTOMATED OBSIDIAN INJECTOR: Ensure master data sheet note always contains a row for every bio file!
-registered_names_in_table = set()
-if os.path.exists(master_data_note_path):
-    with open(master_data_note_path, 'r', encoding='utf-8') as f: data_content_lines = f.readlines()
-    for l in data_content_lines:
-        if l.strip().startswith("|") and l.count("|") >= 5:
-            first_col = l.split("|")[1].strip()
-            if first_col.lower() != "character" and not set(first_col).issubset({'-', ' '}):
-                registered_names_in_table.add(first_col.capitalize())
-else:
-    data_content_lines = [
-        "# CHARACTER CORE DATA MASTERLIST\n\n",
-        "| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n",
-        "| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n"
-    ]
+# INJECT COMPREHENSIVE TRAIT TABLE SKELETON IF MISSING
+if not os.path.exists(master_data_note_path):
+    with open(master_data_note_path, 'w', encoding='utf-8') as f:
+        f.write("# CHARACTER CORE DATA MASTERLIST\n\n| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n")
 
-# Automatically append empty rows for your active characters to be manually filled out!
-updated_table_file = False
-for char_name in sorted(all_bios_characters):
-    if char_name not in registered_names_in_table:
-        data_content_lines.append(f"| {char_name} | | | | | | | | | | |\n")
-        updated_table_file = True
+# INJECT COMPREHENSIVE RELATIONSHIPS TABLE SKELETON IF MISSING
+if not os.path.exists(master_rel_note_path):
+    with open(master_rel_note_path, 'w', encoding='utf-8') as f:
+        f.write("# CHARACTER RELATIONSHIPS DATA\n\n| Character A | Relationship A to B | Relationship B to A | Character B |\n| ----------- | ------------------- | ------------------- | ----------- |\n")
 
-if updated_table_file:
-    with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(data_content_lines)
-    print(f" -> Automated Sync Pass: Injected blank rows into your Obsidian 'Character Core Data.md' note!")
+# Automatically sync unlogged characters to the traits list note file
+with open(master_data_note_path, 'r', encoding='utf-8') as f: trait_lines = f.readlines()
+registered_traits = {l.split("|")[1].strip().lower() for l in trait_lines if l.strip().startswith("|") and l.count("|") >= 5 and "character" not in l.lower() and "---" not in l}
 
-# READ CORE TABLES FOR SITE RENDERING
+updated_traits = False
+for char in sorted(all_bios_characters):
+    if char.lower() not in registered_traits:
+        trait_lines.append(f"| {char} | | | | | | | | | | |\n")
+        updated_traits = True
+if updated_traits:
+    with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(trait_lines)
+
+# READ CORE MASTER NOTE SPREADSHEETS FOR SITE RENDERING
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -142,10 +139,10 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 5:
-                        # Fix: Strictly strip out hidden newlines from your cell parts array mapping definitions
                         parts = [p.strip() for p in line.split("|")[1:-1]]
-                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
+                        if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and parts[0].lower() != "character a" and not set(parts[0]).issubset({'-', ' '}):
                             if len(parts) == 4:
+                                # Safe 4-Column Relationship Data Splicer Mapping Pass
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
@@ -174,14 +171,25 @@ for root, dirs, files in os.walk(content_dir):
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
 
-            text = re.sub(r'<style>.*?</style>', '', text, flags=re.DOTALL)
-            text = re.sub(r'<[^>]*>', '', text)
-
-            text = re.sub(r'\[\[([^|\]]+)\|([^\]]+)\]\]', r'\2', text)
-            text = re.sub(r'\[\[([^\]]+)\]\]', r'\1', text)
-
-            paragraphs = "".join([f"<p>{l.strip()}</p>\n" for l in text.split("\n") if l.strip() and not l.strip().startswith(("#", "|", "*"))])
-            brief_p = "<p>No summary logged inside this profile ledger index.</p>"
+            # EXCLUSIVE BLOCK SANITIZER: Completely strip out old javascript slideshow blocks and placeholder lines
+            clean_lines = []
+            skip_script_block = False
+            for l in text.split("\n"):
+                l_strip = l.strip()
+                if "function showslides" in l_strip.lower() or "let slideindex" in l_strip.lower():
+                    skip_script_block = True
+                if skip_script_block:
+                    if "showslides();" in l_strip.lower(): skip_script_block = False
+                    continue
+                # Skip layout noise lines completely
+                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text"]):
+                    continue
+                if l_strip.startswith(("#", "|", "*", "---", "🔗", "^")) or "PLAYLIST_URL_HERE" in l_strip:
+                    continue
+                clean_lines.append(l)
+            
+            paragraphs = "".join([f"<p>{l.strip()}</p>\n" for l in clean_lines if l.strip()])
+            brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
             for chunk in text.split("\n"):
                 if any(x in chunk.lower() for x in ["brief:", "tldr:", "summary:"]):
                     brief_p = f"<p>{chunk.split(':', 1)[-1].strip()}</p>"; break
@@ -248,14 +256,28 @@ for root, dirs, files in os.walk(content_dir):
                   initCarousel();
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = NODE_PLACEHOLDER; const edges = EDGE_PLACEHOLDER;
-                  function resizeCanvas() { canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; }
+                  
+                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
+                  function resizeCanvas() {
+                    const dpr = window.devicePixelRatio || 1;
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    canvas.style.width = rect.width + "px";
+                    canvas.style.height = rect.height + "px";
+                    ctx.scale(dpr, dpr);
+                  }
                   resizeCanvas(); const rootImg = new Image(); rootImg.src = "THUMB_PLACEHOLDER";
                   nodes.forEach((node, idx) => {
-                    if (node.isRoot) { node.x = canvas.width / 2; node.y = canvas.height / 2; }
-                    else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 200 : 110; node.x = canvas.width / 2 + radius * Math.cos(angle); node.y = canvas.height / 2 + radius * Math.sin(angle); }
+                    const w = canvas.width / (window.devicePixelRatio || 1);
+                    const h = canvas.height / (window.devicePixelRatio || 1);
+                    if (node.isRoot) { node.x = w / 2; node.y = h / 2; }
+                    else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 180 : 105; node.x = w / 2 + radius * Math.cos(angle); node.y = h / 2 + radius * Math.sin(angle); }
                   });
                   function drawGraph() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const w = canvas.width / (window.devicePixelRatio || 1);
+                    const h = canvas.height / (window.devicePixelRatio || 1);
+                    ctx.clearRect(0, 0, w, h);
                     edges.forEach(edge => {
                       const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
                       if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }

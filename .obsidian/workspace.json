@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "private/Character Core Data.md",
+                "file": "private/Character Relationships Data.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Character Core Data"
+              "title": "Character Relationships Data"
             }
           }
         ],
@@ -206,6 +206,9 @@
   },
   "active": "d8255962b51b6cf3",
   "lastOpenFiles": [
+    "content/private/Character Relationships Data.md",
+    "private/Character Core Data.md",
+    "private/Character Relationships Data.md",
     "prof/supp_imp.html",
     "prof/supp_death nymphs.html",
     "prof/supp_celestial beings.html",
@@ -217,7 +220,6 @@
     "prof/supp_if movie.html",
     "prof/supp_fun stuff.html",
     "prof/supp_blorbing.html",
-    "prof/supp_experience (original).html",
     "prof/Art/aiko/Stetchy - Loki Primavera, Aiko Meme.png",
     "prof/Art/aiko/Stetchy - Connor, Aiko, Loki, Pherenix, Percy.jpg",
     "prof/Art/aiko/Stetchy - Aiko Heroforge 4.webp",
@@ -228,7 +230,6 @@
     "prof/Art/aiko/Smubiess - Loki, Aiko.jpg",
     "prof/Art/aiko/Kozy's Friend - Aiko.png",
     "prof/Art/aiko/Kozy - Pherenix, Connor, Aiko, Loki, Perse.jpg",
-    "private/Character Core Data.md",
     "content/private/Character Core Data.md",
     "content/Supplementary Items/Information/Black Crusaders/Anthralily and its derivatives/Anthracaine.md",
     "node_modules/typescript/SECURITY.md",
@@ -250,7 +251,6 @@
     "node_modules/color-convert/CHANGELOG.md",
     "node_modules/ansi-styles/readme.md",
     "node_modules/is-fullwidth-code-point/readme.md",
-    "node_modules/emoji-regex/README.md",
-    "node_modules/yargs-parser/CHANGELOG.md"
+    "node_modules/emoji-regex/README.md"
   ]
 }
