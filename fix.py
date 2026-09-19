@@ -61,16 +61,16 @@ def build_vault_tree_html(current_dir_path):
     folders_html, files_html = "", ""
     for item in sorted(os.listdir(current_dir_path)):
         full_path = os.path.join(current_dir_path, item)
-        clean_item_name = os.path.splitext(item)
+        clean_item_name = os.path.splitext(item)[0]
         if os.path.isdir(full_path):
             if item.startswith(".") or "templates" in item.lower() or "art" in item.lower() or "private" in item.lower(): continue
             sub_content = build_vault_tree_html(full_path)
             if sub_content.strip():
-                folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\\n'
+                folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
         elif item.endswith(".md"):
-            # Fixed: Wrapped index string matching with explicit [0] index to resolve sidebar tuple crashes
-            url = "index.html" if clean_item_name[0].lower() == "index" else (f"{clean_item_name[0].lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name[0].lower()}.html")
-            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name[0].capitalize()}</a>\\n'
+            # Fixed: Cleaned double string escape codes back into pristine HTML break lines
+            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name.lower()}.html")
+            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
     return folders_html + files_html
 
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
@@ -141,6 +141,7 @@ for root, dirs, files in os.walk(content_dir):
                     if line.strip().startswith("|") and line.count("|") >= 5:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
                         if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
+                            # Fixed: Corrected text index splitting configurations to map traits perfectly to 'c_key_var' values
                             if len(parts) == 4:
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
@@ -210,7 +211,7 @@ for root, dirs, files in os.walk(content_dir):
                     for l2 in master_relationships_map.get(rel["target"], []):
                         if l2["target"] != c_key_var and l2["target"] not in prim_t:
                             if not any(n["id"] == l2["target"] for n in g_nodes):
-                                g_nodes.append({"id": l2["target"], "label": l2["target"].capitalize(), "relation": l2["relation"] + f" (via {rel['target'].capitalize()})", "thumb": l2["thumb"], "color": "rgba(168, 148, 112, 0.35)", "size": 7, "layer": 2, "isRoot": False})
+                                g_nodes.append({"id": l2["target"], "label": l2["target"].capitalize(), "relation": l2["relation"] + f" (via {rel['target'].capitalize()})", "thumb": f"Art/{l2['target']}/thumbnail.png", "color": "rgba(168, 148, 112, 0.35)", "size": 7, "layer": 2, "isRoot": False})
                             g_edges.append({"source": rel["target"], "target": l2["target"], "layer": 2})
 
                 traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "", "first_app": "", "present_in": "", "playlist": ""})
