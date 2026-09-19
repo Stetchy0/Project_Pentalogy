@@ -3,43 +3,43 @@ import os
 repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
 lock_json_path = os.path.join(repo_root, "quartz.lock.json")
 
-print("Generating official Quartz Community plugin manifest lock file...")
+print("Rewriting community plugin manifest with direct GitHub route links...")
 
-# Pristine, valid lock file matching your core configuration plugin layout properties
+# Explicit repository paths that tell Quartz's installer EXACTLY where to download the files
 pristine_lock_json = """{
   "plugins": {
-    "@quartz-community/frontmatter": "latest",
-    "@quartz-community/created-modified-date": "latest",
-    "@quartz-community/syntax-highlighting": "latest",
-    "@quartz-community/obsidian-flavored-markdown": "latest",
-    "@quartz-community/github-flavored-markdown": "latest",
-    "@quartz-community/crawl-links": "latest",
-    "@quartz-community/latex": "latest",
-    "@quartz-community/description": "latest",
-    "@quartz-community/remove-draft": "latest",
-    "@quartz-community/alias-redirects": "latest",
-    "@quartz-community/component-resources": "latest",
-    "@quartz-community/content-page": "latest",
-    "@quartz-community/folder-page": "latest",
-    "@quartz-community/tag-page": "latest",
-    "@quartz-community/content-index": "latest",
-    "@quartz-community/assets": "latest",
-    "@quartz-community/static": "latest",
-    "@quartz-community/not-found-page": "latest",
-    "@quartz-community/head": "latest",
-    "@quartz-community/footer": "latest",
-    "@quartz-community/breadcrumbs": "latest",
-    "@quartz-community/article-title": "latest",
-    "@quartz-community/content-meta": "latest",
-    "@quartz-community/tag-list": "latest",
-    "@quartz-community/page-title": "latest",
-    "@quartz-community/spacer": "latest",
-    "@quartz-community/search": "latest",
-    "@quartz-community/darkmode": "latest",
-    "@quartz-community/explorer": "latest",
-    "@quartz-community/graph": "latest",
-    "@quartz-community/table-of-contents": "latest",
-    "@quartz-community/backlinks": "latest"
+    "@quartz-community/frontmatter": "github:quartz-community/frontmatter",
+    "@quartz-community/created-modified-date": "github:quartz-community/created-modified-date",
+    "@quartz-community/syntax-highlighting": "github:quartz-community/syntax-highlighting",
+    "@quartz-community/obsidian-flavored-markdown": "github:quartz-community/obsidian-flavored-markdown",
+    "@quartz-community/github-flavored-markdown": "github:quartz-community/github-flavored-markdown",
+    "@quartz-community/crawl-links": "github:quartz-community/crawl-links",
+    "@quartz-community/latex": "github:quartz-community/latex",
+    "@quartz-community/description": "github:quartz-community/description",
+    "@quartz-community/remove-draft": "github:quartz-community/remove-draft",
+    "@quartz-community/alias-redirects": "github:quartz-community/alias-redirects",
+    "@quartz-community/component-resources": "github:quartz-community/component-resources",
+    "@quartz-community/content-page": "github:quartz-community/content-page",
+    "@quartz-community/folder-page": "github:quartz-community/folder-page",
+    "@quartz-community/tag-page": "github:quartz-community/tag-page",
+    "@quartz-community/content-index": "github:quartz-community/content-index",
+    "@quartz-community/assets": "github:quartz-community/assets",
+    "@quartz-community/static": "github:quartz-community/static",
+    "@quartz-community/not-found-page": "github:quartz-community/not-found-page",
+    "@quartz-community/head": "github:quartz-community/head",
+    "@quartz-community/footer": "github:quartz-community/footer",
+    "@quartz-community/breadcrumbs": "github:quartz-community/breadcrumbs",
+    "@quartz-community/article-title": "github:quartz-community/article-title",
+    "@quartz-community/content-meta": "github:quartz-community/content-meta",
+    "@quartz-community/tag-list": "github:quartz-community/tag-list",
+    "@quartz-community/page-title": "github:quartz-community/page-title",
+    "@quartz-community/spacer": "github:quartz-community/spacer",
+    "@quartz-community/search": "github:quartz-community/search",
+    "@quartz-community/darkmode": "github:quartz-community/darkmode",
+    "@quartz-community/explorer": "github:quartz-community/explorer",
+    "@quartz-community/graph": "github:quartz-community/graph",
+    "@quartz-community/table-of-contents": "github:quartz-community/table-of-contents",
+    "@quartz-community/backlinks": "github:quartz-community/backlinks"
   }
 }
 """
@@ -47,6 +47,6 @@ pristine_lock_json = """{
 try:
     with open(lock_json_path, 'w', encoding='utf-8') as f:
         f.write(pristine_lock_json)
-    print("Success! quartz.lock.json has been written to the repository root.")
+    print("Success! quartz.lock.json has been accurately updated.")
 except Exception as e:
     print(f"Error creating lock file: {e}")
