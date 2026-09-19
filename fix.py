@@ -15,16 +15,10 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# DYNAMIC PRIVATE FOLDER SEARCH ARCHITECTURE
-private_data_dir = None
-for root, dirs, files in os.walk(content_dir):
-    if "private" in root.lower() and ".git" not in root.lower():
-        private_data_dir = root
-        break
-
-if not private_data_dir:
+# ACCURATE PATH ANCHOR TARGETING
+private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
+if not os.path.exists(private_data_dir):
     private_data_dir = os.path.join(content_dir, "private")
-    os.makedirs(private_data_dir, exist_ok=True)
 
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
 master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
@@ -33,6 +27,7 @@ splash_quotes_pool = ["SECURE MAINBOARD INITIALIZED", "ACCESS CODE GRANTED"]
 if os.path.exists(master_splash_txt_path):
     with open(master_splash_txt_path, 'r', encoding='utf-8', errors='ignore') as sf:
         lines_pool = [l.strip() for l in sf.readlines() if l.strip()]
+        lines_pool = [l.replace('"', '').replace('"', '') for l in lines_pool]
         if lines_pool: splash_quotes_pool = lines_pool
 
 with open(os.path.join(templates_dir, "style.css.txt"), "r", encoding="utf-8") as f:
@@ -64,9 +59,9 @@ def build_vault_tree_html(current_dir_path):
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
 
 def scaffold_html(title, body):
-    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.2rem !important; margin-bottom: 10px; }} h3 {{ font-size: 1.3rem !important; margin: 5px 0; }} p, li {{ font-size: 0.95rem !important; }}</style></head>
+    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.0rem !important; margin-bottom: 10px; font-family: 'Special Elite', serif; }} h2, h3 {{ font-size: 1.3rem !important; margin: 5px 0; font-family: 'Special Elite', serif; }} p, li, td, th, div, summary {{ font-size: 0.95rem !important; line-height: 1.6; font-family: 'Courier Prime', monospace; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
-<p id="dynamic-splash-box" style="font-size:0.72rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif; letter-spacing: 0.5px;"></p>
+<p id="dynamic-splash-box" style="font-size:0.75rem !important; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif; letter-spacing: 0.5px;"></p>
 <div style="margin-top:20px;">{vault_sidebar_tree_html}</div></div>
 <div class="main-content">{body}</div>
 <script>
@@ -76,47 +71,31 @@ def scaffold_html(title, body):
 
 master_relationships_map, master_traits_map = {}, {}
 
-# FIXED ELEMENT MAPPING PASS: Point to cells[1] to bypass left margin pipe spaces smoothly
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
             if line.strip().startswith("|") and line.count("|") >= 11:
                 cells = [c.strip() for c in line.split("|")]
-                if len(cells) >= 12 and "character" not in cells[1].lower() and "---" not in cells[1]:
-                    char_key = cells[1].lower().strip()
-                    master_traits_map[char_key] = {
-                        "age": cells[2] if cells[2] else "Classified",
-                        "gender": cells[3] if cells[3] else "Classified",
-                        "sexuality": cells[4] if cells[4] else "Classified",
-                        "height": cells[5] if cells[5] else "Classified",
-                        "trope": cells[6] if cells[6] else "Classified",
-                        "motifs": cells[7] if cells[7] else "Classified",
-                        "first_ment": cells[8] if cells[8] else "Unlogged",
-                        "first_app": cells[9] if cells[9] else "Unlogged",
-                        "present_in": cells[10] if cells[10] else "Unlogged",
-                        "playlist": cells[11] if cells[11] else ""
-                    }
-
+                if len(cells) >= 3:
+                    char_name_raw = cells[1].strip()
+                    if "character" not in char_name_raw.lower() and "---" not in char_name_raw:
+                        char_key = char_name_raw.lower()
+                        master_traits_map[char_key] = {
+                            "age": cells[2] if len(cells) > 2 and cells[2] else "Classified",
+                            "gender": cells[3] if len(cells) > 3 and cells[3] else "Classified",
+                            "sexuality": cells[4] if len(cells) > 4 and cells[4] else "Classified",
+                            "height": cells[5] if len(cells) > 5 and cells[5] else "Classified",
+                            "trope": cells[6] if len(cells) > 6 and cells[6] else "Classified",
+                            "motifs": cells[7] if len(cells) > 7 and cells[7] else "Classified",
+                            "first_ment": cells[8] if len(cells) > 8 and cells[8] else "Unlogged",
+                            "first_app": cells[9] if len(cells) > 9 and cells[9] else "Unlogged",
+                            "present_in": cells[10] if len(cells) > 10 and cells[10] else "Unlogged",
+                            "playlist": cells[11] if len(cells) > 11 and cells[11] else ""
+                        }
 for root, dirs, files in os.walk(content_dir):
-    for file in files:
-        if file.endswith(".md") and "private" in root.lower():
-            try:
-                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
-                    for line in f.readlines():
-                        if line.strip().startswith("|") and line.count("|") == 5:
-                            cells = [c.strip() for c in line.split("|") if c.strip()]
-                            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
-                                c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
-                                if c1 not in master_relationships_map: master_relationships_map[c1] = []
-                                if c2 not in master_relationships_map: master_relationships_map[c2] = []
-                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
-                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-            except Exception: pass
-for root, dirs, files in os.walk(content_dir):
-    if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower():
-        continue
     for file in files:
         if file.endswith(".md"):
+            if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower(): continue
             clean_f_name = os.path.splitext(file)[0]
             c_key_var = clean_f_name.lower().strip()
             is_char = "characters" in root.lower() or "bios" in root.lower()
@@ -128,8 +107,7 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
-            elif text.startswith("# "):
-                display_title = text.split("\n")[0].replace("# ", "").strip()
+            elif text.startswith("# "): display_title = text.split("\n")[0].replace("# ", "").strip()
             
             if text.startswith("---"):
                 try: text = text.split("---", 2)[-1].strip()
@@ -146,12 +124,11 @@ for root, dirs, files in os.walk(content_dir):
                 if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯", "►", ">")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip: continue
                 clean_lines.append(l_strip)
             
-            # FIXED BLOCK SEPARATOR: Keep text paragraphs for supplementary pages, blank only character bios
             paragraphs = "".join([f"<p>{l}</p>\n" for l in clean_lines if l])
             brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
 
             if is_char and c_key_var != "index":
-                paragraphs = ""  # Force blank dropdowns exclusively on character tabs
+                paragraphs = ""  # Clean blank dropdowns canvas block exclusively on biography tabs
                 brief_p = ""
                 
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
@@ -164,13 +141,13 @@ for root, dirs, files in os.walk(content_dir):
                     for img in imgs:
                         if img.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
                             shutil.copy(os.path.join(char_art_folder, img), os.path.join(output_dir, "Art", c_key_var, img))
+                            # Fixed: Corrected splitting logic to slice raw strings cleanly out of image tuples
                             if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
                     slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
                 if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Gallery Empty</div></div>'
 
                 prim_rel = master_relationships_map.get(c_key_var, [])
-                prim_t = [r["target"] for r in prim_rel]
                 g_nodes = [{"id": c_key_var, "label": "", "thumb": thumb_src, "color": "#704829", "size": 24, "layer": 1, "isRoot": True}]
                 g_edges, table_html = [], ""
 
