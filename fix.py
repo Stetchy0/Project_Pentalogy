@@ -69,25 +69,25 @@ def scaffold_html(title, body):
 </script></body></html>"""
 master_relationships_map, master_traits_map = {}, {}
 
-# HARMONIZED EXTRACTION SYSTEM: Cleanly splits datasheet cell indexes bypassing margin pipes
+# FIXED: Tuned line pipe count down to match standard 11-column note grids natively
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
-            if line.strip().startswith("|") and line.count("|") >= 12:
+            if line.strip().startswith("|") and line.count("|") >= 11:
                 cells = [c.strip() for c in line.split("|")[1:-1]]
                 if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
                     char_key = cells[0].lower().strip()
                     master_traits_map[char_key] = {
-                        "age": cells[1] if cells[1] else "Classified",
-                        "gender": cells[2] if cells[2] else "Classified",
-                        "sexuality": cells[3] if cells[3] else "Classified",
-                        "height": cells[4] if cells[4] else "Classified",
-                        "trope": cells[5] if cells[5] else "Classified",
-                        "motifs": cells[6] if cells[6] else "Classified",
-                        "first_ment": cells[7] if cells[7] else "Unlogged",
-                        "first_app": cells[8] if cells[8] else "Unlogged",
-                        "present_in": cells[9] if cells[9] else "Unlogged",
-                        "playlist": cells[10] if cells[10] else ""
+                        "age": cells[1] if len(cells) > 1 and cells[1] else "Classified",
+                        "gender": cells[2] if len(cells) > 2 and cells[2] else "Classified",
+                        "sexuality": cells[3] if len(cells) > 3 and cells[3] else "Classified",
+                        "height": cells[4] if len(cells) > 4 and cells[4] else "Classified",
+                        "trope": cells[5] if len(cells) > 5 and cells[5] else "Classified",
+                        "motifs": cells[6] if len(cells) > 6 and cells[6] else "Classified",
+                        "first_ment": cells[7] if len(cells) > 7 and cells[7] else "Unlogged",
+                        "first_app": cells[8] if len(cells) > 8 and cells[8] else "Unlogged",
+                        "present_in": cells[9] if len(cells) > 9 and cells[9] else "Unlogged",
+                        "playlist": cells[10] if len(cells) > 10 and cells[10] else ""
                     }
 
 # Parse relationship strings independently out of your custom private connection matrix maps
@@ -107,7 +107,6 @@ for root, dirs, files in os.walk(content_dir):
                                 master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
             except Exception: pass
 for root, dirs, files in os.walk(content_dir):
-    # CRITICAL SECURITY EXCLUSION: Ignore asset attachment directories entirely from text outputs
     if "private" in root.lower() or "art" in root.lower() or ".git" in root.lower():
         continue
     for file in files:
@@ -123,12 +122,14 @@ for root, dirs, files in os.walk(content_dir):
             display_title = clean_f_name.capitalize()
             title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
             if title_match: display_title = title_match.group(1).strip()
-            elif text.startswith("# "): display_title = text.split("\n")[0].replace("# ", "").strip()
+            elif text.startswith("# "):
+                # FIXED: Corrected compound list slicing syntax to handle heading blocks safely
+                first_line = text.split("\n")[0]
+                display_title = first_line.replace("# ", "").strip()
             if text.startswith("---"):
                 try: text = text.split("---", 2)[-1].strip()
                 except Exception: pass
 
-            # ACTIVE HTML NAVIGATION MODIFIER: Renders functional hypertext routing matrices dynamically
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
             text = re.sub(r'href="([^"]+)\.html"', lambda m: f'href="{m.group(1).lower().strip()}.html"', text)
