@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Lost eyes</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,11 +202,13 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>LOST EYES</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>When [[Leonidas/Lee]] gouged his eye out to show his love for Vi, he unintentionally began a common punishment practice within the [[Black Crusaders]]. While Lee apprenticed [[Antoinette]], he told her that he gave up his eye to show his devotion to [[Vi]]. Antoinette made his idea her own as she grew up and became sergeant, and would often punish her crusaders by taking an eye or damaging them in some way. She took an eye from [[Chrys]] and [[Loki]], and permanently damaged [[Green]]'s eyes by forcing her to keep them open for a week. These people became examples, and the fear of losing an eye to Madame Antoinette kept the lower ranks in line.</p>
+<div class="main-content"><h1>LOST EYES</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>When <a href="leonidas/lee.html">Leonidas/Lee</a> gouged his eye out to show his love for Vi, he unintentionally began a common punishment practice within the <a href="black crusaders.html">Black Crusaders</a>. While Lee apprenticed <a href="antoinette.html">Antoinette</a>, he told her that he gave up his eye to show his devotion to <a href="vi.html">Vi</a>. Antoinette made his idea her own as she grew up and became sergeant, and would often punish her crusaders by taking an eye or damaging them in some way. She took an eye from <a href="chrys.html">Chrys</a> and <a href="loki.html">Loki</a>, and permanently damaged <a href="green.html">Green</a>'s eyes by forcing her to keep them open for a week. These people became examples, and the fear of losing an eye to Madame Antoinette kept the lower ranks in line.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

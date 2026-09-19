@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Death nymphs</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,15 +202,17 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>DEATH NYMPHS</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Death [[Nymph]]s are a variety of nymph that reside exclusively in the [[Underrealm]]. All souls exist within this place, near the edge of both realms of existence, though, is directly tied to [[Farther Earth]]. It is not exactly known where they come from, or how they are created, but they are considered guardians of the afterlife, and sometimes the most pure/ primal forms of nymph to those who believe they exist, as they are the closest to the earth.</p>
+<div class="main-content"><h1>DEATH NYMPHS</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Death <a href="nymph.html">Nymph</a>s are a variety of nymph that reside exclusively in the <a href="underrealm.html">Underrealm</a>. All souls exist within this place, near the edge of both realms of existence, though, is directly tied to <a href="farther earth.html">Farther Earth</a>. It is not exactly known where they come from, or how they are created, but they are considered guardians of the afterlife, and sometimes the most pure/ primal forms of nymph to those who believe they exist, as they are the closest to the earth.</p>
 <p>Because the underrealm consists of every person who has ever died, there are some unruly souls that try to find their way back to Earth, or try to hurt other souls. Some death nymphs have to keep these souls in line indefinitely, or until they fall in line.</p>
-<p>While all nymphs are bound to nature in some way, death nymphs are linked to the underrealm, and are permanently bound to it, with the exception or [[Alex|Al Ek-che]]. The death nymphs, as they age, begin to turn to stones of various types. The most common would be obsidian or coal, but granites, marble, and various crystal types are not uncommon. The magic of [[Magic#*Crystallokinesis*|crystal and stone manipulation]] is almost exclusive to the underrealm because only these nymphs understand and use it.</p>
+<p>While all nymphs are bound to nature in some way, death nymphs are linked to the underrealm, and are permanently bound to it, with the exception or <a href="alex.html">Al Ek-che</a>. The death nymphs, as they age, begin to turn to stones of various types. The most common would be obsidian or coal, but granites, marble, and various crystal types are not uncommon. The magic of [[Magic#*Crystallokinesis*|crystal and stone manipulation]] is almost exclusive to the underrealm because only these nymphs understand and use it.</p>
 <p>Because these nymphs are tied to the underrealm, most people in farther earth have no idea they exist, even though there is evidence of life within each stone and pebble on the planet. There is ancient art and stories of nymphs "born from mountains and volcanoes," however, these are mostly interpreted as myth, because they have been isolated from the above world for so long.</p>
-<p>The death nymphs speak [[Old Nymphic]], a language originating from the primitive nymphs from the days of creation, before the realm even existed. The ones that choose to interact with souls have learned English over the millennia, however, they still use the language, if only for naming their children. Some isolated groups of death nymphs, however, still use it as their primary method of communication.</p>
+<p>The death nymphs speak <a href="old nymphic.html">Old Nymphic</a>, a language originating from the primitive nymphs from the days of creation, before the realm even existed. The ones that choose to interact with souls have learned English over the millennia, however, they still use the language, if only for naming their children. Some isolated groups of death nymphs, however, still use it as their primary method of communication.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

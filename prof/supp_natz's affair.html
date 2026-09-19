@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Natz's affair</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,14 +202,16 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>NATZ'S AFFAIR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>[[Natz]], only a few months after[[Natz's Coup D'état| his coup and promotion]], got drunk while he was touching base with the scouting regiment for keeping tabs on [[Brook]]. He has had certain feelings with the leader of this regiment, [[Sierra]], for quite a while, and she got drunk too, and one thing led to another.</p>
-<p>After Sierra found out she was pregnant, she tried to keep it a secret and planned to run away to raise the child, but Natz saw her and the child 12 months after, right before she could escape. Natz did not intend to tell his wife and face the repercussions, but [[Estelle]] figured out quite quickly that he had done something wrong based on her knowledge of psychology and his mannerisms, and linked it to his yearly trip to the scouting regiment.</p>
-<p>When Estelle found out that Natz had cheated on her, she went into a psychotic rage and tied them together in the scout's base and set the place on fire, with the baby inside his room, before killing herself in grief. However, the other scouts that were inside saved [[Kieran|Sierra's child]] and retreated back to the main [[Black Crusaders]] base, where [[Leo|Leonidas/Lee]] would soon take over and Kieran would be raised.</p>
-<p>The scouting regiment, which was already relatively new and undeveloped, was essentially destroyed by Estelle. This led to Brook being freed from the scouts following her, however, Lee would soon have her hunted down and captured at Vi's request to have her killed, since she was Lee's child with [[Creek|someone other than her.]]</p>
+<div class="main-content"><h1>NATZ'S AFFAIR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p><a href="natz.html">Natz</a>, only a few months after<a href="natz's coup d'état.html"> his coup and promotion</a>, got drunk while he was touching base with the scouting regiment for keeping tabs on <a href="brook.html">Brook</a>. He has had certain feelings with the leader of this regiment, <a href="sierra.html">Sierra</a>, for quite a while, and she got drunk too, and one thing led to another.</p>
+<p>After Sierra found out she was pregnant, she tried to keep it a secret and planned to run away to raise the child, but Natz saw her and the child 12 months after, right before she could escape. Natz did not intend to tell his wife and face the repercussions, but <a href="estelle.html">Estelle</a> figured out quite quickly that he had done something wrong based on her knowledge of psychology and his mannerisms, and linked it to his yearly trip to the scouting regiment.</p>
+<p>When Estelle found out that Natz had cheated on her, she went into a psychotic rage and tied them together in the scout's base and set the place on fire, with the baby inside his room, before killing herself in grief. However, the other scouts that were inside saved <a href="kieran.html">Sierra's child</a> and retreated back to the main <a href="black crusaders.html">Black Crusaders</a> base, where <a href="leo.html">Leonidas/Lee</a> would soon take over and Kieran would be raised.</p>
+<p>The scouting regiment, which was already relatively new and undeveloped, was essentially destroyed by Estelle. This led to Brook being freed from the scouts following her, however, Lee would soon have her hunted down and captured at Vi's request to have her killed, since she was Lee's child with <a href="creek.html">someone other than her.</a></p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>The mariposa scandal</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,14 +202,16 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>THE MARIPOSA SCANDAL</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The Mariposa Scandal refers to [[Vanessa]]'s abuses of her son, [[Soren|Soren Mariposa]]. She had forced him, chemically and socially, to be a girl, to make a perfect Mother-Daughter duo for the world to adore.</p>
-<p>On [[Soren|Serana]]'s 12th birthday, he would be given a star role in an upcoming film in a live interview. However, this interview would be the end of the Mariposa duo, as Serana would come out as a man, who he was born as, and reveal to the world his mother's abuses, as well as giving himself a new name, [[Soren]]. He had completely expected his mother to accept who he wanted to be, especially because they were on air, however, Vanessa would completely lose her composure and try to stab Soren in the eye with a pen. After the camera crew pulled her off of him, kicking and screaming that her son was a failure and spitting curses, Soren would run away, and would not ever be seen by the public eye again.</p>
-<p>The Mariposas were very famous and even appeared often on the cover and main pages of [[Idol Magazine]]. It is speculated that the editors and writers of the prolific magazine were aware of the abuses, because they would be the only journal that would write an article denying that Soren was a man with fraudulent evidence of his sex.</p>
-<p>After Vanessa got out of court due to insanity, her firm hired a private investigator, [[Persephone|Percy]], to find and retrieve him safely. This is what got Perse involved with [[Aiko's Disappearance]], as Soren himself is who orchestrated her kidnapping and is hiding it from [[Project Hope Effect|Team Hope]] using his newly acquired illusion abilities.</p>
+<div class="main-content"><h1>THE MARIPOSA SCANDAL</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The Mariposa Scandal refers to <a href="vanessa.html">Vanessa</a>'s abuses of her son, <a href="soren.html">Soren Mariposa</a>. She had forced him, chemically and socially, to be a girl, to make a perfect Mother-Daughter duo for the world to adore.</p>
+<p>On <a href="soren.html">Serana</a>'s 12th birthday, he would be given a star role in an upcoming film in a live interview. However, this interview would be the end of the Mariposa duo, as Serana would come out as a man, who he was born as, and reveal to the world his mother's abuses, as well as giving himself a new name, <a href="soren.html">Soren</a>. He had completely expected his mother to accept who he wanted to be, especially because they were on air, however, Vanessa would completely lose her composure and try to stab Soren in the eye with a pen. After the camera crew pulled her off of him, kicking and screaming that her son was a failure and spitting curses, Soren would run away, and would not ever be seen by the public eye again.</p>
+<p>The Mariposas were very famous and even appeared often on the cover and main pages of <a href="idol magazine.html">Idol Magazine</a>. It is speculated that the editors and writers of the prolific magazine were aware of the abuses, because they would be the only journal that would write an article denying that Soren was a man with fraudulent evidence of his sex.</p>
+<p>After Vanessa got out of court due to insanity, her firm hired a private investigator, <a href="persephone.html">Percy</a>, to find and retrieve him safely. This is what got Perse involved with <a href="aiko's disappearance.html">Aiko's Disappearance</a>, as Soren himself is who orchestrated her kidnapping and is hiding it from <a href="project hope effect.html">Team Hope</a> using his newly acquired illusion abilities.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

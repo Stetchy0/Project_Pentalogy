@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Salvation war</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,8 +202,8 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>SALVATION WAR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The salvation war happened thousands of years ago. It doesn't necessarily have a start date, it was just an ongoing feud from pre-history, that ended about 2500 years before the story begins. It was fought between [[Sylph|Sylphs]], who wanted to rid the world of all but themselves, and [[Nymph|nymphs]], who wanted to protect the earth and all of its precious inhabitants. [[Human|Humans]], who were enslaved by the Sylphs since pre-history, eventually started to revolt against the Sylphs and joined alongside the [[Nymph|nymphs]], ultimately leading to their victory.</p>
-<p>It took a few generations for the three races to begin to associate with one another, and [[Sylph|sylphic]] religion and culture drew from ancient [[Nymph|nymphid]] philosophy over time - the belief that all life is sacred and connected.</p>
+<div class="main-content"><h1>SALVATION WAR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The salvation war happened thousands of years ago. It doesn't necessarily have a start date, it was just an ongoing feud from pre-history, that ended about 2500 years before the story begins. It was fought between <a href="sylph.html">Sylphs</a>, who wanted to rid the world of all but themselves, and <a href="nymph.html">nymphs</a>, who wanted to protect the earth and all of its precious inhabitants. <a href="human.html">Humans</a>, who were enslaved by the Sylphs since pre-history, eventually started to revolt against the Sylphs and joined alongside the <a href="nymph.html">nymphs</a>, ultimately leading to their victory.</p>
+<p>It took a few generations for the three races to begin to associate with one another, and <a href="sylph.html">sylphic</a> religion and culture drew from ancient <a href="nymph.html">nymphid</a> philosophy over time - the belief that all life is sacred and connected.</p>
 <p>The Sylphs would begin to make reparation part of their culture as well. These sylphs would become nomadic and simple people who would visit as many villages and cities to offer labor, food, or assistance of some kind.</p>
 </div></div>
 <script>
@@ -209,4 +211,6 @@
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

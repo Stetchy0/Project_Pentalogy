@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Connor's formula</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,12 +202,16 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>CONNOR'S FORMULA</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>While Connor tried to submit his morals to survive in the [[Black Crusaders]], he created the most potent and pure chemical formula for the creation of [[Anthracaine]]. He would hide the file after he wrote it down, so he could later use it as leverage, but he would end up leaving it behind because he was unconscious during his escape with [[Rei]]. During the chaos however, his notes were damaged by spilled chemicals, as servants and the alike had rushed out with the siren.</p>
-<p>The file would be eventually found by young [[Dami]], under [[Antoinette]]'s employ. This perfected recipe would be used scarcely, because of the precision and time required to develop even small batches of it. When [[Persephone]] is kidnapped, his specific recipe would be used on her to increase her ability threshold, as well as to make her sick and very dependent on the crusaders, so she was forced to do their bidding. She is the only person other than Connor's test subjects to experience Anthracyllin at its most potent, as well as the only person to successfully detox and survive its effects long term. (see [[Kore]])</p>
+<div class="main-content"><h1>CONNOR'S FORMULA</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>While Connor tried to submit his morals to survive in the <a href="black crusaders.html">Black Crusaders</a>, he created the most potent and pure chemical formula for the creation of <a href="anthracaine.html">Anthracaine</a>. He would hide the file after he wrote it down, so he could later use it as leverage, but he would end up leaving it behind because he was unconscious during his escape with <a href="rei.html">Rei</a>. During the chaos however, his notes were damaged by spilled chemicals, as servants and the alike had rushed out with the siren.</p>
+<p>!<a href="anthrallilynotes.png.html">anthrallilynotes.png</a></p>
+<p>The file would be eventually found by young <a href="dami.html">Dami</a>, under <a href="antoinette.html">Antoinette</a>'s employ. This perfected recipe would be used scarcely, because of the precision and time required to develop even small batches of it. When <a href="persephone.html">Persephone</a> is kidnapped, his specific recipe would be used on her to increase her ability threshold, as well as to make her sick and very dependent on the crusaders, so she was forced to do their bidding. She is the only person other than Connor's test subjects to experience Anthracyllin at its most potent, as well as the only person to successfully detox and survive its effects long term. (see <a href="kore.html">Kore</a>)</p>
+<p>!<a href="kore concept.png.html">kore concept.png</a></p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

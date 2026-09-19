@@ -6,6 +6,8 @@
 
 ### *Log 1 - Connor Smith*
 
+"The forest outside of Connor's porch was never still. Not completely."
+
 `I can tell she is upset again. Reasonably so, and I can tell she yearns to drink again. Rei refuses to give in to that though, but I would still support her anyway. Lucielle has been quiet around me lately, but I know she is merely calculating. She has finally became curious about my scales, I'm just waiting on her inquisitions.. oh boy.`
 
 Connor took his coat off as he walked out the door of their cabin. He draped it over the back of his chair on the porch before walking into the yard. He closed his eyes and enjoyed the feeling of the sun on his arms and face. Warmth helps ease his aches.

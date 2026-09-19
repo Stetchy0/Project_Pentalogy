@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Farther earth</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,13 +202,15 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>FARTHER EARTH</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Farther Earth is the realm which fosters the essence of chaos. It is home to [[Dami|Mephisto]], and it is where his abilities are tethered.</p>
-<p>The "capital" city, meaning the only and most populous area in the realm, would be [[Siverial]].</p>
-<p>Technological progress has both been limited and solely pushed by the [[Black Crusaders]]. While all of the inhabitants of the realm hide and cower away in fear from the crusaders, limiting any sort of technological advancement, the truly dedicated pursuers of knowledge and power have been stolen or appointed by the crusaders themselves, leading to the inventions of [[Anthracyllin]], [[Connor's Machine]], and [[Conre's Inventions|weapons of war]], just to name a few. Very few medical, architectural, or literary advancements would be made in this realm until after the crusaders are expunged.</p>
+<div class="main-content"><h1>FARTHER EARTH</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Farther Earth is the realm which fosters the essence of chaos. It is home to <a href="dami.html">Mephisto</a>, and it is where his abilities are tethered.</p>
+<p>The "capital" city, meaning the only and most populous area in the realm, would be <a href="siverial.html">Siverial</a>.</p>
+<p>Technological progress has both been limited and solely pushed by the <a href="black crusaders.html">Black Crusaders</a>. While all of the inhabitants of the realm hide and cower away in fear from the crusaders, limiting any sort of technological advancement, the truly dedicated pursuers of knowledge and power have been stolen or appointed by the crusaders themselves, leading to the inventions of <a href="anthracyllin.html">Anthracyllin</a>, <a href="connor's machine.html">Connor's Machine</a>, and <a href="conre's inventions.html">weapons of war</a>, just to name a few. Very few medical, architectural, or literary advancements would be made in this realm until after the crusaders are expunged.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

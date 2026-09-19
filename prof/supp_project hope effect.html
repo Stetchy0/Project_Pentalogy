@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Project hope effect</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,13 +202,15 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>PROJECT HOPE EFFECT</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The team of [[Closer Earth]] teenagers assembled by [[Chrys|Chrysanthemum]] once he realizes contact with humans from farther earth gives abilities unique to the individual.</p>
-<p>This group was considered a “project” for Chrys to create a “hope effect” (taking down the [[Black Crusaders]]) … and a project for [[Antoinette]] to test and toy with inter dimensional humans.</p>
-<p>The team of self proclaimed “superheroes” consists of: [[Emira]], [[Konnie]], [[Moyo]], [[Chieko]], [[Amber]], and [[Aiko]], with tech support from [[Hina]]. They are then joined by [[Loki]] and [[Persephone]].</p>
+<div class="main-content"><h1>PROJECT HOPE EFFECT</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The team of <a href="closer earth.html">Closer Earth</a> teenagers assembled by <a href="chrys.html">Chrysanthemum</a> once he realizes contact with humans from farther earth gives abilities unique to the individual.</p>
+<p>This group was considered a “project” for Chrys to create a “hope effect” (taking down the <a href="black crusaders.html">Black Crusaders</a>) … and a project for <a href="antoinette.html">Antoinette</a> to test and toy with inter dimensional humans.</p>
+<p>The team of self proclaimed “superheroes” consists of: <a href="emira.html">Emira</a>, <a href="konnie.html">Konnie</a>, <a href="moyo.html">Moyo</a>, <a href="chieko.html">Chieko</a>, <a href="amber.html">Amber</a>, and <a href="aiko.html">Aiko</a>, with tech support from <a href="hina.html">Hina</a>. They are then joined by <a href="loki.html">Loki</a> and <a href="persephone.html">Persephone</a>.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

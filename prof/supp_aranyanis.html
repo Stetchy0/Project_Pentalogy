@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Aranyanis</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,11 +202,14 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>ARANYANIS</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Aranyanis is an ancient [[Nymph]] city in [[Farther Earth]] that resides deep within a dangerous forest, bearing the same name. A group of Nymphs fleeing the [[Salvation War]] found the center of the forest was fertile, and perfect for building. The trees are very tall, and the cover is very dense, so it was very protected from the [[Sylph|Sylphs]], who would attack from the skies. The Nymphs that have lived here for all this time after the war ended are only recently leaving the forest and integrating with the rest of the world, however, the way to the city is a well guarded secret. The Nymph from this forest have taken to be called [[Aranyani]], because they have different appearances, culture, and even a different language.</p>
+<div class="main-content"><h1>ARANYANIS</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>!<a href="aranyanis.png.html">Aranyanis.png</a>Pronounced "Air-ran-Yawn-us"</p>
+<p>Aranyanis is an ancient <a href="nymph.html">Nymph</a> city in <a href="farther earth.html">Farther Earth</a> that resides deep within a dangerous forest, bearing the same name. A group of Nymphs fleeing the <a href="salvation war.html">Salvation War</a> found the center of the forest was fertile, and perfect for building. The trees are very tall, and the cover is very dense, so it was very protected from the <a href="sylph.html">Sylphs</a>, who would attack from the skies. The Nymphs that have lived here for all this time after the war ended are only recently leaving the forest and integrating with the rest of the world, however, the way to the city is a well guarded secret. The Nymph from this forest have taken to be called <a href="aranyani.html">Aranyani</a>, because they have different appearances, culture, and even a different language.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

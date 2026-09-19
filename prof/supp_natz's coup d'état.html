@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Natz's coup d'état</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,15 +202,17 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>NATZ'S COUP D'ÉTAT</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Natz's coup d'état was an elaborate takeover of the Black Crusaders' leadership, orchestrated by [[Natz]], [[Estelle]], [[Azazel]], [[Birde]], and [[Vi]]. The other people involved were [[Amanda]], [[Leonidas/Lee|Leo]], and [[Marx]], though all three of them could be considered victims.</p>
+<div class="main-content"><h1>NATZ'S COUP D'ÉTAT</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Natz's coup d'état was an elaborate takeover of the Black Crusaders' leadership, orchestrated by <a href="natz.html">Natz</a>, <a href="estelle.html">Estelle</a>, <a href="azazel.html">Azazel</a>, <a href="birde.html">Birde</a>, and <a href="vi.html">Vi</a>. The other people involved were <a href="amanda.html">Amanda</a>, <a href="leonidas/lee.html">Leo</a>, and <a href="marx.html">Marx</a>, though all three of them could be considered victims.</p>
 <p>The entire plan rided on manipulating Leo at his weakest to enstill complete chaos. Birde and Azazel both used their abilities to weaken his mental status to make him more vulnerable to Vi's manipulation. Vi, Leo, and Amy were already assigned a scouting mission, and this mission was the planned time for everything to start, and end.</p>
 <p>Birde trailed them, to make sure things went smoothly, and to have a cover for knowing what happened. Vi instigated paranoia into Leo, to get him to murder Amy, Marx's daughter. This would send Leo into permanent mental decline, and give Marx a reason to seem to commit suicide.</p>
 <p>Birde would report back to Marx in a "Panic," saying (in his own way) that his daughter was murdered by one of his best men. Marx would be pissed, but not to the point of suicide. Natz, who had been hiding in Marx's office the entire time, with the help of Birde, would both hang him from the light fixture above his desk, killing him. Amy was originally supposed to be the next in line leader, but with her dead, this left Marx's brother, Natz, in charge. The organization would never find out about this scheme, not even Leo himself, who ended up imprisoned for years for his crime.</p>
-<p>The chaos that ensued immediately after news reached the Crusaders base gave opportunity for escape. [[Rei]] would orchestrate [[Connor]]'s plan, but, since Connor was unconscious, she had to carry him, and had no time or opportunity to break Leo out of his cell in the lab. This would permanently taint Rei's mental health, as well as Leo's impression of his friends and true allies. Vi would use this as one of her manipulation tactics. [[Leonidas/Lee]]'s "birth" can be attributed to this event.</p>
+<p>The chaos that ensued immediately after news reached the Crusaders base gave opportunity for escape. <a href="rei.html">Rei</a> would orchestrate <a href="connor.html">Connor</a>'s plan, but, since Connor was unconscious, she had to carry him, and had no time or opportunity to break Leo out of his cell in the lab. This would permanently taint Rei's mental health, as well as Leo's impression of his friends and true allies. Vi would use this as one of her manipulation tactics. <a href="leonidas/lee.html">Leonidas/Lee</a>'s "birth" can be attributed to this event.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

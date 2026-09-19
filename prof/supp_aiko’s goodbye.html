@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Aiko’s goodbye</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,13 +202,13 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>AIKO’S GOODBYE</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The event in which [[Aiko]] and Loki share the same dream with a bittersweet farewell.</p>
-<p>After [[Jaylo]] is triggered into a stress induced coma, [[Loki Primavera|Loki]] asks [[Persephone]] if it is possible to go into Jaylo‘s mind. Persephone agrees to assist, believing it could wake up Jaylo, but warns Loki that she may not find what she’s looking for.</p>
+<div class="main-content"><h1>AIKO’S GOODBYE</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The event in which <a href="aiko.html">Aiko</a> and Loki share the same dream with a bittersweet farewell.</p>
+<p>After <a href="jaylo.html">Jaylo</a> is triggered into a stress induced coma, <a href="loki primavera.html">Loki</a> asks <a href="persephone.html">Persephone</a> if it is possible to go into Jaylo‘s mind. Persephone agrees to assist, believing it could wake up Jaylo, but warns Loki that she may not find what she’s looking for.</p>
 <p>A majority of this segment is Loki falling upwards into a sky of island pieces, randomly experiencing nauseating setting changes that force her to relive some of her and Aiko’s memories. She struggles to navigate and tries to parkour with the assistance of her wings.</p>
-<p>When she finally physically reaches Aiko in the [[Dreamscape]], she finds that the two of them visually appear to be the age they were when they met.</p>
+<p>When she finally physically reaches Aiko in the <a href="dreamscape.html">Dreamscape</a>, she finds that the two of them visually appear to be the age they were when they met.</p>
 <p>The two hug and express affection. Loki attempts to make amends and Aiko assures her everything is okay between them.</p>
-<p>However, when Loki asks if Aiko can come back into the real world, she is met with the bleak repercussions of what the [[Black Crusaders|Black Death]] did to her. Aiko physically begins to flake away into butterflies, and Loki understands she cannot come home.</p>
-<p>Aiko asks Loki to watch over Jaylo, and reveals she had been holding on to tell Loki she loved her one last time. The events of [[Aiko's Disappearance]] and the trauma [[Jaylo]] endured have made it impossible for Aiko to ever be who she once was. While Aiko is becoming butterflies and sparks, she and Loki share a final embrace. Aiko assures Loki she is loved, and that she will be okay.</p>
+<p>However, when Loki asks if Aiko can come back into the real world, she is met with the bleak repercussions of what the <a href="black crusaders.html">Black Death</a> did to her. Aiko physically begins to flake away into butterflies, and Loki understands she cannot come home.</p>
+<p>Aiko asks Loki to watch over Jaylo, and reveals she had been holding on to tell Loki she loved her one last time. The events of <a href="aiko's disappearance.html">Aiko's Disappearance</a> and the trauma <a href="jaylo.html">Jaylo</a> endured have made it impossible for Aiko to ever be who she once was. While Aiko is becoming butterflies and sparks, she and Loki share a final embrace. Aiko assures Loki she is loved, and that she will be okay.</p>
 <p>A moment passes before Loki realizes all she has left to hug is herself. She turns and finds what appears to be a broken Jaylo nearby.</p>
 <p>Loki offers her hand, and assures Jaylo she won’t hurt her. She made a promise.</p>
 <p>This is a parallel to how Aiko offered Loki her hand when they first met.</p>
@@ -217,4 +219,6 @@
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

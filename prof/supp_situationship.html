@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Situationship</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -202,18 +204,20 @@
 </div></div>
 <div class="main-content"><h1>SITUATIONSHIP</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>A "situationship" is a relationship, usually romantic or parental in some way, that is very , very problematic. Whether it be that one partner is an abuser, hate each other, or even one partner is only in the relationship for personal gain (or all of the above), situationships never end well.</p>
 <p>Romantic examples:</p>
-<p>[[Natz]] and [[Estelle|Estelle Ivanov]] (see [[Natz's Affair]])</p>
-<p>[[Lee]] and [[Vi|Victoria Ainsworth]]</p>
-<p>[[Antoinette]] and [[S]]</p>
-<p>[[X]] and [[Vi]] (It's complicated)</p>
+<p><a href="natz.html">Natz</a> and <a href="estelle.html">Estelle Ivanov</a> (see <a href="natz's affair.html">Natz's Affair</a>)</p>
+<p><a href="lee.html">Lee</a> and <a href="vi.html">Victoria Ainsworth</a></p>
+<p><a href="antoinette.html">Antoinette</a> and <a href="s.html">S</a></p>
+<p><a href="x.html">X</a> and <a href="vi.html">Vi</a> (It's complicated)</p>
 <p>Non-Romantic examples:</p>
-<p>[[Vanessa]] and [[Soren]] (see [[The Mariposa Scandal]])</p>
-<p>[[Antoinette]] and [[Loki]]</p>
-<p>[[Jace]] and [[Azazel]]</p>
+<p><a href="vanessa.html">Vanessa</a> and <a href="soren.html">Soren</a> (see <a href="the mariposa scandal.html">The Mariposa Scandal</a>)</p>
+<p><a href="antoinette.html">Antoinette</a> and <a href="loki.html">Loki</a></p>
+<p><a href="jace.html">Jace</a> and <a href="azazel.html">Azazel</a></p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

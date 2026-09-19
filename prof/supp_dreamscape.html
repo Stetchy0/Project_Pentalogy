@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Dreamscape</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,15 +202,17 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>DREAMSCAPE</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The dreamscape is a non-physical realm that exists within the mind of every [[Human]], [[Nymph]], and [[Sylph]], as well as the crosses between them. The dreamscape is where thoughts form, and where memories fester. It often portrays itself to its host as some sort of important or serene location, depending on the individual. Narcoleptics such as [[Pherenix|Felix]] are more in tune with their minds because they are trapped within it for longer periods of time than most. Insomniacs, on the other hand, have much less control of their lucidity, and are more vulnerable to threats on the dreamscape, such as [[Synthetic Nymph|synthetic nymph injections]].</p>
+<div class="main-content"><h1>DREAMSCAPE</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>The dreamscape is a non-physical realm that exists within the mind of every <a href="human.html">Human</a>, <a href="nymph.html">Nymph</a>, and <a href="sylph.html">Sylph</a>, as well as the crosses between them. The dreamscape is where thoughts form, and where memories fester. It often portrays itself to its host as some sort of important or serene location, depending on the individual. Narcoleptics such as <a href="pherenix.html">Felix</a> are more in tune with their minds because they are trapped within it for longer periods of time than most. Insomniacs, on the other hand, have much less control of their lucidity, and are more vulnerable to threats on the dreamscape, such as <a href="synthetic nymph.html">synthetic nymph injections</a>.</p>
 <p>People that are split personalities, in some way or another, display each other within their dreamscapes.</p>
-<p>- [[Pherenix|Felix]] communicates to his nymph, Pheren, through the dreamscape.</p>
-<p>- [[Leo]] and [[Lee]] have arguments with each other and occasionally physically fight within their dreamscape</p>
-<p>- [[Aiko]] becomes trapped behind blurred memories within [[Jaylo]]'s dreamscape. (See [[Aiko’S Goodbye]])</p>
+<p>- <a href="pherenix.html">Felix</a> communicates to his nymph, Pheren, through the dreamscape.</p>
+<p>- <a href="leo.html">Leo</a> and <a href="lee.html">Lee</a> have arguments with each other and occasionally physically fight within their dreamscape</p>
+<p>- <a href="aiko.html">Aiko</a> becomes trapped behind blurred memories within <a href="jaylo.html">Jaylo</a>'s dreamscape. (See <a href="aiko’s goodbye.html">Aiko’S Goodbye</a>)</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

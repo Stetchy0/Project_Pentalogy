@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Part 0 - prolegomenon</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -201,26 +203,28 @@
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
 <div class="main-content"><h1>PART 0 - PROLEGOMENON</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>In Chronological Order</p>
-<p>[[Part 0.1 - Twisted|Twisted]]</p>
-<p>[[Part 0.2 - Murderer|Murderer]]</p>
-<p>[[Part 0.3 - Tribute|Tribute]]</p>
-<p>[[Part 0.4 - Prestige|Prestige]]</p>
-<p>[[Part 0.5 - the Magician's Father|The Magician's Father]]</p>
-<p>[[Part 0.6 - Firestarter|Firestarter]]</p>
-<p>[[Part 0.7 - Devil|Devil]]</p>
-<p>[[Part 2.7 - Singularity|Singularity]]</p>
-<p>[[Part 1.1 - Satisfaction|Satisfaction]]</p>
-<p>[[Part 1.2 - a Busker's Serenade|A Busker's Serenade]]</p>
-<p>[[Part 2.1 - Desertion|Desertion]]</p>
-<p>[[Part 2.2 - Goner|Goner]]</p>
-<p>[[Part 2.3 - Bandit|Bandit]]</p>
-<p>[[Part 2.4- Ode|Ode]]</p>
-<p>[[Part 2.5 - Death Inspired Dog|Death Inspired Dog]]</p>
-<p>[[Part 2.6 - the Portal|The Portal]]</p>
+<p><a href="part 0.1 - twisted.html">Twisted</a></p>
+<p><a href="part 0.2 - murderer.html">Murderer</a></p>
+<p><a href="part 0.3 - tribute.html">Tribute</a></p>
+<p><a href="part 0.4 - prestige.html">Prestige</a></p>
+<p><a href="part 0.5 - the magician's father.html">The Magician's Father</a></p>
+<p><a href="part 0.6 - firestarter.html">Firestarter</a></p>
+<p><a href="part 0.7 - devil.html">Devil</a></p>
+<p><a href="part 2.7 - singularity.html">Singularity</a></p>
+<p><a href="part 1.1 - satisfaction.html">Satisfaction</a></p>
+<p><a href="part 1.2 - a busker's serenade.html">A Busker's Serenade</a></p>
+<p><a href="part 2.1 - desertion.html">Desertion</a></p>
+<p><a href="part 2.2 - goner.html">Goner</a></p>
+<p><a href="part 2.3 - bandit.html">Bandit</a></p>
+<p><a href="part 2.4- ode.html">Ode</a></p>
+<p><a href="part 2.5 - death inspired dog.html">Death Inspired Dog</a></p>
+<p><a href="part 2.6 - the portal.html">The Portal</a></p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

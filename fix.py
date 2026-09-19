@@ -2,6 +2,7 @@ import os
 import shutil
 import json
 import re
+import random
 
 # Target workspace directory tracks configurations matrices
 repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
@@ -13,6 +14,23 @@ if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
+
+# LOCATE PRIVATE CONFIGURATION DIRECTORIES NATIVELY
+private_data_dir = os.path.join(repo_root, "content", "Project Pentalogy", "private")
+if not os.path.exists(private_data_dir): private_data_dir = os.path.join(repo_root, "content", "private")
+os.makedirs(private_data_dir, exist_ok=True)
+
+master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
+
+# Generate standard default system fallback quotes array if file is absent from disk
+splash_quotes_pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."]
+if os.path.exists(master_splash_txt_path):
+    with open(master_splash_txt_path, 'r', encoding='utf-8', errors='ignore') as sf:
+        lines_pool = [l.strip() for l in sf.readlines() if l.strip()]
+        if lines_pool: splash_quotes_pool = lines_pool
+else:
+    with open(master_splash_txt_path, 'w', encoding='utf-8') as sf:
+        sf.write("\n".join(splash_quotes_pool) + "\n")
 
 global_css = """
 body { background-color: #f2ebd9; color: #3d2d1e; font-family: 'Courier Prime', Courier, monospace; margin: 0; padding: 0; line-height: 1.6; }
@@ -61,7 +79,7 @@ def build_vault_tree_html(current_dir_path):
     folders_html, files_html = "", ""
     for item in sorted(os.listdir(current_dir_path)):
         full_path = os.path.join(current_dir_path, item)
-        clean_item_name = os.path.splitext(item)[0]
+        clean_item_name = os.path.splitext(item)
         if os.path.isdir(full_path):
             if item.lower() == "bios":
                 folders_html += build_vault_tree_html(full_path)
@@ -72,54 +90,58 @@ def build_vault_tree_html(current_dir_path):
                 folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
         elif item.endswith(".md"):
             is_in_characters = "characters" in current_dir_path.lower() or "bios" in current_dir_path.lower()
-            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if is_in_characters else f"supp_{clean_item_name.lower()}.html")
-            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
+            # Fixed: Added clear index mapping [0] on clean_item_name tuple pairs to prevent sidebar crash
+            url = "index.html" if clean_item_name[0].lower() == "index" else (f"{clean_item_name[0].lower()}.html" if is_in_characters else f"supp_{clean_item_name[0].lower()}.html")
+            files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name[0].capitalize()}</a>\n'
     return folders_html + files_html
 
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
 
 def scaffold_html(title, body):
     return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;">{vault_sidebar_tree_html}</div></div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;">{vault_sidebar_tree_html}</div></div>
 <div class="main-content">{body}</div>
 <script>
   function toggleFolderTree(el) {{
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) {{ nested.style.display = nested.style.display === "none" ? "block" : "none"; }}
   }}
+  const pool = {json.dumps(splash_quotes_pool)};
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>"""
 master_relationships_map = {}
 master_traits_map = {}
 all_bios_characters = []
 
-# FIND CORE PATHS
-bios_search_dir = os.path.join(repo_root, "content", "Project Pentalogy", "Characters", "Bios")
-if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(repo_root, "content", "characters", "bios")
-
-private_data_dir = os.path.join(repo_root, "content", "Project Pentalogy", "private")
-if not os.path.exists(private_data_dir): private_data_dir = os.path.join(repo_root, "content", "private")
-os.makedirs(private_data_dir, exist_ok=True)
-
 master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
 master_rel_note_path = os.path.join(private_data_dir, "Character Relationships Data.md")
 
 # GATHER EXISTING BIO FILES
+bios_search_dir = os.path.join(repo_root, "content", "Project Pentalogy", "Characters", "Bios")
+if not os.path.exists(bios_search_dir): bios_search_dir = os.path.join(repo_root, "content", "characters", "bios")
+
 if os.path.exists(bios_search_dir):
     for f in os.listdir(bios_search_dir):
         if f.endswith(".md") and os.path.splitext(f)[0].lower() != "index":
             all_bios_characters.append(os.path.splitext(f)[0].capitalize())
 
-# INJECT SCHEMAS IF ABSENT
-if not os.path.exists(master_data_note_path):
-    with open(master_data_note_path, 'w', encoding='utf-8') as f:
-        f.write("# CHARACTER CORE DATA MASTERLIST\n\n| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n")
-
-if not os.path.exists(master_rel_note_path):
-    with open(master_rel_note_path, 'w', encoding='utf-8') as f:
-        f.write("# CHARACTER RELATIONSHIPS DATA\n\n| Character A | Relationship A to B | Relationship B to A | Character B |\n| ----------- | ------------------- | ------------------- | ----------- |\n")
-
-with open(master_data_note_path, 'r', encoding='utf-8') as f: trait_lines = f.readlines()
-registered_traits = {l.split("|")[1].strip().lower() for l in trait_lines if l.strip().startswith("|") and l.count("|") >= 5 and "character" not in l.lower() and "---" not in l}
+# AUTOMATIC TABLE SYNCHRONIZATION WITH STRICT COLUMN INDEX TRACKING
+registered_traits = set()
+if os.path.exists(master_data_note_path):
+    with open(master_data_note_path, 'r', encoding='utf-8') as f: trait_lines = f.readlines()
+    for l in trait_lines:
+        if l.strip().startswith("|") and l.count("|") >= 5:
+            cells = [cell.strip() for cell in l.split("|") if cell.strip()]
+            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
+                registered_traits.add(cells[0].lower())
+else:
+    trait_lines = [
+        "# CHARACTER CORE DATA MASTERLIST\n\n",
+        "| Character | Age | Gender | Sexuality | Height | Trope | Motifs | First mentioned | First appearance | Present in | Playlist link |\n",
+        "| --------- | --- | ------ | --------- | ------ | ----- | ------ | --------------- | ---------------- | ---------- | ------------- |\n"
+    ]
 
 updated_traits = False
 for char in sorted(all_bios_characters):
@@ -129,7 +151,7 @@ for char in sorted(all_bios_characters):
 if updated_traits:
     with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(trait_lines)
 
-# READ CORE MASTER NOTE SPREADSHEETS FOR SITE RENDERING WITH INDEX OFFSET CORRECTIONS
+# READ MASTER DATA AND PROCESS INTERNAL CELL OFFSET MAPPINGS CLEANLY
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -137,35 +159,35 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 4:
-                        parts = [p.strip() for p in line.split("|")]
-                        if len(parts) >= 4 and "character" not in parts[1].lower() and "---" not in parts[1]:
-                            # Fixed Array Shifts: parts[0] is empty, parts[1] is name, parts[2] is field 1, etc.
-                            if line.count("|") == 5:
-                                c1 = parts[1].lower().strip()
-                                r12 = parts[2]
-                                r21 = parts[3]
-                                c2 = parts[4].lower().strip()
+                        raw_cells = [cell.strip() for cell in line.replace("\n", "").split("|")]
+                        if raw_cells[0] == "": raw_cells = raw_cells[1:]
+                        if raw_cells and raw_cells[-1] == "": raw_cells = raw_cells[:-1]
+                        
+                        if raw_cells and "character" not in raw_cells[0].lower() and "---" not in raw_cells[0]:
+                            if line.count("|") == 5 and len(raw_cells) == 4:
+                                c1 = raw_cells[0].lower().strip()
+                                r12 = raw_cells[1]
+                                r21 = raw_cells[2]
+                                c2 = raw_cells[3].lower().strip()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
                                 master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
                                 master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-                            elif line.count("|") >= 12:
-                                char_key = parts[1].lower().strip()
+                            elif line.count("|") >= 12 and len(raw_cells) >= 10:
+                                char_key = raw_cells[0].lower().strip()
                                 master_traits_map[char_key] = {
-                                    "age": parts[2] if parts[2] else "Classified",
-                                    "gender": parts[3] if parts[3] else "Classified",
-                                    "sexuality": parts[4] if parts[4] else "Classified",
-                                    "height": parts[5] if parts[5] else "Classified",
-                                    "trope": parts[6] if parts[6] else "Classified",
-                                    "motifs": parts[7] if parts[7] else "Classified",
-                                    "first_ment": parts[8] if parts[8] else "Unlogged",
-                                    "first_app": parts[9] if parts[9] else "Unlogged",
-                                    "present_in": parts[10] if parts[10] else "Unlogged",
-                                    "playlist": parts[11] if parts[11] else ""
+                                    "age": raw_cells[1] if raw_cells[1] else "Classified",
+                                    "gender": raw_cells[2] if raw_cells[2] else "Classified",
+                                    "sexuality": raw_cells[3] if raw_cells[3] else "Classified",
+                                    "height": raw_cells[4] if raw_cells[4] else "Classified",
+                                    "trope": raw_cells[5] if raw_cells[5] else "Classified",
+                                    "motifs": raw_cells[6] if raw_cells[6] else "Classified",
+                                    "first_ment": raw_cells[7] if raw_cells[7] else "Unlogged",
+                                    "first_app": raw_cells[8] if raw_cells[8] else "Unlogged",
+                                    "present_in": raw_cells[9] if raw_cells[9] else "Unlogged",
+                                    "playlist": raw_cells[10] if len(raw_cells) >= 11 and raw_cells[10] else ""
                                 }
             except Exception: pass
-
-character_files = [f for f in os.listdir(bios_search_dir) if f.endswith(".md")] if os.path.exists(bios_search_dir) else []
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -177,9 +199,22 @@ for root, dirs, files in os.walk(content_dir):
             try:
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: text = f.read()
             except Exception: continue
+            
+            # Metadata Grabber: Dynamically reads internal metadata title properties to swap Index names
+            display_title = clean_f_name.capitalize()
+            title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
+            if title_match: display_title = title_match.group(1).strip()
+            elif text.startswith("# "): 
+                display_title = text.split("\n")[0].replace("# ", "").strip()
+            
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
 
-            # EXCLUSIVE BLOCK SANITIZER: Wipes raw timeline script remnants out of your text paragraphs entirely
+            # REGEX WIKI NAVIGATOR: Convert [[Abaddon|The Scales]] -> <a href="abaddon.html">The Scales</a>
+            text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
+            text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
+            text = re.sub(r'href="([^"]+)\.html"', lambda m: f'href="{m.group(1).lower().strip()}.html"', text)
+
+            # EXCLUSIVE BLOCK SANITIZER: Scrubs layout templates out of paragraph text outputs completely
             clean_lines = []
             skip_script_block = False
             for l in text.split("\n"):
@@ -189,9 +224,9 @@ for root, dirs, files in os.walk(content_dir):
                 if skip_script_block:
                     if "showslides();" in l_strip.lower() or "showslides(" in l_strip.lower(): skip_script_block = False
                     continue
-                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections"]):
+                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections", "details"]):
                     continue
-                if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip or ".png" in l_strip or ".jpg" in l_strip:
+                if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯", "►", ">")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip:
                     continue
                 clean_lines.append(l)
             
@@ -277,39 +312,41 @@ for root, dirs, files in os.walk(content_dir):
                   resizeCanvas(); const rootImg = new Image(); rootImg.src = "THUMB_PLACEHOLDER";
                   nodes.forEach((node, idx) => {
                     const w = canvas.width / (window.devicePixelRatio || 1);
+                    const w = canvas.width / (window.devicePixelRatio || 1);
                     const h = canvas.height / (window.devicePixelRatio || 1);
                     if (node.isRoot) { node.x = w / 2; node.y = h / 2; }
                     else { const angle = (idx * 2 * Math.PI) / (nodes.length - 1); const radius = node.layer === 2 ? 180 : 105; node.x = w / 2 + radius * Math.cos(angle); node.y = h / 2 + radius * Math.sin(angle); }
                   });
+
                   function drawGraph() {
                     const w = canvas.width / (window.devicePixelRatio || 1);
                     const h = canvas.height / (window.devicePixelRatio || 1);
                     ctx.clearRect(0, 0, w, h);
                     edges.forEach(edge => {
                       const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
-                    if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
+                      if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
+                    });
+                    nodes.forEach(node => {
+                      ctx.beginPath();
+                      if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
+                      else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
+                      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
+                      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
+                    });
+                  }
+                  canvas.addEventListener("mousemove", (e) => {
+                    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
+                    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
+                    if (hoveredNode && !hoveredNode.isRoot) {
+                      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
+                      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
+                    } else { tooltip.style.display = "none"; }
                   });
-                  nodes.forEach(node => {
-                    ctx.beginPath();
-                    if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
-                    else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
-                    ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
-                    if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
-                  });
-                }
-                canvas.addEventListener("mousemove", (e) => {
-                  const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
-                  nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
-                  if (hoveredNode && !hoveredNode.isRoot) {
-                    tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
-                    tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
-                  } else { tooltip.style.display = "none"; }
-                });
-                rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
-              </script>"""
+                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
+                </script>"""
                 js_rendered = js_template.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)
                 
-                char_html = f"""<h1>{clean_f_name.upper()}</h1>
+                char_html = f"""<h1>{display_title.upper()}</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
                     <img src="{thumb_src}" class="profile-badge-img" onerror="this.src='https://placehold.co'">
@@ -340,17 +377,17 @@ for root, dirs, files in os.walk(content_dir):
                   <thead>
                     <tr>
                       <th style="width:35%;">Character</th>
-                      <th>Relationship to {clean_f_name.capitalize()}</th>
+                      <th>Relationship to {display_title}</th>
                     </tr>
                   </thead>
                   <tbody>{table_html}</tbody>
                 </table>
                 {js_rendered}"""
                 
-                with open(os.path.join(output_dir, f"{c_key_var}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(clean_f_name.capitalize(), char_html))
+                with open(os.path.join(output_dir, f"{c_key_var}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(display_title, char_html))
             else:
                 out_filename = "index.html" if c_key_var == "index" else f"supp_{c_key_var}.html"
-                supp_html = f"<h1>{clean_f_name.upper()}</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'>{paragraphs if paragraphs else '<p>Dossier file transcript records.</p>'}</div>"
-                with open(os.path.join(output_dir, out_filename), "w", encoding="utf-8") as f: f.write(scaffold_html(clean_f_name.capitalize(), supp_html))
+                supp_html = f"<h1>{display_title.upper()}</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'>{paragraphs if paragraphs else '<p>Archival log database record entry.</p>'}</div>"
+                with open(os.path.join(output_dir, out_filename), "w", encoding="utf-8") as f: f.write(scaffold_html(display_title, supp_html))
 
-print("\nCompilation Complete! Pure zero-dependency script executed flawlessly.")
+print("\nCompilation Complete! Splash text and link routing modules successfully deployed.")

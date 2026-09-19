@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Glass balcony</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,8 +202,8 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>GLASS BALCONY</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Over the city ruled by [[Black Crusaders|the crusaders]] (during [[Part Iii - Hope]]) from the top of the base, there is a glass sheet that covers everything within the inner city walls. [[Antoinette]] can access it through only one platform and essentially walk across it to stalk and supervise her subjects. She could also lean over the edge to see who goes in and out of the walls.</p>
-<p>It is hard to maintain vegetation (due to lack of rain) without constant labor- that is why farmers are forced to come in to give a quota of their produce. If they don’t give enough or hand in their crops late, they face a fate that’s similar to the parents of [[Chrys]] and [[Charlotte Corday]].</p>
+<div class="main-content"><h1>GLASS BALCONY</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Over the city ruled by <a href="black crusaders.html">the crusaders</a> (during <a href="part iii - hope.html">Part Iii - Hope</a>) from the top of the base, there is a glass sheet that covers everything within the inner city walls. <a href="antoinette.html">Antoinette</a> can access it through only one platform and essentially walk across it to stalk and supervise her subjects. She could also lean over the edge to see who goes in and out of the walls.</p>
+<p>It is hard to maintain vegetation (due to lack of rain) without constant labor- that is why farmers are forced to come in to give a quota of their produce. If they don’t give enough or hand in their crops late, they face a fate that’s similar to the parents of <a href="chrys.html">Chrys</a> and <a href="charlotte corday.html">Charlotte Corday</a>.</p>
 <p>The only other way someone could potentially reach the balcony, if Antoinette has already used the platform to get up there, is if they climb up the walls and the pillars of the balcony. But that’s physically impossible… right?</p>
 </div></div>
 <script>
@@ -209,4 +211,6 @@
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

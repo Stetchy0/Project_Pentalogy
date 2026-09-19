@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Kieran's planned terror</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,12 +202,14 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>KIERAN'S PLANNED TERROR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>While Kieran was the leader of [[Black Crusaders|the crusaders]], he devised a plan to violently overtake [[Closer Earth]], specifically [[Spestyche]], using [[Conre's Inventions]] and [[Magic]], both of which the realm would not be prepared to fight against. He wanted to utilize the "excess population" to have as many test subjects as possible for [[Conre]] to create [[Janus]], because it was beginning to seem that their greatest subject, [[Aiko]], would not be able to truly become one.</p>
-<p>Though Kieran meticulously planned the entire invasion, he would never actually commit it, because he would eventually join [[Project Hope Effect|Team Hope]].</p>
+<div class="main-content"><h1>KIERAN'S PLANNED TERROR</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>While Kieran was the leader of <a href="black crusaders.html">the crusaders</a>, he devised a plan to violently overtake <a href="closer earth.html">Closer Earth</a>, specifically <a href="spestyche.html">Spestyche</a>, using <a href="conre's inventions.html">Conre's Inventions</a> and <a href="magic.html">Magic</a>, both of which the realm would not be prepared to fight against. He wanted to utilize the "excess population" to have as many test subjects as possible for <a href="conre.html">Conre</a> to create <a href="janus.html">Janus</a>, because it was beginning to seem that their greatest subject, <a href="aiko.html">Aiko</a>, would not be able to truly become one.</p>
+<p>Though Kieran meticulously planned the entire invasion, he would never actually commit it, because he would eventually join <a href="project hope effect.html">Team Hope</a>.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

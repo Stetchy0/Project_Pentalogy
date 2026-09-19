@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Siverial</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -200,13 +202,15 @@
 </div>
 <a class="tree-file-link" href="index.html">Index</a>
 </div></div>
-<div class="main-content"><h1>SIVERIAL</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Siverial is the epicenter of society and trade in [[Farther Earth]], and is very populated. The population exploded with refugees when the [[Black Crusaders]] began their raids on outlying villages. Because of this, the city is excessively overpopulated and filthy, but quite well guarded by large stone walls.</p>
+<div class="main-content"><h1>SIVERIAL</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Siverial is the epicenter of society and trade in <a href="farther earth.html">Farther Earth</a>, and is very populated. The population exploded with refugees when the <a href="black crusaders.html">Black Crusaders</a> began their raids on outlying villages. Because of this, the city is excessively overpopulated and filthy, but quite well guarded by large stone walls.</p>
 <p>The city is always teeming with life, whether it be the stores and restaurants and musicians on the street, or the rats, addicts, and other pests that weave between the alleys and sewers.</p>
-<p>[[Alex's Bar]] is built just a few miles outside the safety of the walls, but [[Alex]] is very well known for his neutrality and hospitality. Anyone who messes with Alex feels the wrath of the entire city and even the [[Black Crusaders]], both of whom drink his mead.</p>
+<p><a href="alex's bar.html">Alex's Bar</a> is built just a few miles outside the safety of the walls, but <a href="alex.html">Alex</a> is very well known for his neutrality and hospitality. Anyone who messes with Alex feels the wrath of the entire city and even the <a href="black crusaders.html">Black Crusaders</a>, both of whom drink his mead.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>

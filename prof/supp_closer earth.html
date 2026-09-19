@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><title>Closer earth</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"></head>
-<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2><p style="font-size:0.7rem; color:#704829; text-align:center; margin-top:0;"><b>VAULT FILE EXPLORER</b></p><div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
+<body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
+<p id="dynamic-splash-box" style="font-size:0.75rem; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif;"></p>
+<div style="margin-top:20px;"><div class="tree-folder" onclick="toggleFolderTree(this)">Characters</div>
 <div class="tree-nested-items" style="display:none;"><a class="tree-file-link" href="abaddon.html">Abaddon</a>
 <a class="tree-file-link" href="aiko.html">Aiko</a>
 <a class="tree-file-link" href="alex.html">Alex</a>
@@ -202,16 +204,18 @@
 </div></div>
 <div class="main-content"><h1>CLOSER EARTH</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'><p>Closer Earth is a realm that does not have naturally occurring magic. It is essentially the same as the world we live in- modern day. Except… well… go back a couple of years. 2013 modern day :,)</p>
 <p>Part III - 2013</p>
-<p>[[Project Hope Effect|Team Hope]] is assembled by [[Chrys|Chrysanthemum]], an inter-dimensional creature who has mad beef with the [[Black Crusaders]]. This team, along with a monarch’s child, [[Loki]], are key to the downfall of [[Antoinette]]’s reign.</p>
+<p><a href="project hope effect.html">Team Hope</a> is assembled by <a href="chrys.html">Chrysanthemum</a>, an inter-dimensional creature who has mad beef with the <a href="black crusaders.html">Black Crusaders</a>. This team, along with a monarch’s child, <a href="loki.html">Loki</a>, are key to the downfall of <a href="antoinette.html">Antoinette</a>’s reign.</p>
 <p>Part IV - 2019</p>
-<p>[[The Mariposa Scandal]] happens years prior, leading to [[Soren]]’s involvement in [[Aiko's Disappearance]] and the creation of [[Jaylo]].</p>
-<p>[[Project Hope Effect|Team Hope]], led by [[Loki Primavera]] now, search for Aiko after finding proof in Aiko’s apartment that she is missing.</p>
+<p><a href="the mariposa scandal.html">The Mariposa Scandal</a> happens years prior, leading to <a href="soren.html">Soren</a>’s involvement in <a href="aiko's disappearance.html">Aiko's Disappearance</a> and the creation of <a href="jaylo.html">Jaylo</a>.</p>
+<p><a href="project hope effect.html">Team Hope</a>, led by <a href="loki primavera.html">Loki Primavera</a> now, search for Aiko after finding proof in Aiko’s apartment that she is missing.</p>
 <p>Part V - 2020</p>
-<p>[[Dami|Mephistopheles]] finally clashes with [[Abaddon]], and discovers that [[Persephone]] is the [[Singularity]].</p>
+<p><a href="dami.html">Mephistopheles</a> finally clashes with <a href="abaddon.html">Abaddon</a>, and discovers that <a href="persephone.html">Persephone</a> is the <a href="singularity.html">Singularity</a>.</p>
 </div></div>
 <script>
   function toggleFolderTree(el) {
     let nested = el.nextElementSibling;
     if (nested && nested.classList.contains("tree-nested-items")) { nested.style.display = nested.style.display === "none" ? "block" : "none"; }
   }
+  const pool = ["SECURE DATABASE MAINBOARD", "ACCESS PROTOCOLS APPROVED", "DECRYPTING SYSTEM TRANSLATION LOGS..."];
+  document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>
