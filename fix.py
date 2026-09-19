@@ -129,7 +129,7 @@ for char in sorted(all_bios_characters):
 if updated_traits:
     with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(trait_lines)
 
-# READ CORE MASTER NOTE SPREADSHEETS FOR SITE RENDERING
+# READ CORE MASTER NOTE SPREADSHEETS FOR SITE RENDERING WITH INDEX OFFSET CORRECTIONS
 for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
@@ -137,29 +137,31 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("|") and line.count("|") >= 4:
-                        parts = [p.strip() for p in line.split("|")[1:-1]]
-                        if len(parts) >= 3 and not set(parts).issubset({'-', ' '}) and "character" not in parts[0].lower():
-                            # Fix: Cast all layout index dictionary keys explicitly to lowercase to clear case sensitivity faults
+                        parts = [p.strip() for p in line.split("|")]
+                        if len(parts) >= 4 and "character" not in parts[1].lower() and "---" not in parts[1]:
+                            # Fixed Array Shifts: parts[0] is empty, parts[1] is name, parts[2] is field 1, etc.
                             if line.count("|") == 5:
-                                c1 = parts[0].lower().strip()
-                                c2 = parts[3].lower().strip()
+                                c1 = parts[1].lower().strip()
+                                r12 = parts[2]
+                                r21 = parts[3]
+                                c2 = parts[4].lower().strip()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
-                                master_relationships_map[c1].append({"target": c2, "relation": parts[1], "thumb": f"Art/{c2}/thumbnail.png"})
-                                master_relationships_map[c2].append({"target": c1, "relation": parts[2], "thumb": f"Art/{c1}/thumbnail.png"})
-                            elif line.count("|") >= 11:
-                                char_key = parts[0].lower().strip()
+                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
+                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
+                            elif line.count("|") >= 12:
+                                char_key = parts[1].lower().strip()
                                 master_traits_map[char_key] = {
-                                    "age": parts[1] if parts[1] else "Classified",
-                                    "gender": parts[2] if parts[2] else "Classified",
-                                    "sexuality": parts[3] if parts[3] else "Classified",
-                                    "height": parts[4] if parts[4] else "Classified",
-                                    "trope": parts[5] if parts[5] else "Classified",
-                                    "motifs": parts[6] if parts[6] else "Classified",
-                                    "first_ment": parts[7] if parts[7] else "Unlogged",
-                                    "first_app": parts[8] if parts[8] else "Unlogged",
-                                    "present_in": parts[9] if parts[9] else "Unlogged",
-                                    "playlist": parts[10] if len(parts) >= 11 and parts[10] else ""
+                                    "age": parts[2] if parts[2] else "Classified",
+                                    "gender": parts[3] if parts[3] else "Classified",
+                                    "sexuality": parts[4] if parts[4] else "Classified",
+                                    "height": parts[5] if parts[5] else "Classified",
+                                    "trope": parts[6] if parts[6] else "Classified",
+                                    "motifs": parts[7] if parts[7] else "Classified",
+                                    "first_ment": parts[8] if parts[8] else "Unlogged",
+                                    "first_app": parts[9] if parts[9] else "Unlogged",
+                                    "present_in": parts[10] if parts[10] else "Unlogged",
+                                    "playlist": parts[11] if parts[11] else ""
                                 }
             except Exception: pass
 
@@ -168,8 +170,8 @@ for root, dirs, files in os.walk(content_dir):
     for file in files:
         if file.endswith(".md"):
             if "private" in root.lower(): continue
-            target_file_string_name = os.path.splitext(file)[0]
-            c_key_var = target_file_string_name.lower().strip()
+            clean_f_name = os.path.splitext(file)[0]
+            c_key_var = clean_f_name.lower().strip()
             is_char = "characters" in root.lower() or "bios" in root.lower()
             
             try:
@@ -177,7 +179,7 @@ for root, dirs, files in os.walk(content_dir):
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
 
-            # EXCLUSIVE BLOCK SANITIZER: Completely filters out old javascript blocks and layout template residue
+            # EXCLUSIVE BLOCK SANITIZER: Wipes raw timeline script remnants out of your text paragraphs entirely
             clean_lines = []
             skip_script_block = False
             for l in text.split("\n"):
@@ -241,6 +243,7 @@ for root, dirs, files in os.walk(content_dir):
                   <tr><td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First appearance</td><td>{traits['first_app']}</td></tr>
                   <tr><td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">Present in</td><td>{traits['present_in']}</td></tr>
                 </table>"""
+
                 js_template = """<script>
                   let currentIdx = 0; let cards = [];
                   function initCarousel() {
@@ -284,30 +287,29 @@ for root, dirs, files in os.walk(content_dir):
                     ctx.clearRect(0, 0, w, h);
                     edges.forEach(edge => {
                       const srcNode = nodes.find(n => n.id === edge.source); const tgtNode = nodes.find(n => n.id === edge.target);
-                      if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
-                    });
-                    nodes.forEach(node => {
-                      ctx.beginPath();
-                      if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
-                      else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
-                      ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
-                      if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
-                    });
-                  }
-                  canvas.addEventListener("mousemove", (e) => {
-                    const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
-                    nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
-                    if (hoveredNode && !hoveredNode.isRoot) {
-                      tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
-                      tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
-                    } else { tooltip.style.display = "none"; }
+                    if (srcNode && tgtNode) { ctx.beginPath(); ctx.moveTo(srcNode.x, srcNode.y); ctx.lineTo(tgtNode.x, tgtNode.y); ctx.strokeStyle = edge.layer === 2 ? "rgba(168, 148, 112, 0.12)" : "rgba(168, 148, 112, 0.45)"; ctx.lineWidth = edge.layer === 2 ? 1 : 2; ctx.stroke(); }
                   });
-                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
-                </script>"""
-                
+                  nodes.forEach(node => {
+                    ctx.beginPath();
+                    if (node.isRoot) { ctx.save(); ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.clip(); try { ctx.drawImage(rootImg, node.x - node.size, node.y - node.size, node.size * 2, node.size * 2); } catch(e) { ctx.fillStyle = node.color; ctx.fill(); } ctx.restore(); }
+                    else { ctx.arc(node.x, node.y, node.size, 0, 2 * Math.PI); ctx.fillStyle = node.color; ctx.fill(); }
+                    ctx.strokeStyle = node.layer === 2 ? "rgba(28, 22, 16, 0.3)" : "#1c1610"; ctx.lineWidth = 2; ctx.stroke();
+                    if (!node.isRoot) { ctx.fillStyle = node.layer === 2 ? "rgba(222, 208, 191, 0.45)" : "#ded0bf"; ctx.font = node.layer === 2 ? "9px 'Courier Prime', monospace" : "bold 11px 'Courier Prime', monospace"; ctx.textAlign = "center"; ctx.fillText(node.label, node.x, node.y - node.size - 6); }
+                  });
+                }
+                canvas.addEventListener("mousemove", (e) => {
+                  const rect = canvas.getBoundingClientRect(); const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top; let hoveredNode = null;
+                  nodes.forEach(node => { const dist = Math.sqrt((mouseX - node.x)**2 + (mouseY - node.y)**2); if (dist <= node.size + 4) { hoveredNode = node; } });
+                  if (hoveredNode && !hoveredNode.isRoot) {
+                    tooltip.style.display = "block"; tooltip.style.left = (mouseX + 15) + "px"; tooltip.style.top = (mouseY + 15) + "px";
+                    tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
+                  } else { tooltip.style.display = "none"; }
+                });
+                rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
+              </script>"""
                 js_rendered = js_template.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)
                 
-                char_html = f"""<h1>{target_file_string_name.upper()}</h1>
+                char_html = f"""<h1>{clean_f_name.upper()}</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
                     <img src="{thumb_src}" class="profile-badge-img" onerror="this.src='https://placehold.co'">
@@ -338,16 +340,17 @@ for root, dirs, files in os.walk(content_dir):
                   <thead>
                     <tr>
                       <th style="width:35%;">Character</th>
-                      <th>Relationship to {target_file_string_name.capitalize()}</th>
+                      <th>Relationship to {clean_f_name.capitalize()}</th>
                     </tr>
                   </thead>
                   <tbody>{table_html}</tbody>
                 </table>
                 {js_rendered}"""
-                with open(os.path.join(output_dir, f"{c_key_var}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(target_file_string_name.capitalize(), char_html))
+                
+                with open(os.path.join(output_dir, f"{c_key_var}.html"), "w", encoding="utf-8") as f: f.write(scaffold_html(clean_f_name.capitalize(), char_html))
             else:
                 out_filename = "index.html" if c_key_var == "index" else f"supp_{c_key_var}.html"
-                supp_html = f"<h1>{target_file_string_name.upper()}</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'>{paragraphs if paragraphs else '<p>Dossier file transcript records.</p>'}</div>"
-                with open(os.path.join(output_dir, out_filename), "w", encoding="utf-8") as f: f.write(scaffold_html(target_file_string_name.capitalize(), supp_html))
+                supp_html = f"<h1>{clean_f_name.upper()}</h1><div style='margin-top:20px; background:rgba(255,255,255,0.15); padding:25px; border-radius:6px; border:1px solid #dfd2b5;'>{paragraphs if paragraphs else '<p>Dossier file transcript records.</p>'}</div>"
+                with open(os.path.join(output_dir, out_filename), "w", encoding="utf-8") as f: f.write(scaffold_html(clean_f_name.capitalize(), supp_html))
 
 print("\nCompilation Complete! Pure zero-dependency script executed flawlessly.")
