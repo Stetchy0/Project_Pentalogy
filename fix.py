@@ -63,13 +63,19 @@ def build_vault_tree_html(current_dir_path):
         full_path = os.path.join(current_dir_path, item)
         clean_item_name = os.path.splitext(item)[0]
         if os.path.isdir(full_path):
+            # Optimized: If a folder is named exactly 'bios', pull items into parent layer to remove navigation redundancy
+            if item.lower() == "bios":
+                sub_content = build_vault_tree_html(full_path)
+                folders_html += sub_content
+                continue
             if item.startswith(".") or "templates" in item.lower() or "art" in item.lower() or "private" in item.lower(): continue
             sub_content = build_vault_tree_html(full_path)
             if sub_content.strip():
                 folders_html += f'<div class="tree-folder" onclick="toggleFolderTree(this)">{item}</div>\n<div class="tree-nested-items" style="display:none;">{sub_content}</div>\n'
         elif item.endswith(".md"):
-            # Fixed: Cleaned double string escape codes back into pristine HTML break lines
-            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if "bios" in current_dir_path.lower() else f"supp_{clean_item_name.lower()}.html")
+            # Check if this file is located anywhere inside the Characters hierarchy path loop
+            is_in_characters = "characters" in current_dir_path.lower()
+            url = "index.html" if clean_item_name.lower() == "index" else (f"{clean_item_name.lower()}.html" if is_in_characters else f"supp_{clean_item_name.lower()}.html")
             files_html += f'<a class="tree-file-link" href="{url}">{clean_item_name.capitalize()}</a>\n'
     return folders_html + files_html
 
@@ -129,7 +135,7 @@ for char_name in sorted(all_bios_characters):
 
 if updated_table_file:
     with open(master_data_note_path, 'w', encoding='utf-8') as f: f.writelines(data_content_lines)
-    print(f" -> Automated Sync Pass: Injected blank, manually fillable rows into your Obsidian 'Character Core Data.md' spreadsheet note!")
+    print(f" -> Automated Sync Pass: Injected blank rows into your Obsidian 'Character Core Data.md' note!")
 
 # READ CORE TABLES FOR SITE RENDERING
 for root, dirs, files in os.walk(content_dir):
@@ -141,13 +147,14 @@ for root, dirs, files in os.walk(content_dir):
                     if line.strip().startswith("|") and line.count("|") >= 5:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
                         if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and not set(parts[0]).issubset({'-', ':', ' '}):
-                            # Fixed: Corrected text index splitting configurations to map traits perfectly to 'c_key_var' values
+                            # 4-Column Relationship Data Parser
                             if len(parts) == 4:
                                 c1, r12, r21, c2 = parts[0].lower(), parts[1], parts[2], parts[3].lower()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
                                 master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
                                 master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
+                            # Upgraded 11-Column Trait Extractor
                             elif len(parts) >= 10:
                                 char_key = parts[0].lower()
                                 playlist_url = parts[10].strip() if len(parts) >= 11 else ""
@@ -164,12 +171,16 @@ for root, dirs, files in os.walk(content_dir):
             if "private" in root.lower(): continue
             target_file_string_name = os.path.splitext(file)[0]
             c_key_var = target_file_string_name.lower()
-            is_char = "bios" in root.lower()
+            is_char = "characters" in root.lower() or "bios" in root.lower()
             
             try:
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: text = f.read()
             except Exception: continue
             if text.startswith("---"): text = text.split("---", 2)[-1].strip()
+
+            # HTML SANITIZATION: Completely strip old raw CSS style blocks from public paragraph text loops
+            text = re.sub(r'<style>.*?</style>', '', text, flags=re.DOTALL)
+            text = re.sub(r'<[^>]*>', '', text) # Clear broken brackets
 
             text = re.sub(r'\[\[([^|\]]+)\|([^\]]+)\]\]', r'\2', text)
             text = re.sub(r'\[\[([^\]]+)\]\]', r'\1', text)
@@ -180,7 +191,7 @@ for root, dirs, files in os.walk(content_dir):
                 if any(x in chunk.lower() for x in ["brief:", "tldr:", "summary:"]):
                     brief_p = f"<p>{chunk.split(':', 1)[-1].strip()}</p>"; break
 
-            if is_char:
+            if is_char and c_key_var != "index":
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
                 if not os.path.exists(char_art_folder): char_art_folder = os.path.join(content_dir, "characters", "art", c_key_var)
                 
@@ -214,7 +225,7 @@ for root, dirs, files in os.walk(content_dir):
                                 g_nodes.append({"id": l2["target"], "label": l2["target"].capitalize(), "relation": l2["relation"] + f" (via {rel['target'].capitalize()})", "thumb": f"Art/{l2['target']}/thumbnail.png", "color": "rgba(168, 148, 112, 0.35)", "size": 7, "layer": 2, "isRoot": False})
                             g_edges.append({"source": rel["target"], "target": l2["target"], "layer": 2})
 
-                traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "", "first_app": "", "present_in": "", "playlist": ""})
+                traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "present_in": "Unlogged", "playlist": ""})
                 playlist_markup = f'<a href="{traits["playlist"]}" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>' if traits["playlist"] else ""
 
                 dossier_appearance_table = f"""<table class="dossier-table-grid" style="margin-top:15px; margin-bottom:20px; background:#faf9f6;">
@@ -270,7 +281,7 @@ for root, dirs, files in os.walk(content_dir):
                       tooltip.innerHTML = `<div class="tooltip-flex-row"><img src="${hoveredNode.thumb}" class="tooltip-thumb" onerror="this.src='https://placehold.co'"><div class="tooltip-info"><h4 class="tooltip-title">${hoveredNode.label}</h4><p style="margin:0; font-size:0.75rem; color:#704829;"><b>RELATION:</b></p><p style="margin:0; font-size:0.75rem; font-style:italic;">"${hoveredNode.relation}"</p></div></div>`;
                     } else { tooltip.style.display = "none"; }
                   });
-                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener("resize", () => { resizeCanvas(); drawGraph(); }); drawGraph();
+                  rootImg.onload = drawGraph; canvas.addEventListener("mouseleave", () => { tooltip.style.display = "none"; }); window.addEventListener;
                 </script>"""
                 
                 js_rendered = js_template.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)
