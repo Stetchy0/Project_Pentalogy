@@ -243,6 +243,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -279,7 +280,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -289,6 +300,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -325,7 +337,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -334,6 +356,7 @@
 <p><div class="profile-info-panel"></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -373,12 +396,23 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p>Natz, even though he is the older sibling, has always lived in his brother's shadow. He was born in [[Farther Earth|farther earth]].  He was formally introduced in [[Part 0.7 - Devil]]. He was always jealous of him, but [[Marx]]'s overwhelming success in the Black Crusaders really ramped up his jealousy until it turned into hatred. He hated that he used magic, and when Marx stpped using magic as often, he hated that he didn't stick to his core values. Natz thought that Marx was an overthinking fool, and in some ways, he was right. Natz would remain below him until he murders Marx to take his place as leader of the [[Black Crusaders]], however, he wouldnt reign for more than a few days.</p>
 <p>Natz is a woman's man. If ever he had a weakness, it was the ladies. His ways have gotten him and his mates in trouble plenty of times, however, _his_ woman, [[Estelle]], put him into place. Natz married her only a month after they met and Estelle became an important piece of the crusaders' experimental memory treatment program; They needed a talented manipulator, and she was just that.</p>
 <p>Natz, mostly kept controlled by his wife, would still sometimes want for more. He would eventually slip between her fingers and sleep with a drunk colleague, putting both of their lives in jeopardy. To Estelle, there is no worse sin than cheating on someone as perfect as she is. When she found out, she would kill both Sierra, (the unwilling cheatee,) her husband, and (unsuccessfully) Sierra's son, [[Kieran]], before killing herself, making Lee and Vi's rise to power much swifter. They both left their daughter, [[Antoinette]] behind because of this drama.</p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -401,6 +435,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -423,6 +458,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -477,7 +513,6 @@
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = [{"id": "natz", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();

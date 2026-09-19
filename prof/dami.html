@@ -257,6 +257,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -349,7 +350,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -359,6 +370,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -451,7 +463,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -460,6 +482,7 @@
 <p><div class="profile-info-panel"></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -555,7 +578,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p>He was born in [[Farther Earth|farther earth]]. He was mentioned multiple times in the [[Part 0 - Prolegomenon]], but is formally introduced in [[Part Iii - Hope]].</p>
 <p>Damian Ivanov was born shortly before [[Part Ii - Sanctuary|Sanctuary]]. When he was born, there were complications, and his mother, [[Ameille]], passed away, leaving [[Pherenix|his father]] to take care of him and his [[Persephone|older sister]] alone. [[Connor]] and [[Rei]], as well as their children [[Lucielle]] and eventually [[Brook]], would help Pherenix take care of them, because on top of the grief he was facing, he also had a newborn child to care for. Dami's oldest memories revolve around his extended family, playing with him as he cooed, while his father and sister mourned.</p>
@@ -563,6 +596,7 @@
 <p>Mephisto had much more power during the time he was sent to, specifically because both worlds were in utter chaos, between wars (namely, the [[Salvation War]], which was happening around Faust and Dami at this point in time), famine, death, and destruction. This allowed for Mephisto to briefly possess Dami multiple times over the course of a few years, and corrupt him with ambition for power, and lead him on to want world domination. Faust also fed him these lies, but he wasn't happy to do so.</p>
 <p>As the Salvation war began to end, and Faust's death became imminent, Mephisto possessed him briefly to launch him forward in time, back into the bunker, where he would blend into the crusader ranks and gain notoriety, putting him on a path towards leadership roles. He began as a scout for [[Antoinette]]'s crusaders. She would be the one to rejuvenate the use of [[Anthracaine]], as he "somehow finds" Connor's research describing its creation process. This act alone would put him in line to become a general, which he does in [[Part Iv - Truth]], after many of Ant's generals are killed or deserting after [[Glass Balcony|her defeat]] by [[Aiko]]'s hand.</p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -585,6 +619,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -607,6 +642,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -661,7 +697,6 @@
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = [{"id": "dami", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();

@@ -263,6 +263,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -379,7 +380,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -389,6 +400,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -505,7 +517,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -514,6 +536,7 @@
 <p><div class="profile-info-panel"></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -633,16 +656,24 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p>[[Part 2.7 - Singularity]]</p>
 <p>Persephone is the [[Singularity]].</p>
 <p>She takes up the name "Percy" to have a more normal sounding name in closer earth so she could find a job.</p>
 <p>She was born in [[Farther Earth|farther earth]].</p>
-<p>Born Stalix Ivanov, she is [[Dami]]'s older sister.![[Persephone (8).png]]![[Persephone (7).png]]![[Persephone (6).png]]![[kore concept.png]]![[Persephone (2).jpg]]</p>
-<p>![[Persephone (1).jpg]]</p>
-<p>![[Kore.png]]</p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -665,6 +696,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -687,6 +719,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -741,7 +774,6 @@
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = [{"id": "persephone", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();

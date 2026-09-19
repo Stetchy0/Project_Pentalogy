@@ -245,6 +245,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -289,7 +290,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -299,6 +310,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -343,7 +355,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -352,6 +374,7 @@
 <p><div class="profile-info-panel"></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -399,7 +422,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p>S is [[Antoinette]]'s girlfriend and a victim to constant abuse. She was the first appointed general due to Antoinette being attracted to her, and she was told that others would kill her if they knew about their relationship. She is deeply distrustful toward the other [[Black Crusaders]] and has a reputation of lashing out and being cruel.</p>
 <p>She was born in [[Farther Earth|farther earth]]. She was introduced in [[Part 1.2 - a Busker's Serenade]].</p>
@@ -407,8 +440,8 @@
 <p>General [[Fox]] is the only one she feels safe confiding in, for the panic attack she witnessed humanized him to her.</p>
 <p>When the two get closer, she decides she wants to try to talk to the other ranks and prove that she is more than the sadistic idea they have of her.</p>
 <p>She is terrified of [[Bunny]] because he once stole and threatened to kill a kitten she took in.</p>
-<p>There is tension between Seraphine and [[Green]], as she has no idea Green is in love with Antoinette until she is cheated on.![[S.jpg]]![[S.png]]</p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -431,6 +464,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -453,6 +487,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -507,7 +542,6 @@
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = [{"id": "s", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();

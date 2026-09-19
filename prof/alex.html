@@ -257,6 +257,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -349,7 +350,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -359,6 +370,7 @@
 <p></ul></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -451,7 +463,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p><div class="profile-header-box"></p>
 <p><div class="profile-thumbnail-panel"></p>
@@ -460,6 +482,7 @@
 <p><div class="profile-info-panel"></p>
 <p></div></p>
 <p></div></p>
+<p>### Character Artwork</p>
 <p><div class="slideshow-container"></p>
 <p><!-- Slide 1 --></p>
 <p><div class="mySlides fade"></p>
@@ -555,7 +578,17 @@
 <p>@keyframes fade { from {opacity: .4} to {opacity: 1} }</p>
 <p></style></p>
 <p><script></p>
+<p>let slides = document.getElementsByClassName("mySlides");</p>
+<p>if (slides.length === 0) return;</p>
+<p>for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }</p>
+<p>slideIndex++;</p>
+<p>if (slideIndex > slides.length) {slideIndex = 1}</p>
+<p>slides[slideIndex-1].style.display = "block";</p>
+<p>setTimeout(showSlides, 3000);</p>
+<p>}</p>
+<p>showSlides();</p>
 <p></script></p>
+<p>### Backstory & Details</p>
 <p><details></p>
 <p>Alex is a [[Alex's Bar|barkeep]] who would eventually adopt Aiko after she loses her memories. He would rename her [[Jaylo]], as she had no name at the time. He would eventually become the torch for the aspect of balance, [[Abaddon]]. He was born in [[Farther Earth|farther earth]]. He is introduced in [[Part 0.2 - Murderer]].</p>
 <p>He also, a long time ago, adopted [[Len]], after finding her abandoned in hell as an infant.</p>
@@ -563,6 +596,7 @@
 <p>Alex is a redeemed [[Death Nymphs]] from Farther Earth. He was once a terrible human and was reborn as a death nymph because he was poisoned by [[Anthralily]]. He remained in [[Underrealm|the underrealm]] for hundreds, maybe thousands of years, until an exiled infant came into his life. A winged [[Janus]] child, a perfect sylph and nymph hybrid, was cast to the underrealm by her Sylphic mother. He found her and was to dispose of her until the child showed him love. This simple act reawakened his human emotions and sent him into an emotional spiral. He escaped the underrealm with the child, which is something that had never been done, and raised her as his own daughter. He became a barkeep in the surface so he could afford her clothes and other needs and became friends with a few fellows. His daughter, which he named [[Len]], would eventually be ruthlessly murdered by the embodiment of chaos, [[Mephisto|her birth-father]], as part of his grand scheme. This, intended to turn Alex back towards his nymph side and trap him back in the underrealm, instead made him more humble as he learned grief and worked through it, giving her a proper funeral and continuing to live as a barkeep, now devoid of what used to give him joy.</p>
 <p>Later on his path, he met another lost soul in the city while buying supplies. A girl, the spitting image of his lost daughter, who possessed no memories of who she was or how she got to be lost in an alleyway. She had nothing but the peculiar clothes on her body, labeled with nonsense numbers. He gave her the space in his life that Len used to have and gave her a name, [[Jaylo]].</p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -585,6 +619,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -607,6 +642,7 @@
 <p>.connection-card a:hover { text-decoration: underline; }</p>
 <p></style></p>
 <p></details></p>
+<p>### Character Connections</p>
 <p><div class="connection-row"></p>
 <p><div class="connection-card-pair"></p>
 <p><div class="connection-card left-card"></p>
@@ -661,7 +697,6 @@
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = [{"id": "alex", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();

@@ -138,7 +138,7 @@ for root, dirs, files in os.walk(content_dir):
             try:
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: lines = f.readlines()
                 for line in lines:
-                    if line.strip().startswith("|") and line.count("|") >= 5:
+                    if line.strip().startswith("|") and line.count("|") >= 4:
                         parts = [p.strip() for p in line.split("|")[1:-1]]
                         if len(parts) >= 4 and parts[0].lower() != "character 1" and parts[0].lower() != "character" and parts[0].lower() != "character a" and not set(parts[0]).issubset({'-', ' '}):
                             if len(parts) == 4:
@@ -179,12 +179,12 @@ for root, dirs, files in os.walk(content_dir):
                 if "function showslides" in l_strip.lower() or "let slideindex" in l_strip.lower():
                     skip_script_block = True
                 if skip_script_block:
-                    if "showslides();" in l_strip.lower(): skip_script_block = False
+                    if "showslides();" in l_strip.lower() or "showslides(" in l_strip.lower(): skip_script_block = False
                     continue
                 # Skip layout noise lines completely
                 if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text"]):
                     continue
-                if l_strip.startswith(("#", "|", "*", "---", "🔗", "^")) or "PLAYLIST_URL_HERE" in l_strip:
+                if l_strip.startswith(("|", "*", "---", "🔗", "^")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip:
                     continue
                 clean_lines.append(l)
             
@@ -208,7 +208,7 @@ for root, dirs, files in os.walk(content_dir):
                             if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
                     slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
-                if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><p style="padding:40px; color:#3d2d1e;">No attachments cataloged.</p></div>'
+                if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Placeholder</div></div>'
 
                 prim_rel = master_relationships_map.get(c_key_var, [])
                 prim_t = [r["target"] for r in prim_rel]
@@ -257,7 +257,6 @@ for root, dirs, files in os.walk(content_dir):
                   const canvas = document.getElementById("network-canvas"); const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
                   const nodes = NODE_PLACEHOLDER; const edges = EDGE_PLACEHOLDER;
                   
-                  # HIGH-DPI CANVAS BACK-BUFFER SCALING MATRIX ENGINE
                   function resizeCanvas() {
                     const dpr = window.devicePixelRatio || 1;
                     const rect = canvas.parentElement.getBoundingClientRect();
