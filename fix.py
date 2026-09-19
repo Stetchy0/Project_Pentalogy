@@ -15,7 +15,7 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# ACCURATE PATH TARGETING ENGINES
+# FIXED PATH TARGETING: Direct anchor routing to your nested workspace folders
 private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
 if not os.path.exists(private_data_dir):
     private_data_dir = os.path.join(content_dir, "private")
@@ -77,7 +77,7 @@ for root, dirs, files in os.walk(content_dir):
                     for line in f.readlines():
                         if line.strip().startswith("|") and line.count("|") == 5:
                             cells = [c.strip() for c in line.split("|") if c.strip()]
-                            if cells and "character" not in cells[0].lower() and "---" not in cells[0]:
+                            if cells and "character" not in cells.lower() and "---" not in cells:
                                 c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
                                 if c1 not in master_relationships_map: master_relationships_map[c1] = []
                                 if c2 not in master_relationships_map: master_relationships_map[c2] = []
@@ -98,9 +98,10 @@ for root, dirs, files in os.walk(content_dir):
             
             traits = {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "present_in": "Unlogged", "playlist": ""}
             display_title = clean_f_name.capitalize()
+            frontmatter_content = ""
             
-            # BULLETPROOF REGEX PARSER: Extracts Obsidian metadata properties completely isolated from content body
-            frontmatter_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', text, re.DOTALL)
+            # FIXED EXTRACTION: Carriage-return (\r?\n) flexible pattern matcher clears YAML properties blocks cleanly
+            frontmatter_match = re.match(r'^---\s*\r?\n(.*?)\r?\n---\s*\r?\n', text, re.DOTALL)
             if frontmatter_match:
                 frontmatter_content = frontmatter_match.group(1)
                 for line in frontmatter_content.split('\n'):
@@ -130,7 +131,7 @@ for root, dirs, files in os.walk(content_dir):
             brief_p = ""
 
             if is_char and c_key_var != "index":
-                paragraphs = ""  # Clean empty canvas dropdown containers exclusively on character tabs
+                paragraphs = ""  # Safe blank dropdown slate container block for manual entry entries
                 
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
                 if not os.path.exists(char_art_folder): char_art_folder = os.path.join(content_dir, "characters", "art", c_key_var)
