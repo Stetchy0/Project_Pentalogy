@@ -15,7 +15,7 @@ if os.path.exists(output_dir):
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# ACCURATE PATH ANCHOR TARGETING
+# FIXED PATH ANCHORS: Explicit directory mapping matching your exact filesystem tree layout
 private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
 if not os.path.exists(private_data_dir):
     private_data_dir = os.path.join(content_dir, "private")
@@ -59,7 +59,7 @@ def build_vault_tree_html(current_dir_path):
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
 
 def scaffold_html(title, body):
-    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.0rem !important; margin-bottom: 10px; font-family: 'Special Elite', serif; }} h2, h3 {{ font-size: 1.3rem !important; margin: 5px 0; font-family: 'Special Elite', serif; }} p, li, td, th, div, summary {{ font-size: 0.95rem !important; line-height: 1.6; font-family: 'Courier Prime', monospace; }}</style></head>
+    return f"""<!DOCTYPE html><html><head><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.0rem !important; margin-bottom: 10px; font-family: 'Special Elite', serif; text-transform: uppercase; }} h2, h3 {{ font-size: 1.3rem !important; margin: 5px 0; font-family: 'Special Elite', serif; }} p, li, td, th, div, summary {{ font-size: 0.95rem !important; line-height: 1.6; font-family: 'Courier Prime', monospace; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
 <p id="dynamic-splash-box" style="font-size:0.75rem !important; color:#704829; text-align:center; font-weight:bold; margin-top:0; min-height:36px; padding:0 5px; font-family:'Special Elite', serif; letter-spacing: 0.5px;"></p>
 <div style="margin-top:20px;">{vault_sidebar_tree_html}</div></div>
@@ -71,15 +71,16 @@ def scaffold_html(title, body):
 
 master_relationships_map, master_traits_map = {}, {}
 
+# REPAIRED CELL DATA MAPPER: Preserves exact array index slots counting from left border buffers
 if os.path.exists(master_data_note_path):
     with open(master_data_note_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f.readlines():
             if line.strip().startswith("|") and line.count("|") >= 11:
                 cells = [c.strip() for c in line.split("|")]
                 if len(cells) >= 3:
-                    char_name_raw = cells[1].strip()
+                    char_name_raw = cells[1]
                     if "character" not in char_name_raw.lower() and "---" not in char_name_raw:
-                        char_key = char_name_raw.lower()
+                        char_key = char_name_raw.lower().strip()
                         master_traits_map[char_key] = {
                             "age": cells[2] if len(cells) > 2 and cells[2] else "Classified",
                             "gender": cells[3] if len(cells) > 3 and cells[3] else "Classified",
@@ -104,14 +105,19 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f: text = f.read()
             except Exception: continue
             
+            # OBSIDIAN PROPERTY FRONTMATTER INTERCEPTOR: Isolate and extract title from frontmatter block safely
             display_title = clean_f_name.capitalize()
-            title_match = re.search(r'^(?:title|name|#)\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
-            if title_match: display_title = title_match.group(1).strip()
-            elif text.startswith("# "): display_title = text.split("\n")[0].replace("# ", "").strip()
+            title_match = re.search(r'^title\s*:\s*["\']?([^"\']+)["\']?', text, re.IGNORECASE | re.MULTILINE)
+            if title_match:
+                display_title = title_match.group(1).strip()
             
+            # Wipes out the full interior YAML properties block to keep headings uncluttered
             if text.startswith("---"):
-                try: text = text.split("---", 2)[-1].strip()
-                except Exception: pass
+                parts_text = text.split("---")
+                if len(parts_text) >= 3:
+                    text = "---".join(parts_text[2:]).strip()
+                else:
+                    text = text.replace("---", "").strip()
 
             text = re.sub(r'\[\[([^|\]\n#]+)\|([^\]]+)\]\]', r'<a href="\1.html">\2</a>', text)
             text = re.sub(r'\[\[([^\]\n#]+)\]\]', r'<a href="\1.html">\1</a>', text)
@@ -120,7 +126,7 @@ for root, dirs, files in os.walk(content_dir):
             clean_lines = []
             for l in text.split("\n"):
                 l_strip = l.strip()
-                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections", "details"]): continue
+                if any(x in l_strip.lower() for x in ["basic overview", "age:", "gender:", "sexuality:", "height:", "trope/s:", "similar characters", "general appearance:", "other info:", "motifs / symbols:", "relationship title", "target character", "reciprocal title", "character's playlist", "click here for long text", "first mentioned", "first appearance", "present in", "dossier", "character artwork", "backstory & details", "character connections", "details", "aliases:", "tags:"]): continue
                 if l_strip.startswith(("|", "*", "---", "🔗", "^", "❮", "❯", "►", ">")) or "PLAYLIST_URL_HERE" in l_strip or "![[" in l_strip: continue
                 clean_lines.append(l_strip)
             
@@ -128,7 +134,7 @@ for root, dirs, files in os.walk(content_dir):
             brief_p = "<p>No primary summary logged inside this profile ledger index.</p>"
 
             if is_char and c_key_var != "index":
-                paragraphs = ""  # Clean blank dropdowns canvas block exclusively on biography tabs
+                paragraphs = ""  # Keep character Dossier container completely clean and blank
                 brief_p = ""
                 
                 char_art_folder = os.path.join(content_dir, "Project Pentalogy", "Characters", "Art", c_key_var)
@@ -141,7 +147,6 @@ for root, dirs, files in os.walk(content_dir):
                     for img in imgs:
                         if img.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
                             shutil.copy(os.path.join(char_art_folder, img), os.path.join(output_dir, "Art", c_key_var, img))
-                            # Fixed: Corrected splitting logic to slice raw strings cleanly out of image tuples
                             if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
                     slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'

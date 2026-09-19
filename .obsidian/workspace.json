@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/Supplementary Items/Text/Workbook/Blorbing.md",
+                "file": "content/Characters/Bios/Abaddon.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blorbing"
+              "title": "Abaddon"
             }
           }
         ],
@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "7c4b346e826da6d5",
@@ -204,8 +205,10 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "d2a4c47aeecdd613",
+  "active": "d8255962b51b6cf3",
   "lastOpenFiles": [
+    "prof/Art/abaddon/Stetchy - Abaddon, Mephisto 1.jpg",
+    "content/Supplementary Items/Text/Workbook/Blorbing.md",
     "prof/Art/abaddon/Stetchy - Abaddon, Alex Heroforge.png",
     "prof/supp_part ii - sanctuary.html",
     "prof/supp_part i - experience.html",
@@ -226,7 +229,6 @@
     "prof/Art/zeph/Stetchy - Synthetic Nymphs.png",
     "prof/Art/zeph/Stetchy - Cat, Zeph Heroforge.png",
     "prof/Art/zeph/Kozy - Zeph.jpg",
-    "prof/Art/zeph/Kozy - Zeph, Birde, Cat.png",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.5 - Perfect.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.4 - Muckraker.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 3.3 - Scientist.md",
@@ -250,7 +252,6 @@
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.1 - Twisted.md",
     "content/Supplementary Items/Text/Living Works/Pentalogy/Part 0 - Prolegomenon.md",
     "content/Supplementary Items/Text/Living Works/Pentalogy/Part I - Experience.md",
-    "content/Supplementary Items/Text/Living Works/Pentalogy/Part Vi - Aftermath.md",
-    "content/Supplementary Items/Text/Living Works/Pentalogy/Part V - Balance.md"
+    "content/Supplementary Items/Text/Living Works/Pentalogy/Part Vi - Aftermath.md"
   ]
 }
