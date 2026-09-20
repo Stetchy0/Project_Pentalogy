@@ -2,26 +2,24 @@ import os
 import shutil
 import json
 import re
-import random
+import csv
 
 repo_root = r"C:\Users\losti\Documents\GitHub\Project_Pentalogy"
 content_dir = os.path.join(repo_root, "content")
 output_dir = os.path.join(repo_root, "prof")
 templates_dir = os.path.join(repo_root, "compiler_templates")
 
-print("Initializing Robust Relational Compilation Engine...")
+print("Initializing Universal Format CSV Relational Engine...")
 if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# TARGET ACCURATE VERIFIED DIRECTORY CHANNELS FROM DIAGNOSTIC VAULT
-private_data_dir = os.path.join(content_dir, "private")
-if not os.path.exists(private_data_dir):
-    private_data_dir = os.path.join(content_dir, "Project Pentalogy", "private")
+# TARGET ACCURATE DIAGNOSTICS DIRECTORY CHANNELS FROM DISK
+private_data_dir = os.path.join(repo_root, "private")
 
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
-master_data_note_path = os.path.join(private_data_dir, "Character Core Data.md")
+master_csv_path = os.path.join(private_data_dir, "Character_Core_Data.csv")
 
 splash_quotes_pool = ["VAULT OF THE ARCHIVIST UNLOCKED"]
 if os.path.exists(master_splash_txt_path):
@@ -36,7 +34,7 @@ with open(os.path.join(templates_dir, "graph_carousel_engine.js.txt"), "r", enco
     js_raw_base = f.read()
 with open(os.path.join(output_dir, "style.css"), "w", encoding="utf-8") as f:
     f.write(global_css)
-# 1. PRE-SCAN DISK: Detect every single character biography note currently inside your vault folders
+# 1. PRE-SCAN DISK: Detect every single character biography note inside your vault folders
 discovered_characters = set()
 for root, dirs, files in os.walk(content_dir):
     dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env', 'private', 'art']]
@@ -47,37 +45,57 @@ for root, dirs, files in os.walk(content_dir):
                 clean_name = os.path.splitext(file)[0]
                 discovered_characters.add(clean_name.lower().strip())
 
-# 2. RUNTIME MAINBOARD INJECTOR: Parse the master table and generate dynamic dictionaries
+# 1. PRE-SCAN DISK: Detect every single character biography note inside your vault folders
+discovered_characters = set()
+for root, dirs, files in os.walk(content_dir):
+    dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env', 'private', 'art']]
+    for file in files:
+        if file.endswith(".md") and file.lower() != "index.md":
+            is_char_folder = "characters" in root.lower() or "bios" in root.lower()
+            if is_char_folder:
+                clean_name = os.path.splitext(file)[0]
+                discovered_characters.add(clean_name.lower().strip())
+
+# 2. RUNTIME MAINBOARD INJECTOR: Parse the structured CSV dataset natively with headers
 master_traits_map = {}
 raw_spreadsheet_map = {}
 
-if os.path.exists(master_data_note_path):
-    with open(master_data_note_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
-        for line_raw in f.read().splitlines():
-            line = line_raw.strip()
-            if line.startswith("|"):
-                cells = [c.strip() for c in line.split("|")]
-                # Strip out the empty array positions created by outer table border fences
-                if len(cells) > 1 and cells[0] == "": cells = cells[1:]
-                if len(cells) > 0 and cells[-1] == "": cells = cells[:-1]
-                
-                if cells and len(cells) >= 1:
-                    raw_char_name = cells[0]
-                    if "character" not in raw_char_name.lower() and "---" not in raw_char_name:
-                        c_key = raw_char_name.lower().strip()
-                        raw_spreadsheet_map[c_key] = {
-                            "age": cells[1] if len(cells) > 1 and cells[1] else "Classified",
-                            "gender": cells[2] if len(cells) > 2 and cells[2] else "Classified",
-                            "sexuality": cells[3] if len(cells) > 3 and cells[3] else "Classified",
-                            "height": cells[4] if len(cells) > 4 and cells[4] else "Classified",
-                            "trope": cells[5] if len(cells) > 5 and cells[5] else "Classified",
-                            "motifs": cells[6] if len(cells) > 6 and cells[6] else "Classified",
-                            "first_ment": cells[7] if len(cells) > 7 and cells[7] else "Unlogged",
-                            "first_app": cells[8] if len(cells) > 8 and cells[8] else "Unlogged",
-                            "playlist": cells[10] if len(cells) > 10 and cells[10] else ""
-                        }
+if os.path.exists(master_csv_path):
+    with open(master_csv_path, mode='r', encoding='utf-8-sig', errors='ignore') as f:
+        content_sample = f.read(2048)
+        f.seek(0)
+        
+        detected_delimiter = ','
+        if content_sample:
+            if ';' in content_sample and ',' not in content_sample:
+                detected_delimiter = ';'
+            elif '\t' in content_sample:
+                detected_delimiter = '\t'
 
-# 3. AUTO-TEMPLATE RESOLVER: Match disk vs spreadsheet and auto-generate safe temporary fallbacks
+        reader = csv.DictReader(f, delimiter=detected_delimiter)
+        for row in reader:
+            if row:
+                normalized_row = {k.lower().strip().replace('\ufeff', ''): v for k, v in row.items() if k}
+                raw_name_cell = normalized_row.get('character', '')
+                if raw_name_cell and not any(x in raw_name_cell.lower() for x in ['character', '---', 'name']):
+                    c_key = raw_name_cell.lower().strip()
+                    
+                    def get_val(field_name, default='Classified'):
+                        return normalized_row.get(field_name, default).strip() or default
+
+                    raw_spreadsheet_map[c_key] = {
+                        "age": get_val('age', 'Classified'),
+                        "gender": get_val('gender', 'Classified'),
+                        "sexuality": get_val('sexuality', 'Classified'),
+                        "height": get_val('height', 'Classified'),
+                        "trope": get_val('trope', 'Classified'),
+                        "motifs": get_val('motifs', 'Classified'),
+                        "first_ment": get_val('first_ment', 'Unlogged'),
+                        "first_app": get_val('first_app', 'Unlogged'),
+                        "playlist": get_val('playlist', '')
+                    }
+
+# 3. AUTO-TEMPLATE RESOLVER: Cross-reference and build missing fallback metrics seamlessly
 for char in discovered_characters:
     if char in raw_spreadsheet_map:
         master_traits_map[char] = raw_spreadsheet_map[char]
@@ -87,7 +105,6 @@ for char in discovered_characters:
             "height": "Classified", "trope": "Classified", "motifs": "Classified",
             "first_ment": "Unlogged", "first_app": "Unlogged", "playlist": ""
         }
-
 def build_vault_tree_html(current_dir_path):
     folders_html, files_html = "", ""
     for item in sorted(os.listdir(current_dir_path)):
@@ -110,6 +127,7 @@ def build_vault_tree_html(current_dir_path):
     return folders_html + files_html
 
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
+
 def scaffold_html(title, body):
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.0rem !important; margin-bottom: 10px; font-family: 'Special Elite', serif; text-transform: uppercase; }} h2, h3 {{ font-size: 1.3rem !important; margin: 5px 0; font-family: 'Special Elite', serif; }} p, li, td, th, div, summary {{ font-size: 0.95rem !important; line-height: 1.6; font-family: 'Courier Prime', monospace; }} .tree-folder::before {{ content: "📂 "; font-family: sans-serif; }} .tree-file-link::before {{ content: "📄 "; font-family: sans-serif; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
@@ -120,25 +138,7 @@ def scaffold_html(title, body):
   function toggleFolderTree(el) {{ let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) {{ nested.style.display = nested.style.display === "none" ? "block" : "none"; }} }}
   const pool = {json.dumps(splash_quotes_pool)}; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>"""
-
 master_relationships_map = {}
-for root, dirs, files in os.walk(content_dir):
-    dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env']]
-    for file in files:
-        if file.endswith(".md") and "private" in root.lower():
-            try:
-                with open(os.path.join(root, file), 'r', encoding='utf-8', errors='ignore') as f:
-                    for line in f.read().splitlines():
-                        if line.strip().startswith("|") and line.count("|") >= 4:
-                            cells = [c.strip() for c in line.split("|") if c.strip()]
-                            if len(cells) >= 4:
-                                c1, r12, r21, c2 = cells[0].lower().strip(), cells[1], cells[2], cells[3].lower().strip()
-                                if c1 not in master_relationships_map: master_relationships_map[c1] = []
-                                if c2 not in master_relationships_map: master_relationships_map[c2] = []
-                                master_relationships_map[c1].append({"target": c2, "relation": r12, "thumb": f"Art/{c2}/thumbnail.png"})
-                                master_relationships_map[c2].append({"target": c1, "relation": r21, "thumb": f"Art/{c1}/thumbnail.png"})
-            except Exception: pass
-
 for root, dirs, files in os.walk(content_dir):
     dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env']]
     for file in files:
@@ -191,13 +191,9 @@ for root, dirs, files in os.walk(content_dir):
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
                 if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Gallery Empty</div></div>'
 
-                prim_rel = master_relationships_map.get(c_key_var, [])
-                table_html = ""
-                for rel in prim_rel:
-                    table_html += f'<tr><td><b><a href="{rel["target"]}.html">{rel["target"].capitalize()}</a></b></td><td>"{rel["relation"]}"</td></tr>\n'
-                if not table_html: table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
+                table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
 
-                traits = master_traits_map.get(c_key_var.lower().strip(), {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "playlist": ""})
+                traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "playlist": ""})
                 playlist_markup = f'<a href="{traits["playlist"]}" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>' if traits["playlist"] else ""
 
                 dossier_appearance_table = f"""<table class="dossier-table-grid" style="margin-top:15px; margin-bottom:20px; background:#faf9f6;">
@@ -235,7 +231,6 @@ for root, dirs, files in os.walk(content_dir):
                 <details open><summary>Dossier</summary><div style="padding:15px; background:rgba(255,255,255,0.2); border-radius:4px;">{paragraphs}</div></details>
                 <div class="graph-wrapper-box"><canvas id="network-canvas"></canvas><div id="tooltip-modal" class="node-tooltip-card"></div></div>
                 <table class="dossier-table-grid">
-                <table class="dossier-table-grid">
                   <thead><tr><th style="width:35%;">Character</th><th>Relationship to {display_title}</th></tr></thead>
                   <tbody>{table_html}</tbody>
                 </table>
@@ -250,4 +245,23 @@ for root, dirs, files in os.walk(content_dir):
                 with open(os.path.join(output_dir, out_filename), "w", encoding="utf-8") as f:
                     f.write(scaffold_html(display_title, supp_html))
 
-print("\nCompilation Complete! Pure zero-dependency script executed flawlessly.")
+# FLAT COMPACT TERMINAL DATA AUDITOR (Zero indentation risk)
+print("\n" + "="*50)
+print("       CSV ENGINE WORKSPACE MEMORY AUDIT")
+print("="*50)
+print(f" Discovered Bio Notes on Disk: {len(discovered_characters)}")
+print(f" Parsed CSV Spreadsheet Rows:  {len(raw_spreadsheet_map)}")
+
+if len(raw_spreadsheet_map) > 0:
+    sample_csv_key = list(raw_spreadsheet_map.keys())[0]
+    print(f" Sample Key from CSV File:    '{sample_csv_key}'")
+    print(f" Sample Data parsed cleanly:   {raw_spreadsheet_map[sample_csv_key]}")
+
+if len(discovered_characters) > 0:
+    sample_file_key = list(discovered_characters)[0]
+    print(f" Sample Key from Bio Folder:   '{sample_file_key}'")
+    if len(raw_spreadsheet_map) > 0:
+        print(f" Memory Matrix Match Status:   {sample_file_key in raw_spreadsheet_map}")
+
+print("="*50 + "\n")
+print("Compilation Complete! Pure zero-dependency script executed flawlessly.")

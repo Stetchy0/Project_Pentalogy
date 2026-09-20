@@ -1,0 +1,22 @@
+{
+  "csvzallPath": "C:\\Users\\losti\\Documents\\GitHub\\Project_Pentalogy\\.obsidian\\plugins\\csvzall\\csvzall-bin\\0.4.0\\csvzall.exe",
+  "installedCsvzallVersion": "0.4.0",
+  "installedCsvzallAssetName": "csvzall-0.4.0-obsidian-windows-x64.zip",
+  "csvzallLastUpdateCheckAt": "2026-09-20T03:47:34.174Z",
+  "openInObsidian": true,
+  "startupTimeoutMs": 10000,
+  "eventLog": [
+    {
+      "timestamp": "2026-09-20T03:47:35.969Z",
+      "level": "info",
+      "message": "Installed csvzall 0.4.0",
+      "detail": "Asset: csvzall-0.4.0-obsidian-windows-x64.zip\nSHA-256: 949787a7bf53912c8da246ced4117d64a5094426cb296ce067ca2bd5ca19a70b\nPath: C:\\Users\\losti\\Documents\\GitHub\\Project_Pentalogy\\.obsidian\\plugins\\csvzall\\csvzall-bin\\0.4.0\\csvzall.exe"
+    },
+    {
+      "timestamp": "2026-09-20T03:47:32.085Z",
+      "level": "error",
+      "message": "Failed to open CSV private/Character_Core_Data.csv",
+      "detail": "spawn csvzall ENOENT"
+    }
+  ]
+}
