@@ -11,14 +11,12 @@
             "id": "2c0285217801ab7c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "csvzall-view",
               "state": {
-                "file": "content/Characters/Bios/X.md",
-                "mode": "source",
-                "source": false
+                "file": "private/Character_Core_Data.csv"
               },
-              "icon": "lucide-file",
-              "title": "X"
+              "icon": "table",
+              "title": "Character_Core_Data"
             }
           }
         ]
@@ -191,18 +189,25 @@
   },
   "active": "2c0285217801ab7c",
   "lastOpenFiles": [
+    "content/Characters/Art/antoinette/thumbnail.png.~tmp",
+    "content/Characters/Art/antoinette/thumbnail.png",
+    "content/Characters/Art/ameille/thumbnail.jpg.~tmp",
+    "content/Characters/Art/ameille/thumbnail.jpg",
+    "content/Characters/Art/amber/thumbnail.png.~tmp",
+    "content/Characters/Art/amber/thumbnail.png",
+    "content/Characters/Art/alex/thumbnail.png.~tmp",
+    "content/Characters/Art/alex/thumbnail.png",
+    "content/Characters/Art/aiko/thumbnail.png",
+    "content/Characters/Art/kieran/thumbnail.png.~tmp",
+    "content/Characters/Art/kieran/thumbnail.png",
+    "content/Characters/Art/zero/thumbnail.png",
+    "content/Characters/Art/faust/thumbnail.png",
+    "content/Characters/Art/vi/Stetchy - Hate.png",
+    "content/Supplementary Items/Groups/Project Hope Effect/Art/Stetchy - Pentalogy Protags.jpg",
+    "private/Character_Core_Data.csv.csvzall-save-8bb6464b028c54ac4f0eb193c65dda00.tmp",
+    "content/Characters/Bios/X.md",
     "content/Characters/Bios/Vi.md",
     "private/Character_Core_Data.csv",
-    "prof/Art/aiko/Kozy - Loki, Aiko 2.png",
-    "prof/Art/aiko/Kozy - Loki, Aiko 1.png",
-    "prof/Art/aiko/Kozy - Loki Primavera, Aiko.jpg",
-    "prof/Art/aiko/Kozy - Emira, Aiko.png",
-    "prof/Art/aiko/Kozy - Emira, Aiko, Chrys.png",
-    "prof/Art/aiko/Kozy - Antoinette and Goons, Aiko, Loki.png",
-    "prof/Art/aiko/Kozy - Aiko, Loki Primavera.png",
-    "prof/Art/aiko/Kozy - Aiko, Loki 9.jpg",
-    "prof/Art/aiko/Kozy - Aiko, Loki 8.jpg",
-    "prof/Art/aiko/Kozy - Aiko, Loki 7.jpg",
     "private/Character Core Data.md",
     "private/Character_Core_Data.csv.csvzall-save-7a5024eb07312286faba76bceae61282.tmp",
     "private/Character_Core_Data.csv.csvzall-save-76b55151f3f3175999fbb9ec9fb0be45.tmp",
@@ -210,11 +215,6 @@
     "private/Character Relationships Data.md",
     "content/Supplementary Items/Information/Black Crusaders/Anthralily and its derivatives/Anthracaine.md",
     "private/Character_Core_Data - Sheet1.csv",
-    "get_names.py",
-    "prof/rei.html",
-    "prof/supp_if movie.html",
-    "prof/supp_fun stuff.html",
-    "prof/supp_blorbing.html",
     "compiler_templates/Character Template.md",
     "content/Characters/Bios/Abaddon.md",
     "content/Supplementary Items/Text/Workbook/Blorbing.md",
@@ -234,8 +234,6 @@
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 1.2 - a Busker's Serenade.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 1.1 - Satisfaction.md",
     "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.7 - Devil.md",
-    "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.6 - Firestarter.md",
-    "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.5 - the Magician's Father.md",
-    "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.4 - Prestige.md"
+    "content/Supplementary Items/Text/Living Works/Prolegomenon/Part 0.6 - Firestarter.md"
   ]
 }
