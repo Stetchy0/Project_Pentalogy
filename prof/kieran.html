@@ -248,7 +248,7 @@
 <div class="main-content"><h1>KIERAN</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
-                    <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
+                    <img src="Art/kieran/thumbnail.png" class="profile-badge-img" onerror="this.src='https://placehold.co'">
                     <a href="https://open.spotify.com/playlist/02CYhewsZS357FE0h8hbdI?si=c681ea709e21435c" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>
                   </div>
                   <div class="profile-info-panel">
@@ -278,6 +278,8 @@
 <div class="mySlides"><img src="Art/kieran/Stetchy - Kieran Heroforge 3.png"><div class="slide-caption">Stetchy - Kieran Heroforge 3.png</div></div>
 <div class="mySlides"><img src="Art/kieran/Stetchy - Kieran Heroforge 4.png"><div class="slide-caption">Stetchy - Kieran Heroforge 4.png</div></div>
 <div class="mySlides"><img src="Art/kieran/Stetchy - Kieran, Chieko, Moyo Meme.png"><div class="slide-caption">Stetchy - Kieran, Chieko, Moyo Meme.png</div></div>
+<div class="mySlides"><img src="Art/kieran/Stetchy - Kieran, Chieko.png"><div class="slide-caption">Stetchy - Kieran, Chieko.png</div></div>
+<div class="mySlides"><img src="Art/kieran/Stetchy - Soren, Kieran 1.jpg"><div class="slide-caption">Stetchy - Soren, Kieran 1.jpg</div></div>
 <div class="mySlides"><img src="Art/kieran/Stetchy - Soren, Kieran.jpg"><div class="slide-caption">Stetchy - Soren, Kieran.jpg</div></div>
 
                   <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
@@ -315,7 +317,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "kieran", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "kieran", "label": "Kieran", "thumb": "Art/kieran/thumbnail.png", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
@@ -324,7 +326,7 @@ if (canvas) {
     canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "Art/kieran/thumbnail.png";
   
   nodes.forEach((node, idx) => {
     const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);

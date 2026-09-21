@@ -248,18 +248,18 @@
 <div class="main-content"><h1>AIKO</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
-                    <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
+                    <img src="Art/aiko/thumbnail.png" class="profile-badge-img" onerror="this.src='https://placehold.co'">
                     <a href="https://open.spotify.com/playlist/3ks2IGFLqvYo15IRsNcPyZ?si=5779b29ab0aa456c" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>
                   </div>
                   <div class="profile-info-panel">
                     <h3>Basic Overview</h3>
                     <ul style="padding-left:15px; margin:0;">
-                      <li><b>Age:</b> 16</li>
+                      <li><b>Age:</b> 15</li>
                       <li><b>Gender:</b> Cisgender Female</li>
-                      <li><b>Sexuality:</b> Lesbian</li>
-                      <li><b>Height:</b> Classified</li>
-                      <li><b>Trope/s:</b> Protagonist, hopeful underdog</li>
-                      <li><b>Motifs:</b> Lightning, spontaneuity</li>
+                      <li><b>Sexuality:</b> Asexual Lesbian</li>
+                      <li><b>Height:</b> 5'3</li>
+                      <li><b>Trope/s:</b> Dreamer, newbie, underdog, dreamer</li>
+                      <li><b>Motifs:</b> Lightning, butterfly</li>
                     </ul>
                   </div>
                 </div>
@@ -267,7 +267,6 @@
                   <button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>
                   <div class="mySlides"><img src="Art/aiko/Kozy - Aiko 1.png"><div class="slide-caption">Kozy - Aiko 1.png</div></div>
 <div class="mySlides"><img src="Art/aiko/Kozy - Aiko 2.png"><div class="slide-caption">Kozy - Aiko 2.png</div></div>
-<div class="mySlides"><img src="Art/aiko/Kozy - Aiko 3.png"><div class="slide-caption">Kozy - Aiko 3.png</div></div>
 <div class="mySlides"><img src="Art/aiko/Kozy - Aiko, Chrys 2.png"><div class="slide-caption">Kozy - Aiko, Chrys 2.png</div></div>
 <div class="mySlides"><img src="Art/aiko/Kozy - Aiko, Chrys.png"><div class="slide-caption">Kozy - Aiko, Chrys.png</div></div>
 <div class="mySlides"><img src="Art/aiko/Kozy - Aiko, Etc..png"><div class="slide-caption">Kozy - Aiko, Etc..png</div></div>
@@ -343,7 +342,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "aiko", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "aiko", "label": "Aiko", "thumb": "Art/aiko/thumbnail.png", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
@@ -352,7 +351,7 @@ if (canvas) {
     canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "Art/aiko/thumbnail.png";
   
   nodes.forEach((node, idx) => {
     const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);

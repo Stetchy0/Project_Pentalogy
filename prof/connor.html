@@ -248,7 +248,7 @@
 <div class="main-content"><h1>CONNOR</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
-                    <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
+                    <img src="Art/connor/thumbnail.png" class="profile-badge-img" onerror="this.src='https://placehold.co'">
                     <a href="https://open.spotify.com/playlist/2guxNrd67E0MpLRvbsIGI4?si=092213b5558b435b" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>
                   </div>
                   <div class="profile-info-panel">
@@ -283,12 +283,16 @@
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor 1.png"><div class="slide-caption">Stetchy - Connor 1.png</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor 2.png"><div class="slide-caption">Stetchy - Connor 2.png</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor 4.png"><div class="slide-caption">Stetchy - Connor 4.png</div></div>
+<div class="mySlides"><img src="Art/connor/Stetchy - Connor 5.png"><div class="slide-caption">Stetchy - Connor 5.png</div></div>
+<div class="mySlides"><img src="Art/connor/Stetchy - Connor 6.jpg"><div class="slide-caption">Stetchy - Connor 6.jpg</div></div>
+<div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 1.png"><div class="slide-caption">Stetchy - Connor Heroforge 1.png</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 2.webp"><div class="slide-caption">Stetchy - Connor Heroforge 2.webp</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 3.webp"><div class="slide-caption">Stetchy - Connor Heroforge 3.webp</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 4.png"><div class="slide-caption">Stetchy - Connor Heroforge 4.png</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 5.webp"><div class="slide-caption">Stetchy - Connor Heroforge 5.webp</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 6.webp"><div class="slide-caption">Stetchy - Connor Heroforge 6.webp</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor Heroforge 7.webp"><div class="slide-caption">Stetchy - Connor Heroforge 7.webp</div></div>
+<div class="mySlides"><img src="Art/connor/Stetchy - Connor mutating.png"><div class="slide-caption">Stetchy - Connor mutating.png</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor, Aiko, Loki, Pherenix, Percy.jpg"><div class="slide-caption">Stetchy - Connor, Aiko, Loki, Pherenix, Percy.jpg</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor, Brook.jpg"><div class="slide-caption">Stetchy - Connor, Brook.jpg</div></div>
 <div class="mySlides"><img src="Art/connor/Stetchy - Connor, Conre, Carter.png"><div class="slide-caption">Stetchy - Connor, Conre, Carter.png</div></div>
@@ -334,7 +338,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "connor", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "connor", "label": "Connor", "thumb": "Art/connor/thumbnail.png", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
@@ -343,7 +347,7 @@ if (canvas) {
     canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "Art/connor/thumbnail.png";
   
   nodes.forEach((node, idx) => {
     const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);

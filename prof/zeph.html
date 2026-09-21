@@ -248,7 +248,7 @@
 <div class="main-content"><h1>ZEPH</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
-                    <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
+                    <img src="Art/zeph/thumbnail.jpg" class="profile-badge-img" onerror="this.src='https://placehold.co'">
                     
                   </div>
                   <div class="profile-info-panel">
@@ -268,12 +268,10 @@
                   <div class="mySlides"><img src="Art/zeph/Kozy - Zeph 2.png"><div class="slide-caption">Kozy - Zeph 2.png</div></div>
 <div class="mySlides"><img src="Art/zeph/Kozy - Zeph, Birde, Cat 2.png"><div class="slide-caption">Kozy - Zeph, Birde, Cat 2.png</div></div>
 <div class="mySlides"><img src="Art/zeph/Kozy - Zeph, Birde, Cat.png"><div class="slide-caption">Kozy - Zeph, Birde, Cat.png</div></div>
-<div class="mySlides"><img src="Art/zeph/Kozy - Zeph.jpg"><div class="slide-caption">Kozy - Zeph.jpg</div></div>
-<div class="mySlides"><img src="Art/zeph/Stetchy - Cat, Zeph Heroforge.png"><div class="slide-caption">Stetchy - Cat, Zeph Heroforge.png</div></div>
 <div class="mySlides"><img src="Art/zeph/Stetchy - Synthetic Nymphs.png"><div class="slide-caption">Stetchy - Synthetic Nymphs.png</div></div>
-<div class="mySlides"><img src="Art/zeph/Stetchy - X, Zeph Heroforge.png"><div class="slide-caption">Stetchy - X, Zeph Heroforge.png</div></div>
-<div class="mySlides"><img src="Art/zeph/Stetchy - Zeph Herforge.png"><div class="slide-caption">Stetchy - Zeph Herforge.png</div></div>
 <div class="mySlides"><img src="Art/zeph/Stetchy - Zeph, X.png"><div class="slide-caption">Stetchy - Zeph, X.png</div></div>
+<div class="mySlides"><img src="Art/zeph/Stetchy - Zephyr HEROFORGE 1.png"><div class="slide-caption">Stetchy - Zephyr HEROFORGE 1.png</div></div>
+<div class="mySlides"><img src="Art/zeph/Stetchy - Zephyr HEROFORGE 2.png"><div class="slide-caption">Stetchy - Zephyr HEROFORGE 2.png</div></div>
 
                   <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
                 </div>
@@ -310,7 +308,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "zeph", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "zeph", "label": "Zeph", "thumb": "Art/zeph/thumbnail.jpg", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
@@ -319,7 +317,7 @@ if (canvas) {
     canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "Art/zeph/thumbnail.jpg";
   
   nodes.forEach((node, idx) => {
     const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);

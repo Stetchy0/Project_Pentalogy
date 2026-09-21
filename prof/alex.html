@@ -248,7 +248,7 @@
 <div class="main-content"><h1>ALEX</h1>
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
-                    <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
+                    <img src="Art/alex/thumbnail.png" class="profile-badge-img" onerror="this.src='https://placehold.co'">
                     <a href="https://open.spotify.com/playlist/5gKbmRKPXzjOz48XTkh9nW?si=018a5d223ccd429a" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>
                   </div>
                   <div class="profile-info-panel">
@@ -280,6 +280,7 @@
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex 2 1.png"><div class="slide-caption">Stetchy - Alex 2 1.png</div></div>
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex 2.png"><div class="slide-caption">Stetchy - Alex 2.png</div></div>
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex 3.png"><div class="slide-caption">Stetchy - Alex 3.png</div></div>
+<div class="mySlides"><img src="Art/alex/Stetchy - Alex 6.png"><div class="slide-caption">Stetchy - Alex 6.png</div></div>
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex Heroforge 1.png"><div class="slide-caption">Stetchy - Alex Heroforge 1.png</div></div>
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex Heroforge 2.png"><div class="slide-caption">Stetchy - Alex Heroforge 2.png</div></div>
 <div class="mySlides"><img src="Art/alex/Stetchy - Alex Heroforge 3.png"><div class="slide-caption">Stetchy - Alex Heroforge 3.png</div></div>
@@ -321,7 +322,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "alex", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "alex", "label": "Alex", "thumb": "Art/alex/thumbnail.png", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
@@ -330,7 +331,7 @@ if (canvas) {
     canvas.style.width = rect.width + "px"; canvas.style.height = rect.height + "px";
     ctx.scale(dpr, dpr);
   }
-  resizeCanvas(); const rootImg = new Image(); rootImg.src = "https://placehold.co";
+  resizeCanvas(); const rootImg = new Image(); rootImg.src = "Art/alex/thumbnail.png";
   
   nodes.forEach((node, idx) => {
     const w = canvas.width / (window.devicePixelRatio || 1); const h = canvas.height / (window.devicePixelRatio || 1);

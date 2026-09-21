@@ -267,6 +267,7 @@
                   <button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>
                   <div class="mySlides"><img src="Art/bee/Kozy - Bee 1.png"><div class="slide-caption">Kozy - Bee 1.png</div></div>
 <div class="mySlides"><img src="Art/bee/Stetchy - Bee 1.jpg"><div class="slide-caption">Stetchy - Bee 1.jpg</div></div>
+<div class="mySlides"><img src="Art/bee/Stetchy - Bee 2.jpg"><div class="slide-caption">Stetchy - Bee 2.jpg</div></div>
 <div class="mySlides"><img src="Art/bee/Stetchy - Bee Heroforge 2.webp"><div class="slide-caption">Stetchy - Bee Heroforge 2.webp</div></div>
 <div class="mySlides"><img src="Art/bee/Stetchy - Bee Heroforge 3.webp"><div class="slide-caption">Stetchy - Bee Heroforge 3.webp</div></div>
 <div class="mySlides"><img src="Art/bee/Stetchy - Bee Heroforge 4.webp"><div class="slide-caption">Stetchy - Bee Heroforge 4.webp</div></div>
@@ -313,7 +314,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "bee", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "bee", "label": "Bee", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;

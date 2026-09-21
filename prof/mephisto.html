@@ -249,17 +249,17 @@
                 <div class="profile-header-box">
                   <div class="profile-thumbnail-panel">
                     <img src="https://placehold.co" class="profile-badge-img" onerror="this.src='https://placehold.co'">
-                    
+                    <a href="https://open.spotify.com/playlist/2y7FRUmz8QnQ12AMT4x2kh?si=49caa6b3c6c74c0e" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>
                   </div>
                   <div class="profile-info-panel">
                     <h3>Basic Overview</h3>
                     <ul style="padding-left:15px; margin:0;">
                       <li><b>Age:</b> Classified</li>
                       <li><b>Gender:</b> Agender (He/him)</li>
-                      <li><b>Sexuality:</b> Aromantic Asexual</li>
-                      <li><b>Height:</b> Classified</li>
-                      <li><b>Trope/s:</b> Classified</li>
-                      <li><b>Motifs:</b> Classified</li>
+                      <li><b>Sexuality:</b> Aromantic</li>
+                      <li><b>Height:</b> Varies</li>
+                      <li><b>Trope/s:</b> All-powerfule deity, gluttonous</li>
+                      <li><b>Motifs:</b> Colorless flames, white hair, white eyes, purple</li>
                     </ul>
                   </div>
                 </div>
@@ -273,8 +273,8 @@
                   <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
                 </div>
                 <table class="dossier-table-grid" style="margin-top:15px; margin-bottom:20px; background:#faf9f6;">
-                  <tr><td style="width:40%; font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First mentioned</td><td>Unlogged</td></tr>
-                  <tr><td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First appearance</td><td>Unlogged</td></tr>
+                  <tr><td style="width:40%; font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First mentioned</td><td>N/A</td></tr>
+                  <tr><td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First appearance</td><td>Prolegomenon</td></tr>
                 </table>
                 <details><summary>Brief</summary><div style="padding:10px 5px 5px 5px;"></div></details>
                 <details open><summary>Dossier</summary><div style="padding:15px; background:rgba(255,255,255,0.2); border-radius:4px;"></div></details>
@@ -305,7 +305,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "mephisto", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "mephisto", "label": "Mephisto", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;

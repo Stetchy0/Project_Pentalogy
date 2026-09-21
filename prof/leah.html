@@ -266,6 +266,7 @@
                 <div class="carousel-container">
                   <button class="carousel-btn prev-btn" onclick="moveCard(-1)">&#10094;</button>
                   <div class="mySlides"><img src="Art/leah/Stetchy - Leah 1.png"><div class="slide-caption">Stetchy - Leah 1.png</div></div>
+<div class="mySlides"><img src="Art/leah/Stetchy - Leah, Marx 1.jpg"><div class="slide-caption">Stetchy - Leah, Marx 1.jpg</div></div>
 <div class="mySlides"><img src="Art/leah/Stetchy - Leah, Marx.png"><div class="slide-caption">Stetchy - Leah, Marx.png</div></div>
 
                   <button class="carousel-btn next-btn" onclick="moveCard(1)">&#10095;</button>
@@ -303,7 +304,7 @@ initCarousel();
 const canvas = document.getElementById("network-canvas"); 
 if (canvas) {
   const ctx = canvas.getContext("2d"); const tooltip = document.getElementById("tooltip-modal");
-  const nodes = [{"id": "leah", "label": "", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
+  const nodes = [{"id": "leah", "label": "Leah", "thumb": "https://placehold.co", "color": "#704829", "size": 24, "layer": 1, "isRoot": true}]; const edges = [];
   
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;

@@ -9,17 +9,19 @@ content_dir = os.path.join(repo_root, "content")
 output_dir = os.path.join(repo_root, "prof")
 templates_dir = os.path.join(repo_root, "compiler_templates")
 
-print("Initializing Universal Format CSV Relational Engine...")
+print("Initializing Fixed Unified CSV Layout & Thumbnail Sync Engine...")
 if os.path.exists(output_dir):
     try: shutil.rmtree(output_dir)
     except Exception: pass
 os.makedirs(output_dir, exist_ok=True)
 
-# TARGET ACCURATE DIAGNOSTICS DIRECTORY CHANNELS FROM DISK
+# THE UNIFIED DIRECTORY ANCHOR: Point strictly to your populated root repository files
 private_data_dir = os.path.join(repo_root, "private")
-
 master_splash_txt_path = os.path.join(private_data_dir, "Vault Splash Text.txt")
 master_csv_path = os.path.join(private_data_dir, "Character_Core_Data.csv")
+
+# NEW RELATIONSHIPS SOURCE PATH
+master_rel_csv_path = os.path.join(private_data_dir, "Character_Relationships_Data.csv")
 
 splash_quotes_pool = ["VAULT OF THE ARCHIVIST UNLOCKED"]
 if os.path.exists(master_splash_txt_path):
@@ -34,17 +36,6 @@ with open(os.path.join(templates_dir, "graph_carousel_engine.js.txt"), "r", enco
     js_raw_base = f.read()
 with open(os.path.join(output_dir, "style.css"), "w", encoding="utf-8") as f:
     f.write(global_css)
-# 1. PRE-SCAN DISK: Detect every single character biography note inside your vault folders
-discovered_characters = set()
-for root, dirs, files in os.walk(content_dir):
-    dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env', 'private', 'art']]
-    for file in files:
-        if file.endswith(".md") and file.lower() != "index.md":
-            is_char_folder = "characters" in root.lower() or "bios" in root.lower()
-            if is_char_folder:
-                clean_name = os.path.splitext(file)[0]
-                discovered_characters.add(clean_name.lower().strip())
-
 # 1. PRE-SCAN DISK: Detect every single character biography note inside your vault folders
 discovered_characters = set()
 for root, dirs, files in os.walk(content_dir):
@@ -105,6 +96,38 @@ for char in discovered_characters:
             "height": "Classified", "trope": "Classified", "motifs": "Classified",
             "first_ment": "Unlogged", "first_app": "Unlogged", "playlist": ""
         }
+# 4. RELATIONSHIP CSV INJECTOR: Parse connections, filtering out blank cells completely
+master_relationships_map = {}
+if os.path.exists(master_rel_csv_path):
+    print(f"[+] Syncing Global Character Relationships Database: {master_rel_csv_path}")
+    with open(master_rel_csv_path, mode='r', encoding='utf-8-sig', errors='ignore') as f:
+        content_sample = f.read(2048)
+        f.seek(0)
+        
+        detected_delimiter = ','
+        if content_sample:
+            if ';' in content_sample and ',' not in content_sample:
+                detected_delimiter = ';'
+            elif '\t' in content_sample:
+                detected_delimiter = '\t'
+                
+        reader = csv.DictReader(f, delimiter=detected_delimiter)
+        for row in reader:
+            norm_row = {k.lower().strip().replace('\ufeff', ''): v.strip() for k, v in row.items() if k}
+            c_a = norm_row.get('character_a', '').lower().strip()
+            rel = norm_row.get('relation', '').strip()
+            c_b = norm_row.get('character_b', '').lower().strip()
+            
+            # FIXED FILTER: Completely skips rows where the relation column is empty or left blank
+            if c_a and c_b and rel and rel.strip() != "" and rel.lower() != "unlogged/neutral":
+                if c_a not in master_relationships_map:
+                    master_relationships_map[c_a] = []
+                master_relationships_map[c_a].append({
+                    "target": c_b,
+                    "relation": rel,
+                    "thumb": f"Art/{c_b}/thumbnail.png"
+                })
+
 def build_vault_tree_html(current_dir_path):
     folders_html, files_html = "", ""
     for item in sorted(os.listdir(current_dir_path)):
@@ -127,7 +150,6 @@ def build_vault_tree_html(current_dir_path):
     return folders_html + files_html
 
 vault_sidebar_tree_html = build_vault_tree_html(content_dir)
-
 def scaffold_html(title, body):
     return f"""<!DOCTYPE html><html><head><meta charset="utf-8"><title>{title}</title><link rel="stylesheet" href="style.css"><link href="https://googleapis.com" rel="stylesheet"><style>h1 {{ font-size: 2.0rem !important; margin-bottom: 10px; font-family: 'Special Elite', serif; text-transform: uppercase; }} h2, h3 {{ font-size: 1.3rem !important; margin: 5px 0; font-family: 'Special Elite', serif; }} p, li, td, th, div, summary {{ font-size: 0.95rem !important; line-height: 1.6; font-family: 'Courier Prime', monospace; }} .tree-folder::before {{ content: "📂 "; font-family: sans-serif; }} .tree-file-link::before {{ content: "📄 "; font-family: sans-serif; }}</style></head>
 <body><div class="sidebar"><h2 style="margin-top:0;"><a href="index.html" style="color:#2b1e13;">Project Pentalogy</a></h2>
@@ -138,7 +160,7 @@ def scaffold_html(title, body):
   function toggleFolderTree(el) {{ let nested = el.nextElementSibling; if (nested && nested.classList.contains("tree-nested-items")) {{ nested.style.display = nested.style.display === "none" ? "block" : "none"; }} }}
   const pool = {json.dumps(splash_quotes_pool)}; document.getElementById("dynamic-splash-box").innerText = pool[Math.floor(Math.random() * pool.length)].toUpperCase();
 </script></body></html>"""
-master_relationships_map = {}
+
 for root, dirs, files in os.walk(content_dir):
     dirs[:] = [d for d in dirs if not d.startswith('.') and d.lower() not in ['node_modules', 'venv', 'env']]
     for file in files:
@@ -183,15 +205,38 @@ for root, dirs, files in os.walk(content_dir):
                 if char_art_folder and os.path.exists(char_art_folder):
                     imgs = os.listdir(char_art_folder)
                     os.makedirs(os.path.join(output_dir, "Art", c_key_var), exist_ok=True)
+                    
+                    #sniff multi-extension formats case insensitively
                     for img in imgs:
-                        if img.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
+                        img_lower = img.lower()
+                        if img_lower.endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")):
                             shutil.copy(os.path.join(char_art_folder, img), os.path.join(output_dir, "Art", c_key_var, img))
-                            if os.path.splitext(img)[0].lower() == "thumbnail": thumb_src = f"Art/{c_key_var}/{img}"
-                    slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i)[0].lower() != "thumbnail"]
+                            if os.path.splitext(img_lower)[0] == "thumbnail":
+                                thumb_src = f"Art/{c_key_var}/{img}"
+                                
+                    slide_imgs = [i for i in imgs if i.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".gif")) and os.path.splitext(i.lower())[0] != "thumbnail"]
                     for img in slide_imgs: slides_html += f'<div class="mySlides"><img src="Art/{c_key_var}/{img}"><div class="slide-caption">{img}</div></div>\n'
                 if not slides_html: slides_html = '<div class="mySlides" style="display:block;"><img src="https://placehold.co"><div class="slide-caption">Gallery Empty</div></div>'
 
-                table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
+                prim_rel = master_relationships_map.get(c_key_var, [])
+                g_nodes = [{"id": c_key_var, "label": display_title, "thumb": thumb_src, "color": "#704829", "size": 24, "layer": 1, "isRoot": True}]
+                g_edges = []
+                table_html = ""
+                
+                for rel in prim_rel:
+                    target_key = rel["target"]
+                    target_label = target_key.capitalize()
+                    target_thumb = f"Art/{target_key}/thumbnail.png"
+                    
+                    g_nodes.append({
+                        "id": target_key, "label": target_label, "relation": rel["relation"],
+                        "thumb": target_thumb, "color": "#a89470", "size": 10, "layer": 1, "isRoot": False
+                    })
+                    g_edges.append({"source": c_key_var, "target": target_key, "layer": 1})
+                    table_html += f'<tr><td><b><a href="{target_key}.html">{target_label}</a></b></td><td>"{rel["relation"]}"</td></tr>\n'
+                    
+                if not table_html:
+                    table_html = '<tr><td colspan="2" style="text-align:center; opacity:0.6;">No direct relationships documented.</td></tr>\n'
 
                 traits = master_traits_map.get(c_key_var, {"age": "Classified", "gender": "Classified", "sexuality": "Classified", "height": "Classified", "trope": "Classified", "motifs": "Classified", "first_ment": "Unlogged", "first_app": "Unlogged", "playlist": ""})
                 playlist_markup = f'<a href="{traits["playlist"]}" target="_blank" class="playlist-badge-link">🎵 Character Playlist</a>' if traits["playlist"] else ""
@@ -201,7 +246,7 @@ for root, dirs, files in os.walk(content_dir):
                   <tr><td style="font-weight:bold; border-right:1px solid #dfd2b5; background:#dfd2b5;">First appearance</td><td>{traits['first_app']}</td></tr>
                 </table>"""
 
-                js_rendered = js_raw_base.replace("NODE_PLACEHOLDER", json.dumps([{"id": c_key_var, "label": "", "thumb": thumb_src, "color": "#704829", "size": 24, "layer": 1, "isRoot": True}])).replace("EDGE_PLACEHOLDER", json.dumps([])).replace("THUMB_PLACEHOLDER", thumb_src)
+                js_rendered = js_raw_base.replace("NODE_PLACEHOLDER", json.dumps(g_nodes)).replace("EDGE_PLACEHOLDER", json.dumps(g_edges)).replace("THUMB_PLACEHOLDER", thumb_src)
                 
                 char_html = f"""<h1>{display_title.upper()}</h1>
                 <div class="profile-header-box">
